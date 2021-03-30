@@ -1,3 +1,14 @@
+<?php
+// Initialize the session
+session_start();
+require dirname(__FILE__, 3) . "/vendor/autoload.php";
+ 
+// Check if the user is already logged in, if yes then redirect him to welcome page
+if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+  header("location: welcome.php");
+  exit;
+}
+?>
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 <!-- BEGIN: Head-->
@@ -88,7 +99,8 @@
                             <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
                                 <h2 class="card-title font-weight-bold mb-1">Welcome to HMS! 👋</h2>
                                 <p class="card-text mb-2">Please sign-in to your account and start booking.</p>
-                                <form class="auth-login-form mt-2" action="index.html" method="POST">
+                                <form class="auth-login-form mt-2" id="signin-form">
+                                    <div id="response"></div>
                                     <div class="form-group">
                                         <label class="form-label" for="login-username">Username</label>
                                         <input class="form-control" id="login-username" type="text" name="username" placeholder="Username" aria-describedby="login-username" autofocus="" tabindex="1" />
@@ -108,7 +120,7 @@
                                             <label class="custom-control-label" for="remember-me"> Remember Me</label>
                                         </div>
                                     </div>
-                                    <button class="btn btn-primary btn-block" tabindex="4">Sign in</button>
+                                    <button class="btn btn-primary btn-block" tabindex="4" id="signin">Sign in</button>
                                 </form>
                                 <!-- <p class="text-center mt-2"><span>New on our platform?</span><a href="javascript:;"><span>&nbsp;Create an account</span></a></p>
                                 <div class="divider my-2">
@@ -128,6 +140,7 @@
 
     <!-- BEGIN: Vendor JS-->
     <script src="assets/vendors/js/vendors.min.js"></script>
+    <script src="assets/vendors/js/jquery.form.min.js"></script>
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->

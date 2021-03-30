@@ -7,20 +7,16 @@
 // | HMS - Hotel Management System                                           |
 // | Copyright (c) 2021 saifcodes All rights reserved.                       |
 // +------------------------------------------------------------------------+|
+// Initialize the session
 session_start();
-require_once("../vendor/autoload.php");
-use HMS\Classes\DbConnect;
-use HMS\Classes\User;
-
-$db =new DbConnect;
-$conn=$db->DbConnection();
-$user=new User($conn);
-
-$username=  $_POST["username"];
-$password=$_POST["password"];
-
-if($user->hms_login($username,$password)){
-    echo json_encode(array("status" => 200, "msg" => "Login Successfull...."));
-}else{
-    echo json_encode(array("status" => 400, "msg" => "Username or Password is incorrect. Please try again"));
-}
+ 
+// Unset all of the session variables
+$_SESSION = array();
+ 
+// Destroy the session.
+session_destroy();
+ 
+// Redirect to login page
+header("location: login");
+exit;
+?>
