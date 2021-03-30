@@ -1,0 +1,5 @@
+RewriteEngine On
+RewriteRule ^auth/login$ themes/pages/login.php [NC,QSA]
+RewriteRule ^auth/logout$ themes/pages/logout.php [NC,QSA]
+RewriteRule ^auth/register$ themes/pages/register.php [NC,QSA]
+

@@ -1,0 +1,13 @@
+{
+    "name": "saifcodes/hms",
+	"description": "Hotel Management System.",
+	"minimum-stability": "stable",
+	"autoload": {
+		"psr-4": {
+            "HMS\\Classes\\": "app-assets/classes"
+		}
+	},
+    "require": {
+		"php": ">=7.3.0"
+    }
+}
