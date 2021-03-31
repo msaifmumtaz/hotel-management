@@ -21,7 +21,7 @@ class Booking
         $this->conn = $conn;
     }
     // Add New Booking
-    public function add_booking($customer_id, $room_no, $pack_id, $no_of_guests, $check_in, $check_out, $status = "booked")
+    public function add_booking($customer_id, $room_no, $pack_id, $no_of_guests, $check_in, $check_out, $total_payment,$paid,$payment_method,$status = "booked")
     {
         $customer_id = Security::hms_secure($customer_id);
         $room_no = Security::hms_secure($room_no);
@@ -30,7 +30,10 @@ class Booking
         $check_in = Security::hms_secure($check_in);
         $check_out = Security::hms_secure($check_out);
         $status = Security::hms_secure($status);
-        $stmt = $this->conn->prepare("INSERT INTO hms_booking (customer_id,room_no,pack_id,no_of_guests,check_in,check_out,status)VALUES(:customer_id,:room_no,:pack_id,:no_of_guests,:check_in,:check_out,:status)");
+        $total_payment = Security::hms_secure($total_payment);
+        $paid = Security::hms_secure($paid);
+        $payment_method = Security::hms_secure($payment_method);
+        $stmt = $this->conn->prepare("INSERT INTO hms_booking (customer_id,room_no,pack_id,no_of_guests,check_in,check_out,total_payment,paid,payment_method,status)VALUES(:customer_id,:room_no,:pack_id,:no_of_guests,:check_in,:check_out,:total_payment,:paid,:payment_method,:status)");
         $data = [
             "customer_id" => $customer_id,
             "room_no" => $room_no,
@@ -38,6 +41,9 @@ class Booking
             "no_of_guests" => $no_of_guests,
             "check_in" => $check_in,
             "check_out" => $check_out,
+            "total_payment"=>$total_payment,
+            "paid"=>$paid,
+            "payment_method"=>$payment_method,
             "status" => $status,
         ];
         if ($stmt->execute($data)) {

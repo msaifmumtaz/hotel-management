@@ -6,28 +6,36 @@
   Author: PIXINVENT
   Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
-var HmsRegister = (function () {
+var HmsAddCustomer = (function () {
 
-  var handleRegisterFormSubmit = function () {
-    $("#register").click(function (e) {
+  var handleAddCustomerFormSubmit = function () {
+    $("#addcustomer").click(function (e) {
       e.preventDefault();
       var btn = $(this);
       var form = $(this).closest("form");
-      var alert = $("#response");
 
       form.validate({
         rules: {
-          username: {
+          fname: {
             required: true
           },
-          password: {
+          lname: {
             required: true
           },
           email: {
             required: true,
             email:true
           },
-          fullname: {
+          phoneno: {
+            required:true,
+          },
+          idcard: {
+            required:true,
+          },
+          address: {
+            required:true,
+          },
+          country: {
             required:true,
           },
         }
@@ -36,43 +44,27 @@ var HmsRegister = (function () {
       if (!form.valid()) {
         return;
       }
-      btn.addClass(
-          "btn-disabled"
-        )
-        .attr("disabled", true);
-      $("#spin").addClass("spinner-border");
       form.ajaxSubmit({
-        url: "../xhr/register.php",
-        contentType: 'multipart/form-data',
+        url: "../xhr/addcustomer.php",
         type: 'post',
         success: function (response, status, xhr, $form) {
           var data = JSON.parse(response);
           if (data.status == 200) {
-            alert.addClass("alert-success p-1");
-            alert.append("Sign Up Successful... Redirecting...");
-            btn
-              .removeClass(
-                "btn-disabled"
-              )
-              .attr("disabled", false);
-            $("#spin").removeClass("spinner-border");
-            console.log(response);
-            setTimeout(function(){ window.location = "/auth/login"; }, 4000);
+            swal.fire({
+              "title": "",
+              "text": data.msg,
+              "type": "success",
+              "confirmButtonClass": "btn btn-success"
+            });
+            setTimeout(function(){ window.location = "/admin/dashboard"; }, 4000);
           } else {
 
-            // simulate 2s delay
-            setTimeout(function () {
-              alert.addClass("alert-error p-1");
-              alert.append(data.message);
-              btn
-                .removeClass(
-                  "btn-disabled"
-                )
-                .attr("disabled", false);
-              $("#spin").removeClass("spinner-border");
-
-              console.log(response);
-            }, 1000);
+            swal.fire({
+              "title": "",
+              "text": data.msg,
+              "type": "error",
+              "confirmButtonClass": "btn btn-secondary"
+            });
             setTimeout(function () {
               alert.removeClass("alert-error");
               alert.empty();
@@ -90,12 +82,12 @@ var HmsRegister = (function () {
   return {
     // public functions
     init: function () {
-      handleRegisterFormSubmit();
+      handleAddCustomerFormSubmit();
     }
   };
 })();
 
 // Class Initialization
 jQuery(document).ready(function () {
-  HmsRegister.init();
+  HmsAddCustomer.init();
 });

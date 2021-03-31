@@ -49,9 +49,7 @@ var HmsLogin = (function () {
               .attr("disabled", false);
             $("#spin").removeClass("spinner-border");
             console.log(response);
-            setTimeout(function () {
-              redirectUser(data.redirect);
-            }, 4000);
+            setTimeout(function(){ window.location = "/admin/dashboard"; }, 4000);
           } else {
 
             // simulate 2s delay
