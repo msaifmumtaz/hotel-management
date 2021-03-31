@@ -8,8 +8,10 @@
 // | Copyright (c) 2021 saifcodes All rights reserved.                       |
 // +------------------------------------------------------------------------+|
 namespace HMS\Classes;
+
 use PDO;
 use PDOException;
+
 class User
 {
     protected $conn;
@@ -45,8 +47,6 @@ class User
         } else {
             return false;
         }
-
-        
     }
     //Register New User
     public function hms_register($full_name, $username, $email, $phone_no, $password, $role_id, $profile_pic)
@@ -82,7 +82,6 @@ class User
             }
             return false;
         }
-        
     }
     //update user data
     public function hms_update_user($uid, $full_name, $email, $phone_no, $profile_pic, $designation, $role_id)
@@ -135,7 +134,6 @@ class User
         } else {
             return false;
         }
-        
     }
     // Delete User 
     public function hms_delete_user($uid)
@@ -147,5 +145,4 @@ class User
             return false;
         }
     }
-
 }

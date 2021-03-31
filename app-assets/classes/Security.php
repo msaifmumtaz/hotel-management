@@ -38,14 +38,15 @@ class Security
         $string = str_replace('&amp;#', '&#', $string);
         return $string;
     }
-    
+
     /**
      * Secure Unserialization of Data
      * @param string $data Serialized Data
      */
-    public static function secure_unserialize($data){
-        $data= str_replace("&quot;",'"',$data);
-        $data=unserialize($data);
+    public static function secure_unserialize($data)
+    {
+        $data = str_replace("&quot;", '"', $data);
+        $data = unserialize($data);
         return $data;
     }
 
@@ -78,5 +79,5 @@ class Security
     {
         //Validate Token
         return isset($_SESSION["token"]) && $_SESSION["token"] == $token;
-    }  
+    }
 }
