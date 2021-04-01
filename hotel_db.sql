@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 31, 2021 at 01:13 PM
+-- Generation Time: Apr 01, 2021 at 01:05 PM
 -- Server version: 10.5.8-MariaDB
 -- PHP Version: 7.4.6
 
@@ -30,7 +30,15 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `hms_booking` (
   `bookid` int(11) NOT NULL,
-  `customer_id` int(11) NOT NULL,
+  `customer_no` varchar(20) NOT NULL,
+  `first_name` varchar(50) NOT NULL,
+  `last_name` varchar(50) NOT NULL,
+  `address` varchar(200) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `phone_no` varchar(100) NOT NULL,
+  `id_card` varchar(50) NOT NULL,
+  `id_card_type` varchar(50) NOT NULL,
+  `country` varchar(25) NOT NULL,
   `room_no` varchar(50) NOT NULL,
   `pack_id` int(150) NOT NULL,
   `no_of_guests` int(10) NOT NULL,
@@ -80,9 +88,17 @@ INSERT INTO `hms_customers` (`cid`, `customer_no`, `first_name`, `last_name`, `a
 
 CREATE TABLE `hms_packages` (
   `pack_id` int(11) NOT NULL,
-  `package_name` int(100) NOT NULL,
+  `package_name` varchar(100) NOT NULL,
   `package_description` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `hms_packages`
+--
+
+INSERT INTO `hms_packages` (`pack_id`, `package_name`, `package_description`) VALUES
+(1, '5 Star Lab 1', '5 Star Lab'),
+(2, '5 Star Lab 1', 'asdsdsad');
 
 -- --------------------------------------------------------
 
@@ -94,11 +110,17 @@ CREATE TABLE `hms_rooms` (
   `rid` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
   `subcategory_id` int(11) NOT NULL,
-  `status` varchar(20) NOT NULL,
-  `total_rooms` int(11) NOT NULL,
-  `available_rooms` int(11) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `hms_rooms`
+--
+
+INSERT INTO `hms_rooms` (`rid`, `category_id`, `subcategory_id`, `created_at`) VALUES
+(1, 1, 1, '2021-04-01 18:01:19'),
+(2, 1, 1, '2021-04-01 18:01:39'),
+(3, 1, 1, '2021-04-01 18:03:46');
 
 -- --------------------------------------------------------
 
@@ -114,6 +136,13 @@ CREATE TABLE `hms_rooms_categories` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `hms_rooms_categories`
+--
+
+INSERT INTO `hms_rooms_categories` (`rcid`, `category_name`, `price`, `room_image`, `created_at`) VALUES
+(1, 'Room 5 sTAR', '400', 'rooms/372116418b540f1c22626f7b45a7a7c3.jpg', '2021-04-01 11:26:00');
+
 -- --------------------------------------------------------
 
 --
@@ -126,6 +155,13 @@ CREATE TABLE `hms_rooms_subcategories` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `hms_rooms_subcategories`
+--
+
+INSERT INTO `hms_rooms_subcategories` (`subcatid`, `name`, `created_at`) VALUES
+(1, 'Room 5 sTAR', '2021-04-01 11:53:35');
+
 -- --------------------------------------------------------
 
 --
@@ -136,9 +172,18 @@ CREATE TABLE `hms_rooms_subrooms` (
   `subroom_id` int(11) NOT NULL,
   `room_id` int(11) NOT NULL,
   `room_no` int(11) NOT NULL,
+  `bedding_type` varchar(50) NOT NULL,
   `status` varchar(20) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `hms_rooms_subrooms`
+--
+
+INSERT INTO `hms_rooms_subrooms` (`subroom_id`, `room_id`, `room_no`, `bedding_type`, `status`, `created_at`) VALUES
+(1, 3, 520, 'single', 'available', '2021-04-01 18:03:46'),
+(2, 3, 440, 'Quad', 'available', '2021-04-01 18:03:46');
 
 -- --------------------------------------------------------
 
@@ -164,7 +209,7 @@ CREATE TABLE `hms_users` (
 --
 
 INSERT INTO `hms_users` (`uid`, `username`, `email`, `full_name`, `phone_no`, `profile_pic`, `role_id`, `password`, `updated_at`, `created_at`) VALUES
-(1, 'saifcodes', 'ch.saif109@gmail.com', 'Muhammad Saif', '+923082355746', 'uploads/profile/344989dccc9d42de59e3aece66db92d3.png', 'Admin', '$2y$10$UiejKj.fukGP7SrLVPAKS.mwCgQic6MoJHP/YipJJeA3IXPEToT4a', '2021-03-31 14:51:59', '2021-03-30 17:09:17');
+(1, 'saifcodes', 'ch.saif109@gmail.com', 'Muhammad Saif', '+923082355746', 'profile/344989dccc9d42de59e3aece66db92d3.png', 'Admin', '$2y$10$UiejKj.fukGP7SrLVPAKS.mwCgQic6MoJHP/YipJJeA3IXPEToT4a', '2021-04-01 11:26:39', '2021-03-30 17:09:17');
 
 --
 -- Indexes for dumped tables
@@ -175,7 +220,6 @@ INSERT INTO `hms_users` (`uid`, `username`, `email`, `full_name`, `phone_no`, `p
 --
 ALTER TABLE `hms_booking`
   ADD PRIMARY KEY (`bookid`),
-  ADD KEY `customer_id` (`customer_id`,`pack_id`),
   ADD KEY `pack_id` (`pack_id`);
 
 --
@@ -248,31 +292,31 @@ ALTER TABLE `hms_customers`
 -- AUTO_INCREMENT for table `hms_packages`
 --
 ALTER TABLE `hms_packages`
-  MODIFY `pack_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `pack_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `hms_rooms`
 --
 ALTER TABLE `hms_rooms`
-  MODIFY `rid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `rid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `hms_rooms_categories`
 --
 ALTER TABLE `hms_rooms_categories`
-  MODIFY `rcid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `rcid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `hms_rooms_subcategories`
 --
 ALTER TABLE `hms_rooms_subcategories`
-  MODIFY `subcatid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `subcatid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `hms_rooms_subrooms`
 --
 ALTER TABLE `hms_rooms_subrooms`
-  MODIFY `subroom_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `subroom_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `hms_users`
@@ -288,7 +332,6 @@ ALTER TABLE `hms_users`
 -- Constraints for table `hms_booking`
 --
 ALTER TABLE `hms_booking`
-  ADD CONSTRAINT `hms_booking_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `hms_customers` (`cid`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `hms_booking_ibfk_2` FOREIGN KEY (`pack_id`) REFERENCES `hms_packages` (`pack_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
