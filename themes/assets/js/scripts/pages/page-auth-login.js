@@ -55,7 +55,7 @@ var HmsLogin = (function () {
             // simulate 2s delay
             setTimeout(function () {
               alert.addClass("alert-error p-1");
-              alert.append(data.message);
+              alert.append(data.msg);
               btn
                 .removeClass(
                   "btn-disabled"
