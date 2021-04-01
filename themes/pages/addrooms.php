@@ -1,5 +1,6 @@
 <?php
 session_start();
+require dirname(__FILE__, 3) . "/app-assets/includes/getlastroom.php";
 ?>
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
@@ -13,7 +14,7 @@ session_start();
     <meta name="description" content="Book your hotel room Today.">
     <meta name="keywords" content="Hotel Management System">
     <meta name="author" content="saifcodes">
-    <title>Add Customer</title>
+    <title>Add Rooms</title>
     <link rel="apple-touch-icon" href="assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
@@ -69,14 +70,14 @@ session_start();
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">Customers</h2>
+                            <h2 class="content-header-title float-left mb-0">Rooms</h2>
                             <div class="breadcrumb-wrapper">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="#">Customers</a>
+                                    <li class="breadcrumb-item"><a href="#">Rooms</a>
                                     </li>
-                                    <li class="breadcrumb-item active"><a href="#">Add Customer</a>
+                                    <li class="breadcrumb-item active"><a href="#">Add Room</a>
                                     </li>
                                 </ol>
                             </div>
@@ -91,65 +92,79 @@ session_start();
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Add Customer</h4>
+                                    <h4 class="card-title">Add Room</h4>
                                 </div>
                                 <div class="card-body">
-                                    <form class="form" id="customer">
+                                    <form class="form" id="rooms">
                                         <div class="row">
                                             <div class="col-md-6 col-12">
                                                 <div class="form-group">
-                                                    <label for="first-name-column">First Name</label>
-                                                    <input type="text" id="first-name-column" class="form-control" placeholder="First Name" name="fname" />
+                                                    <label for="Roomsid-column">Rooms ID</label>
+                                                    <input type="text" id="Roomsid-column" class="form-control" name="roomsid" value="<?php echo $room_id;?>" onkeyup="false" readonly/>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-12">
                                                 <div class="form-group">
-                                                    <label for="last-name-column">Last Name</label>
-                                                    <input type="text" id="last-name-column" class="form-control" placeholder="Last Name" name="lname" />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="phone-column">Phone No</label>
-                                                    <input type="text" id="phone-column" class="form-control" placeholder="Phone No" name="phoneno" />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="email-column">Email</label>
-                                                    <input type="email" id="email-column" class="form-control" placeholder="Email" name="email" />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="address-column">Address</label>
-                                                    <input type="text" id="address-column" class="form-control" placeholder="Address" name="address" />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="country-floating">Country</label>
-                                                    <input type="text" id="country-floating" class="form-control" name="country" placeholder="Country" />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="idcard-column">ID Card</label>
-                                                    <input type="text" id="idcard-column" class="form-control" placeholder="ID Card" name="idcard" />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="idtype">ID Type</label>
-                                                    <select class="form-control" id="idtype" name="id_type">
-                                                        <option value="admin" selected>CNIC</option>
-                                                        <option value="booker">Passport</option>
-                                                        <option value="customer">Audhar Card</option>
+                                                    <label for="categories">Category Name</label>
+                                                    <select class="form-control" id="categories" name="category">
+                                                        <option>Select Category</option>
                                                     </select>
                                                 </div>
                                             </div>
+                                            <div class="col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="subcategory">SubCategory Name</label>
+                                                    <select class="form-control" id="subcategory" name="subcategory">
+                                                        <option>Select SubCategory</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="repeater-default w-100 p-1">
+                                                <div data-repeater-list="subrooms">
+                                                    <div data-repeater-item>
+                                                        <div class="row d-flex align-items-end">
+                                                            <div class="col-md-6 col-12">
+                                                                <div class="form-group">
+                                                                    <label for="roomno">Room No</label>
+                                                                    <input type="text" class="form-control" id="roomno" aria-describedby="roomno" placeholder="Room No" name="roomno" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4 col-12">
+                                                                <div class="form-group">
+                                                                    <label for="beddingtype">Bedding Type</label>
+                                                                    <select name="bedtype" id="beddingtype" class="form-control" aria-describedby="beddingtype">
+                                                                        <option value="single">Single</option>
+                                                                        <option value="double">Double</option>
+                                                                        <option value="triple">Triple</option>
+                                                                        <option value="Quad">Quad</option>
+                                                                        <option value="None">None</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-2 col-12">
+                                                                <div class="form-group">
+                                                                    <button class="btn btn-outline-danger text-nowrap px-1" data-repeater-delete type="button">
+                                                                        <i data-feather="x" class="mr-25"></i>
+                                                                        <span>Delete</span>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <hr />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-50">
+                                                    <div class="col-12">
+                                                        <button class="btn btn-icon btn-primary" type="button" data-repeater-create>
+                                                            <i data-feather="plus" class="mr-25"></i>
+                                                            <span>Add New</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="col-12">
-                                                <button class="btn btn-primary mr-1" id="addcustomer">Submit</button>
+                                                <button class="btn btn-primary mr-1" id="addrooms">Submit</button>
                                                 <button type="reset" class="btn btn-outline-secondary">Reset</button>
                                             </div>
                                         </div>
@@ -182,6 +197,8 @@ session_start();
     <script src="assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
     <script src="assets/vendors/js/jquery.form.min.js"></script>
     <script src="assets/vendors/js/forms/validation/jquery.validate.min.js"></script>
+    <script src="assets/vendors/js/forms/repeater/jquery.repeater.min.js"></script>
+
 
     <!-- BEGIN Vendor JS-->
 
@@ -193,7 +210,9 @@ session_start();
     <script src="assets/js/core/app-menu.js"></script>
     <script src="assets/js/core/app.js"></script>
     <!-- END: Theme JS-->
-    <script src="assets/js/scripts/pages/addcustomer.js"></script>
+    <script src="assets/js/scripts/forms/form-repeater.js"></script>
+    <script src="assets/js/scripts/pages/fetcher.js"></script>
+    <script src="assets/js/scripts/pages/addrooms.js"></script>
 
     <!-- BEGIN: Page JS-->
     <!-- END: Page JS-->
@@ -207,6 +226,12 @@ session_start();
                 });
             }
         })
+    </script>
+    <script>
+        $(document).ready(function() {
+            getallcategories();
+            getallsubcategories();
+        });
     </script>
 </body>
 <!-- END: Body-->

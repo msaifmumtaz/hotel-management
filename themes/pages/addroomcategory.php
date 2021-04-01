@@ -13,7 +13,7 @@ session_start();
     <meta name="description" content="Book your hotel room Today.">
     <meta name="keywords" content="Hotel Management System">
     <meta name="author" content="saifcodes">
-    <title>Add Customer</title>
+    <title>Add Room Category</title>
     <link rel="apple-touch-icon" href="assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
@@ -69,14 +69,14 @@ session_start();
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">Customers</h2>
+                            <h2 class="content-header-title float-left mb-0">Rooms</h2>
                             <div class="breadcrumb-wrapper">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="#">Customers</a>
+                                    <li class="breadcrumb-item"><a href="#">Rooms</a>
                                     </li>
-                                    <li class="breadcrumb-item active"><a href="#">Add Customer</a>
+                                    <li class="breadcrumb-item active"><a href="#">Add Room Category</a>
                                     </li>
                                 </ol>
                             </div>
@@ -91,65 +91,34 @@ session_start();
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Add Customer</h4>
+                                    <h4 class="card-title">Add Room Category</h4>
                                 </div>
                                 <div class="card-body">
-                                    <form class="form" id="customer">
+                                    <form class="form" id="category">
                                         <div class="row">
                                             <div class="col-md-6 col-12">
                                                 <div class="form-group">
-                                                    <label for="first-name-column">First Name</label>
-                                                    <input type="text" id="first-name-column" class="form-control" placeholder="First Name" name="fname" />
+                                                    <label for="cat-name-column">Category Name</label>
+                                                    <input type="text" id="cat-name-column" class="form-control" placeholder="Category Name" name="catname" />
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-12">
                                                 <div class="form-group">
-                                                    <label for="last-name-column">Last Name</label>
-                                                    <input type="text" id="last-name-column" class="form-control" placeholder="Last Name" name="lname" />
+                                                    <label for="price-column">Price</label>
+                                                    <input type="text" id="price-column" class="form-control" placeholder="Price" name="price" />
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-12">
                                                 <div class="form-group">
-                                                    <label for="phone-column">Phone No</label>
-                                                    <input type="text" id="phone-column" class="form-control" placeholder="Phone No" name="phoneno" />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="email-column">Email</label>
-                                                    <input type="email" id="email-column" class="form-control" placeholder="Email" name="email" />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="address-column">Address</label>
-                                                    <input type="text" id="address-column" class="form-control" placeholder="Address" name="address" />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="country-floating">Country</label>
-                                                    <input type="text" id="country-floating" class="form-control" name="country" placeholder="Country" />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="idcard-column">ID Card</label>
-                                                    <input type="text" id="idcard-column" class="form-control" placeholder="ID Card" name="idcard" />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="idtype">ID Type</label>
-                                                    <select class="form-control" id="idtype" name="id_type">
-                                                        <option value="admin" selected>CNIC</option>
-                                                        <option value="booker">Passport</option>
-                                                        <option value="customer">Audhar Card</option>
-                                                    </select>
+                                                    <label for="customFile">Category Image</label>
+                                                    <div class="custom-file">
+                                                        <input type="file" class="custom-file-input" id="customFile" name="roomimage" />
+                                                        <label class="custom-file-label" for="customFile">Choose Category Image</label>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-12">
-                                                <button class="btn btn-primary mr-1" id="addcustomer">Submit</button>
+                                                <button class="btn btn-primary mr-1" id="addcategory">Submit</button>
                                                 <button type="reset" class="btn btn-outline-secondary">Reset</button>
                                             </div>
                                         </div>
@@ -193,7 +162,7 @@ session_start();
     <script src="assets/js/core/app-menu.js"></script>
     <script src="assets/js/core/app.js"></script>
     <!-- END: Theme JS-->
-    <script src="assets/js/scripts/pages/addcustomer.js"></script>
+    <script src="assets/js/scripts/pages/addcategory.js"></script>
 
     <!-- BEGIN: Page JS-->
     <!-- END: Page JS-->

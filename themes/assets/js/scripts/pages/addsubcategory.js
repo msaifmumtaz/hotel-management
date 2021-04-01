@@ -6,38 +6,19 @@
   Author: PIXINVENT
   Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
-var HmsAddCustomer = (function () {
+var HmsAddSubCategory = (function () {
 
-  var handleAddCustomerFormSubmit = function () {
-    $("#addcustomer").click(function (e) {
+  var handleAddSubCategoryFormSubmit = function () {
+    $("#addsubcategory").click(function (e) {
       e.preventDefault();
       var btn = $(this);
       var form = $(this).closest("form");
 
       form.validate({
         rules: {
-          fname: {
+          catname: {
             required: true
-          },
-          lname: {
-            required: true
-          },
-          email: {
-            required: true,
-            email:true
-          },
-          phoneno: {
-            required:true,
-          },
-          idcard: {
-            required:true,
-          },
-          address: {
-            required:true,
-          },
-          country: {
-            required:true,
-          },
+          }
         }
       });
 
@@ -45,7 +26,7 @@ var HmsAddCustomer = (function () {
         return;
       }
       form.ajaxSubmit({
-        url: "../xhr/addcustomer.php",
+        url: "../xhr/addsubcategory.php",
         type: 'post',
         success: function (response, status, xhr, $form) {
           var data = JSON.parse(response);
@@ -82,12 +63,12 @@ var HmsAddCustomer = (function () {
   return {
     // public functions
     init: function () {
-      handleAddCustomerFormSubmit();
+      handleAddSubCategoryFormSubmit();
     }
   };
 })();
 
 // Class Initialization
 jQuery(document).ready(function () {
-  HmsAddCustomer.init();
+  HmsAddSubCategory.init();
 });

@@ -9,4 +9,8 @@ RewriteRule ^booking/view$ themes/pages/viewbooking.php [NC,QSA]
 RewriteRule ^booking/print$ themes/pages/printbooking.php [NC,QSA]
 
 RewriteRule ^user/addcustomer$ themes/pages/addcustomer.php [NC,QSA]
+RewriteRule ^room/addcategory$ themes/pages/addroomcategory.php [NC,QSA]
+RewriteRule ^room/addsubcategory$ themes/pages/addroomsubcategory.php [NC,QSA]
+RewriteRule ^room/addpackage$ themes/pages/addpackage.php [NC,QSA]
+RewriteRule ^room/addroom$ themes/pages/addrooms.php [NC,QSA]
 

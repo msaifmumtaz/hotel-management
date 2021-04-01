@@ -38,17 +38,17 @@
                 </li>
                 <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Booking &amp; Menu</span><i data-feather="more-horizontal"></i>
                 </li>
-                <li class=" <?php if(basename($_SERVER["PHP_SELF"])=="booking.php"){echo "active";}else{ echo "nav-item";}?>"><a class="d-flex align-items-center" href="/room/booking"><i data-feather="archive"></i><span class="menu-title text-truncate" data-i18n="addcustomer">Book Room</span></a>
+                <li class=" <?php if(basename($_SERVER["PHP_SELF"])=="booking.php"){echo "active";}else{ echo "nav-item";}?>"><a class="d-flex align-items-center" href="/room/booking"><i data-feather="archive"></i><span class="menu-title text-truncate" data-i18n="booking">Book Room</span></a>
                 </li>
                 <li class=" <?php if(basename($_SERVER["PHP_SELF"])=="addcustomer.php"){echo "active";}else{ echo "nav-item";}?>"><a class="d-flex align-items-center" href="/user/addcustomer"><i data-feather="user"></i><span class="menu-title text-truncate" data-i18n="addcustomer">Add Customer</span></a>
                 </li>
-                <li class=" <?php if(basename($_SERVER["PHP_SELF"])=="addroomcategory.php"){echo "active";}else{ echo "nav-item";}?>"><a class="d-flex align-items-center" href="/room/addcategory"><i data-feather="box"></i><span class="menu-title text-truncate" data-i18n="Chat">Add Room Categories</span></a>
+                <li class=" <?php if(basename($_SERVER["PHP_SELF"])=="addroomcategory.php"){echo "active";}else{ echo "nav-item";}?>"><a class="d-flex align-items-center" href="/room/addcategory"><i data-feather="box"></i><span class="menu-title text-truncate" data-i18n="Add Cat">Add Room Categories</span></a>
                 </li>
-                <li class=" <?php if(basename($_SERVER["PHP_SELF"])=="addroomsubcategory.php"){echo "active";}else{ echo "nav-item";}?>"><a class="d-flex align-items-center" href="/room/addsubcategory"><i data-feather="check-square"></i><span class="menu-title text-truncate" data-i18n="Todo">Add Subcategories</span></a>
+                <li class=" <?php if(basename($_SERVER["PHP_SELF"])=="addroomsubcategory.php"){echo "active";}else{ echo "nav-item";}?>"><a class="d-flex align-items-center" href="/room/addsubcategory"><i data-feather="check-square"></i><span class="menu-title text-truncate" data-i18n="Add Subcat">Add Subcategories</span></a>
                 </li>
-                <li class=" <?php if(basename($_SERVER["PHP_SELF"])=="addrooms.php"){echo "active";}else{ echo "nav-item";}?>"><a class="d-flex align-items-center" href="/room/addroom"><i data-feather="package"></i><span class="menu-title text-truncate" data-i18n="Calendar">Add Rooms</span></a>
+                <li class=" <?php if(basename($_SERVER["PHP_SELF"])=="addrooms.php"){echo "active";}else{ echo "nav-item";}?>"><a class="d-flex align-items-center" href="/room/addroom"><i data-feather="package"></i><span class="menu-title text-truncate" data-i18n="Add Rooms">Add Rooms</span></a>
                 </li>
-                <li class=" <?php if(basename($_SERVER["PHP_SELF"])=="addpackage.php"){echo "active";}else{ echo "nav-item";}?>"><a class="d-flex align-items-center" href="/room/addpackage"><i data-feather="coffee"></i><span class="menu-title text-truncate" data-i18n="Kanban">Add Packages</span></a>
+                <li class=" <?php if(basename($_SERVER["PHP_SELF"])=="addpackage.php"){echo "active";}else{ echo "nav-item";}?>"><a class="d-flex align-items-center" href="/room/addpackage"><i data-feather="coffee"></i><span class="menu-title text-truncate" data-i18n="Add Package">Add Packages</span></a>
                 </li>
             </ul>
         </div>

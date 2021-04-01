@@ -6,38 +6,28 @@
   Author: PIXINVENT
   Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
-var HmsAddCustomer = (function () {
+var HmsAddRooms = (function () {
 
-  var handleAddCustomerFormSubmit = function () {
-    $("#addcustomer").click(function (e) {
+  var handleAddRoomsFormSubmit = function () {
+    $("#addrooms").click(function (e) {
       e.preventDefault();
       var btn = $(this);
       var form = $(this).closest("form");
 
       form.validate({
         rules: {
-          fname: {
+          category: {
             required: true
           },
-          lname: {
-            required: true
+          subcategory:{
+            required:true
           },
-          email: {
-            required: true,
-            email:true
+          roomno:{
+            required:true
           },
-          phoneno: {
-            required:true,
-          },
-          idcard: {
-            required:true,
-          },
-          address: {
-            required:true,
-          },
-          country: {
-            required:true,
-          },
+          bedtype:{
+            required:true
+          }
         }
       });
 
@@ -45,7 +35,7 @@ var HmsAddCustomer = (function () {
         return;
       }
       form.ajaxSubmit({
-        url: "../xhr/addcustomer.php",
+        url: "../xhr/addrooms.php",
         type: 'post',
         success: function (response, status, xhr, $form) {
           var data = JSON.parse(response);
@@ -82,12 +72,12 @@ var HmsAddCustomer = (function () {
   return {
     // public functions
     init: function () {
-      handleAddCustomerFormSubmit();
+      handleAddRoomsFormSubmit();
     }
   };
 })();
 
 // Class Initialization
 jQuery(document).ready(function () {
-  HmsAddCustomer.init();
+  HmsAddRooms.init();
 });

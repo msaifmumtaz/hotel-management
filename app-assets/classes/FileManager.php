@@ -41,7 +41,7 @@ class FileManager
         $dest_path = $uploadFileDir . $newFileName;
 
         if (move_uploaded_file($fileTmpPath, $dest_path)) {
-          $message = array("message" => 'File is successfully uploaded.', "path" => $dest_path, "status" => 200);
+          $message = array("message" => 'File is successfully uploaded.', "path" => $path.'/'.$newFileName, "status" => 200);
         } else {
           $message = 'There was some error moving the file to upload directory. Please make sure the upload directory is writable by web server.';
         }

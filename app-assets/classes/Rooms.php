@@ -102,20 +102,14 @@ class Rooms
         }
     }
     // Add rooms
-    public function add_rooms($category_id, $subcategory_id, $status, $total_rooms, $available_rooms)
+    public function add_rooms($category_id, $subcategory_id)
     {
         $category_id = Security::hms_secure($category_id);
         $subcategory_id = Security::hms_secure($subcategory_id);
-        $status = Security::hms_secure($status);
-        $total_rooms = Security::hms_secure($total_rooms);
-        $available_rooms = Security::hms_secure($available_rooms);
-        $stmt = $this->conn->prepare("INSERT INTO hms_rooms (category_id,subcategory_id,status,total_rooms,available_rooms)VALUES(:category_id,:subcategory_id,:status,:total_rooms,:available_rooms)");
+        $stmt = $this->conn->prepare("INSERT INTO hms_rooms (category_id,subcategory_id)VALUES(:category_id,:subcategory_id)");
         $data = [
             "category_id" => $category_id,
             "subcategory_id" => $subcategory_id,
-            "status" => $status,
-            "total_rooms" => $total_rooms,
-            "available_rooms" => $available_rooms
         ];
         if ($stmt->execute($data)) {
             return true;
@@ -136,6 +130,18 @@ class Rooms
             return false;
         }
     }
+    // Get Last Room
+    public function get_last_roomid(){
+        $stmt= $this->conn->prepare("SELECT * from hms_rooms order by rid DESC LIMIT 1");
+        $stmt->execute();
+        if($stmt->rowCount()>0){
+            $row=$stmt->fetch(PDO::FETCH_ASSOC);
+            return $row["rid"];
+        }else{
+            return false;
+        }
+        
+    }  
     // Delete Room
     public function delete_room($rid)
     {
@@ -148,15 +154,17 @@ class Rooms
         }
     }
     // Add Sub Rooms
-    public function add_subrooms($room_id, $room_no, $status)
+    public function add_subrooms($room_id, $room_no, $bedding_type, $status="available")
     {
         $room_id = Security::hms_int_only($room_id);
         $room_no = Security::hms_secure($room_no);
         $status = Security::hms_secure($status);
-        $stmt = $this->conn->prepare("INSERT INTO hms_rooms_subrooms (room_id,room_no,status)VALUES(:room_id,:room_no,:status)");
+        $bedding_type = Security::hms_secure($bedding_type);
+        $stmt = $this->conn->prepare("INSERT INTO hms_rooms_subrooms (room_id,room_no,bedding_type,status)VALUES(:room_id,:room_no,:bedding_type,:status)");
         $data = [
             "room_id" => $room_id,
             "room_no" => $room_no,
+            "bedding_type"=>$bedding_type,
             "status" => $status,
         ];
         if ($stmt->execute($data)) {
@@ -184,6 +192,50 @@ class Rooms
         $subroom_id = Security::hms_int_only($subroom_id);
         $stmt = $this->conn->prepare("DELETE FROM hms_rooms where subroom_id=:subroom_id");
         if ($stmt->execute(["subroom_id" => $subroom_id])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // Add Packages
+
+    public function add_package($package_name, $package_desc)
+    {
+        $package_name = Security::hms_secure($package_name);
+        $package_desc = Security::hms_secure($package_desc);
+
+        $stmt = $this->conn->prepare("INSERT into hms_packages (package_name,package_description) VALUES(:package_name,:package_description)");
+        $data = [
+            "package_name" => $package_name,
+            "package_description" => $package_desc
+        ];
+
+        if ($stmt->execute($data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    // Get All Packages
+    public function get_all_packages()
+    {
+        $stmt = $this->conn->prepare("SELECT * FROM hms_packages");
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $packages = $stmt->fetchAll();
+        if ($packages) {
+            return $packages;
+        } else {
+            return false;
+        }
+    }
+    // Delete Packages
+    public function delete_package($pack_id)
+    {
+        $pack_id = Security::hms_int_only($pack_id);
+        $stmt = $this->conn->prepare("DELETE FROM hms_packages where pack_id=:pack_id");
+        if ($stmt->execute(["pack_id" => $pack_id])) {
             return true;
         } else {
             return false;

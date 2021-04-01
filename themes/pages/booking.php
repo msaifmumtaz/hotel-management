@@ -37,10 +37,6 @@ session_start();
     <link rel="stylesheet" type="text/css" href="assets/css/core/menu/menu-types/vertical-menu.css">
     <!-- END: Page CSS-->
 
-    <!-- BEGIN: Custom CSS-->
-    <link rel="stylesheet" type="text/css" href="../../../assets/css/style.css">
-    <!-- END: Custom CSS-->
-
 </head>
 <!-- END: Head-->
 
@@ -205,6 +201,9 @@ session_start();
 
     <!-- BEGIN: Vendor JS-->
     <script src="assets/vendors/js/vendors.min.js"></script>
+    <script src="assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
+    <script src="assets/vendors/js/jquery.form.min.js"></script>
+    <script src="assets/vendors/js/forms/validation/jquery.validate.min.js"></script>
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
