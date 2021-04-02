@@ -18,12 +18,6 @@ var HmsAddCategory = (function () {
         rules: {
           catname: {
             required: true
-          },
-          price: {
-            required: true
-          },
-          roomimage: {
-            required: true,
           }
         }
       });
@@ -33,7 +27,6 @@ var HmsAddCategory = (function () {
       }
       form.ajaxSubmit({
         url: "../xhr/addcategory.php",
-        contentType: 'multipart/form-data',
         type: 'post',
         success: function (response, status, xhr, $form) {
           var data = JSON.parse(response);

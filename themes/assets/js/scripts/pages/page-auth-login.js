@@ -53,8 +53,7 @@ var HmsLogin = (function () {
           } else {
 
             // simulate 2s delay
-            setTimeout(function () {
-              alert.addClass("alert-error p-1");
+              alert.addClass("alert-danger p-1");
               alert.append(data.msg);
               btn
                 .removeClass(
@@ -64,9 +63,8 @@ var HmsLogin = (function () {
               $("#spin").removeClass("spinner-border");
 
               console.log(response);
-            }, 1000);
             setTimeout(function () {
-              alert.removeClass("alert-error");
+              alert.removeClass("alert-danger");
               alert.empty();
             }, 5000)
           }

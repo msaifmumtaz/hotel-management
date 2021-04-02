@@ -22,15 +22,12 @@ class Rooms
 
     // Add Room Categories
 
-    public function add_room_category($category_name, $price, $image)
+    public function add_room_category($category_name)
     {
         $category_name = Security::hms_secure($category_name);
-        $price = Security::hms_secure($price);
-        $stmt = $this->conn->prepare("INSERT INTO hms_rooms_categories (category_name,price,room_image)VALUES(:category_name,:price,:room_image)");
+        $stmt = $this->conn->prepare("INSERT INTO hms_rooms_categories (category_name)VALUES(:category_name)");
         $data = [
             "category_name" => $category_name,
-            "price" => $price,
-            "room_image" => $image
         ];
         if ($stmt->execute($data)) {
             return true;

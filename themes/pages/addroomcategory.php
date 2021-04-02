@@ -102,21 +102,6 @@ session_start();
                                                     <input type="text" id="cat-name-column" class="form-control" placeholder="Category Name" name="catname" />
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="price-column">Price</label>
-                                                    <input type="text" id="price-column" class="form-control" placeholder="Price" name="price" />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="customFile">Category Image</label>
-                                                    <div class="custom-file">
-                                                        <input type="file" class="custom-file-input" id="customFile" name="roomimage" />
-                                                        <label class="custom-file-label" for="customFile">Choose Category Image</label>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div class="col-12">
                                                 <button class="btn btn-primary mr-1" id="addcategory">Submit</button>
                                                 <button type="reset" class="btn btn-outline-secondary">Reset</button>
@@ -139,9 +124,9 @@ session_start();
     <div class="drag-target"></div>
 
     <!-- BEGIN: Footer-->
-    <footer class="footer footer-static footer-light">
-        <p class="clearfix mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2021<a class="ml-25" href="https://1.envato.market/pixinvent_portfolio" target="_blank">Pixinvent</a><span class="d-none d-sm-inline-block">, All rights Reserved</span></span><span class="float-md-right d-none d-md-block">Hand-crafted & Made with<i data-feather="heart"></i></span></p>
-    </footer>
+    <?php
+    require dirname(__FILE__, 3) . "/app-assets/includes/footer.php";
+    ?>
     <button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button>
     <!-- END: Footer-->
 
