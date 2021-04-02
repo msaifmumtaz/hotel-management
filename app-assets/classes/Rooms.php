@@ -20,7 +20,7 @@ class Rooms
         $this->conn = $conn;
     }
 
-    // Add Room Categories
+    /**  Add Room Categories */
 
     public function add_room_category($category_name)
     {
@@ -35,8 +35,25 @@ class Rooms
             return false;
         }
     }
-
-    // Get All Categories
+    /**
+     * Update Category
+     */
+    public function update_room_category($category_name,$rcid)
+    {
+        $category_name = Security::hms_secure($category_name);
+        $rcid=Security::hms_int_only($rcid);
+        $stmt = $this->conn->prepare("UPDATE hms_rooms_categories set category_name=:category_name where rcid=:rcid");
+        $data = [
+            "category_name" => $category_name,
+            "rcid"=>$rcid
+        ];
+        if ($stmt->execute($data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    /** Get All Categories */
     public function get_room_categories()
     {
         $stmt = $this->conn->prepare("SELECT * FROM hms_rooms_categories ORDER BY rcid DESC");
@@ -49,7 +66,7 @@ class Rooms
             return false;
         }
     }
-    // Delete Room Categories
+    /** Delete Room Categories */
     public function delete_room_category($rcid)
     {
         $cid = Security::hms_int_only($rcid);
@@ -60,7 +77,7 @@ class Rooms
             return false;
         }
     }
-    // Add room sub category
+    /** Add room sub category */
     public function add_rooms_subcategory($subcategory_name)
     {
         $subcategory_name = Security::hms_secure($subcategory_name);
@@ -74,7 +91,27 @@ class Rooms
             return false;
         }
     }
-    // Get All Categories
+    /**
+     * Update Sub Category
+     */
+    public function update_rooms_subcategory($subcategory_name,$subcatid)
+    {
+        $subcategory_name = Security::hms_secure($subcategory_name);
+        $subcatid=Security::hms_int_only($subcatid);
+        $stmt = $this->conn->prepare("UPDATE hms_rooms_subcategories set name=:name where subcatid=:subcatid");
+        $data = [
+            "name" => $subcategory_name,
+            "subcatid"=>$subcatid
+        ];
+        if ($stmt->execute($data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    /** 
+     * Get All SubCategories
+     */ 
     public function get_all_subcategories()
     {
         $stmt = $this->conn->prepare("SELECT * FROM hms_rooms_subcategories");
@@ -87,7 +124,9 @@ class Rooms
             return false;
         }
     }
-    // Delete Room Sub Categories
+    /**
+     * Delete Room Sub Categories
+     */
     public function delete_rooms_subcategory($subcatid)
     {
         $subcatid = Security::hms_int_only($subcatid);
@@ -98,15 +137,21 @@ class Rooms
             return false;
         }
     }
-    // Add rooms
-    public function add_rooms($category_id, $subcategory_id)
+    /**
+     * Add Rooms
+     */
+    public function add_rooms($category_id, $subcategory_id,$room_no,$status="available")
     {
         $category_id = Security::hms_secure($category_id);
         $subcategory_id = Security::hms_secure($subcategory_id);
-        $stmt = $this->conn->prepare("INSERT INTO hms_rooms (category_id,subcategory_id)VALUES(:category_id,:subcategory_id)");
+        $room_no = Security::hms_secure($room_no);
+        $status = Security::hms_secure($status);
+        $stmt = $this->conn->prepare("INSERT INTO hms_rooms (category_id,subcategory_id,room_no,status)VALUES(:category_id,:subcategory_id,:room_no,:status)");
         $data = [
             "category_id" => $category_id,
             "subcategory_id" => $subcategory_id,
+            "room_no"=>$room_no,
+            "status"=>$status
         ];
         if ($stmt->execute($data)) {
             return true;
@@ -114,7 +159,34 @@ class Rooms
             return false;
         }
     }
-    // Get All Rooms
+    /**
+     * Update Rooms
+     */
+    public function update_room($category_id,$subcategory_id,$room_no,$status,$rid){
+        $category_id = Security::hms_secure($category_id);
+        $subcategory_id = Security::hms_secure($subcategory_id);
+        $room_no = Security::hms_secure($room_no);
+        $status = Security::hms_secure($status);
+        $rid=Security::hms_int_only($rid);
+
+        $stmt=$this->conn->prepare("UPDATE hms_rooms set category_id=:category_id,subcategory_id=:subcategory_id,room_no=:room_no,status=:status where rid=:rid");
+        $data = [
+            "category_id" => $category_id,
+            "subcategory_id" => $subcategory_id,
+            "room_no"=>$room_no,
+            "status"=>$status,
+            "rid"=>$rid
+        ];
+
+        if($stmt->execute($data)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    /**
+     * Get All Rooms
+     */
     public function get_all_rooms()
     {
         $stmt = $this->conn->prepare("SELECT * FROM hms_rooms");
@@ -127,7 +199,9 @@ class Rooms
             return false;
         }
     }
-    // Get Last Room
+    /**
+     * Get Last Room ID
+     */
     public function get_last_roomid(){
         $stmt= $this->conn->prepare("SELECT * from hms_rooms order by rid DESC LIMIT 1");
         $stmt->execute();
@@ -139,7 +213,9 @@ class Rooms
         }
         
     }  
-    // Delete Room
+    /**
+     * Delete Room of given ID
+     */
     public function delete_room($rid)
     {
         $rid = Security::hms_int_only($rid);
@@ -150,62 +226,23 @@ class Rooms
             return false;
         }
     }
-    // Add Sub Rooms
-    public function add_subrooms($room_id, $room_no, $bedding_type, $status="available")
+    /**
+     * Add Package
+     */
+
+    public function add_package($catid,$subcatid,$extra_bed,$price)
     {
-        $room_id = Security::hms_int_only($room_id);
-        $room_no = Security::hms_secure($room_no);
-        $status = Security::hms_secure($status);
-        $bedding_type = Security::hms_secure($bedding_type);
-        $stmt = $this->conn->prepare("INSERT INTO hms_rooms_subrooms (room_id,room_no,bedding_type,status)VALUES(:room_id,:room_no,:bedding_type,:status)");
+        $catid=Security::hms_secure($catid);
+        $subcatid=Security::hms_secure($subcatid);
+        $extra_bed=Security::hms_secure($extra_bed);
+        $price=Security::hms_secure($price);
+
+        $stmt = $this->conn->prepare("INSERT into hms_packages (catid,subcatid,extra_bed,price) VALUES(:catid,:subcatid,:extra_bed,:price)");
         $data = [
-            "room_id" => $room_id,
-            "room_no" => $room_no,
-            "bedding_type"=>$bedding_type,
-            "status" => $status,
-        ];
-        if ($stmt->execute($data)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    // Get All subRooms
-    public function get_all_subrooms()
-    {
-        $stmt = $this->conn->prepare("SELECT * FROM hms_rooms_subrooms");
-        $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $subrooms = $stmt->fetchAll();
-        if ($subrooms) {
-            return $subrooms;
-        } else {
-            return false;
-        }
-    }
-    // Delete SubRoom
-    public function delete_subroom($subroom_id)
-    {
-        $subroom_id = Security::hms_int_only($subroom_id);
-        $stmt = $this->conn->prepare("DELETE FROM hms_rooms where subroom_id=:subroom_id");
-        if ($stmt->execute(["subroom_id" => $subroom_id])) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    // Add Packages
-
-    public function add_package($package_name, $package_desc)
-    {
-        $package_name = Security::hms_secure($package_name);
-        $package_desc = Security::hms_secure($package_desc);
-
-        $stmt = $this->conn->prepare("INSERT into hms_packages (package_name,package_description) VALUES(:package_name,:package_description)");
-        $data = [
-            "package_name" => $package_name,
-            "package_description" => $package_desc
+            "catid"=>$catid,
+            "subcatid"=>$subcatid,
+            "extra_bed"=>$extra_bed,
+            "price"=>$price
         ];
 
         if ($stmt->execute($data)) {
@@ -214,7 +251,34 @@ class Rooms
             return false;
         }
     }
-    // Get All Packages
+    /**
+     * Update Package
+     */
+
+    public function update_package($catid,$subcatid,$extra_bed,$price,$pack_id){
+        $catid=Security::hms_secure($catid);
+        $subcatid=Security::hms_secure($subcatid);
+        $extra_bed=Security::hms_secure($extra_bed);
+        $price=Security::hms_secure($price);
+        $pack_id=Security::hms_int_only($pack_id);
+        $stmt=$this->conn->prepare("UPDATE hms_packages set catid=:catid,subcatid=:subcatid,extra_bed=:extra_bed,price=:price where pack_id=:pack_id");
+        $data = [
+            "catid"=>$catid,
+            "subcatid"=>$subcatid,
+            "extra_bed"=>$extra_bed,
+            "price"=>$price,
+            "pack_id"=>$pack_id
+        ];
+
+        if($stmt->execute($data)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    /**
+     * Get All Packages
+     */
     public function get_all_packages()
     {
         $stmt = $this->conn->prepare("SELECT * FROM hms_packages");
