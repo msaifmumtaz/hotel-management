@@ -38,14 +38,14 @@ class Rooms
     /**
      * Update Category
      */
-    public function update_room_category($category_name,$rcid)
+    public function update_room_category($category_name, $rcid)
     {
         $category_name = Security::hms_secure($category_name);
-        $rcid=Security::hms_int_only($rcid);
+        $rcid = Security::hms_int_only($rcid);
         $stmt = $this->conn->prepare("UPDATE hms_rooms_categories set category_name=:category_name where rcid=:rcid");
         $data = [
             "category_name" => $category_name,
-            "rcid"=>$rcid
+            "rcid" => $rcid
         ];
         if ($stmt->execute($data)) {
             return true;
@@ -56,12 +56,28 @@ class Rooms
     /** Get All Categories */
     public function get_room_categories()
     {
-        $stmt = $this->conn->prepare("SELECT * FROM hms_rooms_categories ORDER BY rcid DESC");
+        $stmt = $this->conn->prepare("SELECT * FROM hms_rooms_categories");
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $categories = $stmt->fetchAll();
         if ($categories) {
             return $categories;
+        } else {
+            return false;
+        }
+    }
+    /**
+     * Get Category 
+     */
+
+    public function get_category($rcid)
+    {
+        $rcid = Security::hms_int_only($rcid);
+        $stmt = $this->conn->prepare("SELECT * from hms_rooms_categories where rcid=:rcid");
+        $stmt->execute(["rcid" => $rcid]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row > 0) {
+            return $row;
         } else {
             return false;
         }
@@ -94,14 +110,14 @@ class Rooms
     /**
      * Update Sub Category
      */
-    public function update_rooms_subcategory($subcategory_name,$subcatid)
+    public function update_rooms_subcategory($subcategory_name, $subcatid)
     {
         $subcategory_name = Security::hms_secure($subcategory_name);
-        $subcatid=Security::hms_int_only($subcatid);
+        $subcatid = Security::hms_int_only($subcatid);
         $stmt = $this->conn->prepare("UPDATE hms_rooms_subcategories set name=:name where subcatid=:subcatid");
         $data = [
             "name" => $subcategory_name,
-            "subcatid"=>$subcatid
+            "subcatid" => $subcatid
         ];
         if ($stmt->execute($data)) {
             return true;
@@ -111,7 +127,7 @@ class Rooms
     }
     /** 
      * Get All SubCategories
-     */ 
+     */
     public function get_all_subcategories()
     {
         $stmt = $this->conn->prepare("SELECT * FROM hms_rooms_subcategories");
@@ -137,10 +153,23 @@ class Rooms
             return false;
         }
     }
+    /** Get room SubCategory */
+    public function get_subcategory($subcatid)
+    {
+        $rcid = Security::hms_int_only($subcatid);
+        $stmt = $this->conn->prepare("SELECT * from hms_rooms_subcategories where subcatid=:subcatid");
+        $stmt->execute(["subcatid" => $subcatid]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row > 0) {
+            return $row;
+        } else {
+            return false;
+        }
+    }
     /**
      * Add Rooms
      */
-    public function add_rooms($category_id, $subcategory_id,$room_no,$status="available")
+    public function add_rooms($category_id, $subcategory_id, $room_no, $status = "available")
     {
         $category_id = Security::hms_secure($category_id);
         $subcategory_id = Security::hms_secure($subcategory_id);
@@ -150,8 +179,8 @@ class Rooms
         $data = [
             "category_id" => $category_id,
             "subcategory_id" => $subcategory_id,
-            "room_no"=>$room_no,
-            "status"=>$status
+            "room_no" => $room_no,
+            "status" => $status
         ];
         if ($stmt->execute($data)) {
             return true;
@@ -162,25 +191,39 @@ class Rooms
     /**
      * Update Rooms
      */
-    public function update_room($category_id,$subcategory_id,$room_no,$status,$rid){
+    public function update_room($category_id, $subcategory_id, $room_no, $status, $rid)
+    {
         $category_id = Security::hms_secure($category_id);
         $subcategory_id = Security::hms_secure($subcategory_id);
         $room_no = Security::hms_secure($room_no);
         $status = Security::hms_secure($status);
-        $rid=Security::hms_int_only($rid);
+        $rid = Security::hms_int_only($rid);
 
-        $stmt=$this->conn->prepare("UPDATE hms_rooms set category_id=:category_id,subcategory_id=:subcategory_id,room_no=:room_no,status=:status where rid=:rid");
+        $stmt = $this->conn->prepare("UPDATE hms_rooms set category_id=:category_id,subcategory_id=:subcategory_id,room_no=:room_no,status=:status where rid=:rid");
         $data = [
             "category_id" => $category_id,
             "subcategory_id" => $subcategory_id,
-            "room_no"=>$room_no,
-            "status"=>$status,
-            "rid"=>$rid
+            "room_no" => $room_no,
+            "status" => $status,
+            "rid" => $rid
         ];
 
-        if($stmt->execute($data)){
+        if ($stmt->execute($data)) {
             return true;
-        }else{
+        } else {
+            return false;
+        }
+    }
+    /**Get Room */
+    public function get_room($rid)
+    {
+        $rid = Security::hms_int_only($rid);
+        $stmt = $this->conn->prepare("SELECT * from hms_rooms where rid=:rid");
+        $stmt->execute(["rid" => $rid]);
+        if ($stmt->rowCount() > 0) {
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $row;
+        } else {
             return false;
         }
     }
@@ -202,17 +245,43 @@ class Rooms
     /**
      * Get Last Room ID
      */
-    public function get_last_roomid(){
-        $stmt= $this->conn->prepare("SELECT * from hms_rooms order by rid DESC LIMIT 1");
+    public function get_last_roomid()
+    {
+        $stmt = $this->conn->prepare("SELECT * from hms_rooms order by rid DESC LIMIT 1");
         $stmt->execute();
-        if($stmt->rowCount()>0){
-            $row=$stmt->fetch(PDO::FETCH_ASSOC);
+        if ($stmt->rowCount() > 0) {
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
             return $row["rid"];
-        }else{
+        } else {
             return false;
         }
-        
-    }  
+    }
+    /** Get Available Rooms */
+    public function get_avail_room($status)
+    {
+        $status = Security::hms_int_only($status);
+        $stmt = $this->conn->prepare("SELECT * from hms_rooms where status=:status");
+        $stmt->execute(["status" => $status]);
+        if ($stmt->rowCount() > 0) {
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $row;
+        } else {
+            return false;
+        }
+    }
+    /** Get Available Rooms */
+    public function book_room($room_no)
+    {
+        $room_no = Security::hms_secure($room_no);
+        $status="booked";
+        $stmt = $this->conn->prepare("SELECT * from hms_rooms set status=:status where room_no=:room_no");
+        if ($stmt->execute(["status" => $status,"room_no"=>$room_no])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
      * Delete Room of given ID
      */
@@ -230,19 +299,19 @@ class Rooms
      * Add Package
      */
 
-    public function add_package($catid,$subcatid,$extra_bed,$price)
+    public function add_package($catid, $subcatid, $extra_bed, $price)
     {
-        $catid=Security::hms_secure($catid);
-        $subcatid=Security::hms_secure($subcatid);
-        $extra_bed=Security::hms_secure($extra_bed);
-        $price=Security::hms_secure($price);
+        $catid = Security::hms_secure($catid);
+        $subcatid = Security::hms_secure($subcatid);
+        $extra_bed = Security::hms_secure($extra_bed);
+        $price = Security::hms_secure($price);
 
         $stmt = $this->conn->prepare("INSERT into hms_packages (catid,subcatid,extra_bed,price) VALUES(:catid,:subcatid,:extra_bed,:price)");
         $data = [
-            "catid"=>$catid,
-            "subcatid"=>$subcatid,
-            "extra_bed"=>$extra_bed,
-            "price"=>$price
+            "catid" => $catid,
+            "subcatid" => $subcatid,
+            "extra_bed" => $extra_bed,
+            "price" => $price
         ];
 
         if ($stmt->execute($data)) {
@@ -255,24 +324,38 @@ class Rooms
      * Update Package
      */
 
-    public function update_package($catid,$subcatid,$extra_bed,$price,$pack_id){
-        $catid=Security::hms_secure($catid);
-        $subcatid=Security::hms_secure($subcatid);
-        $extra_bed=Security::hms_secure($extra_bed);
-        $price=Security::hms_secure($price);
-        $pack_id=Security::hms_int_only($pack_id);
-        $stmt=$this->conn->prepare("UPDATE hms_packages set catid=:catid,subcatid=:subcatid,extra_bed=:extra_bed,price=:price where pack_id=:pack_id");
+    public function update_package($catid, $subcatid, $extra_bed, $price, $pack_id)
+    {
+        $catid = Security::hms_secure($catid);
+        $subcatid = Security::hms_secure($subcatid);
+        $extra_bed = Security::hms_secure($extra_bed);
+        $price = Security::hms_secure($price);
+        $pack_id = Security::hms_int_only($pack_id);
+        $stmt = $this->conn->prepare("UPDATE hms_packages set catid=:catid,subcatid=:subcatid,extra_bed=:extra_bed,price=:price where pack_id=:pack_id");
         $data = [
-            "catid"=>$catid,
-            "subcatid"=>$subcatid,
-            "extra_bed"=>$extra_bed,
-            "price"=>$price,
-            "pack_id"=>$pack_id
+            "catid" => $catid,
+            "subcatid" => $subcatid,
+            "extra_bed" => $extra_bed,
+            "price" => $price,
+            "pack_id" => $pack_id
         ];
 
-        if($stmt->execute($data)){
+        if ($stmt->execute($data)) {
             return true;
-        }else{
+        } else {
+            return false;
+        }
+    }
+    /** Get Package */
+    public function get_package($pack_id)
+    {
+        $pack_id = Security::hms_int_only($pack_id);
+        $stmt = $this->conn->prepare("SELECT * FROM hms_packages where pack_id=:pack_id");
+        $stmt->execute(["pack_id" => $pack_id]);
+        $package = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($package > 0) {
+            return $package;
+        } else {
             return false;
         }
     }

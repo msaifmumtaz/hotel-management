@@ -113,6 +113,9 @@ session_start();
                         </div>
                     </div>
                 </section>
+                <?php
+                require dirname(__FILE__, 3) . "/app-assets/includes/getcategory.php";
+                ?>
                 <!-- Basic Floating Label Form section end -->
 
             </div>
@@ -151,7 +154,19 @@ session_start();
 
     <!-- BEGIN: Page JS-->
     <!-- END: Page JS-->
+    <script>
+    $(function () {
+        $(".btnedit").click(function () {
+            //get data from table row
+            var catname= $(this).parent().parent().parent().parent().prev().text();
+            var categid= $(this).parent().parent().parent().parent().prev().prev().children().text();
+            //assign to value for input box inside modal
+            $(".category-name").val(catname);
+            $(".roomcatid").val(categid)
 
+        })
+    })
+</script>
     <script>
         $(window).on('load', function() {
             if (feather) {
