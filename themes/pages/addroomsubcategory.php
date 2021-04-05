@@ -153,6 +153,7 @@ session_start();
     <script src="assets/js/core/app.js"></script>
     <!-- END: Theme JS-->
     <script src="assets/js/scripts/pages/addsubcategory.js"></script>
+    <script src="assets/js/scripts/pages/editsubcategory.js"></script>
 
     <!-- BEGIN: Page JS-->
     <!-- END: Page JS-->
@@ -167,6 +168,19 @@ session_start();
             }
         })
     </script>
+        <script>
+    $(function () {
+        $(".btnedit").click(function () {
+            //get data from table row
+            var subcatname= $(this).parent().parent().parent().parent().prev().text();
+            var subcategid= $(this).parent().parent().parent().parent().prev().prev().children().text();
+            //assign to value for input box inside modal
+            $(".subcategory-name").val(subcatname);
+            $(".roomsubcatid").val(subcategid)
+
+        })
+    })
+</script>
 </body>
 <!-- END: Body-->
 

@@ -151,6 +151,7 @@ session_start();
     <script src="assets/js/core/app.js"></script>
     <!-- END: Theme JS-->
     <script src="assets/js/scripts/pages/addcategory.js"></script>
+    <script src="assets/js/scripts/pages/editcategory.js"></script>
 
     <!-- BEGIN: Page JS-->
     <!-- END: Page JS-->

@@ -82,16 +82,16 @@ $categories = $rooms->get_room_categories();
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="#">
+                <form action="#" id="editcate">
                     <div class="modal-body">
                         <label>Category Name: </label>
                         <div class="form-group">
-                            <input type="text" placeholder="Category Name" class="form-control category-name"/>
+                            <input type="text" placeholder="Category Name" name="editnamecat" class="form-control category-name"/>
                         </div>
                     </div>
                     <input type="hidden" name="rcid" class="roomcatid">
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Login</button>
+                        <button type="button" class="btn btn-primary" id="editcatname">Save Changes</button>
                     </div>
                 </form>
             </div>

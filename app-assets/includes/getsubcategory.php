@@ -7,16 +7,16 @@
 // | HMS - Hotel Management System                                           |
 // | Copyright (c) 2021 saifcodes All rights reserved.                       |
 // +------------------------------------------------------------------------+|
-require_once dirname(__FILE__,3)."/vendor/autoload.php";
+require_once dirname(__FILE__, 3) . "/vendor/autoload.php";
 
 use HMS\Classes\DbConnect;
 use HMS\Classes\Rooms;
 
-$db= new DbConnect;
-$conn=$db->DbConnection();
-$rooms=new Rooms($conn);
+$db = new DbConnect;
+$conn = $db->DbConnection();
+$rooms = new Rooms($conn);
 
-$subcategories= $rooms->get_all_subcategories();
+$subcategories = $rooms->get_all_subcategories();
 
 ?>
 <div class="row" id="basic-table">
@@ -35,14 +35,14 @@ $subcategories= $rooms->get_all_subcategories();
                         </tr>
                     </thead>
                     <tbody>
-                        <?php 
-                        $i=1;
-                        foreach($subcategories as $category){
+                        <?php
+                        $i = 1;
+                        foreach ($subcategories as $category) {
                             echo '<tr>
                             <td>
-                                <span class="font-weight-bold">'.$i.'</span>
+                                <span class="font-weight-bold">' . $i . '</span>
                             </td>
-                            <td class="font-weight-bold">'.$category["name"].'</td>
+                            <td class="font-weight-bold">' . $category["name"] . '</td>
                             <td>
                                 <div class="dropdown">
                                     <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
@@ -50,8 +50,10 @@ $subcategories= $rooms->get_all_subcategories();
                                     </button>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="javascript:void(0);">
-                                            <i data-feather="edit-2" class="mr-50"></i>
-                                            <span>Edit</span>
+                                            <button type="button" class="btn btn-outline-primary btnedit" data-toggle="modal" data-target="#inlineForm">
+                                                <i data-feather="edit-2" class="mr-50"></i>
+                                                <span>Edit</span>
+                                            </button>
                                         </a>
                                         <a class="dropdown-item" href="javascript:void(0);">
                                             <i data-feather="trash" class="mr-50"></i>
@@ -61,12 +63,38 @@ $subcategories= $rooms->get_all_subcategories();
                                 </div>
                             </td>
                         </tr>';
-                        $i++;
+                            $i++;
                         }
                         ?>
                     </tbody>
                 </table>
             </div>
+        </div>
+    </div>
+</div>
+<!-- Basic Tables end -->
+<!-- Modal -->
+<div class="modal fade text-left" id="inlineForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel33">Edit SubCategory</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="#" id="editcate">
+                <div class="modal-body">
+                    <label>SubCategory Name: </label>
+                    <div class="form-group">
+                        <input type="text" placeholder="SubCategory Name" name="editnamesubcat" class="form-control subcategory-name" />
+                    </div>
+                </div>
+                <input type="hidden" name="subcatid" class="roomsubcatid">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="editsubcatname">Save Changes</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
