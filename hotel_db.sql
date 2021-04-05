@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 02, 2021 at 01:29 PM
+-- Generation Time: Apr 05, 2021 at 01:14 PM
 -- Server version: 10.5.8-MariaDB
 -- PHP Version: 7.4.6
 
@@ -127,10 +127,9 @@ CREATE TABLE `hms_rooms_categories` (
 --
 
 INSERT INTO `hms_rooms_categories` (`rcid`, `category_name`, `created_at`) VALUES
-(1, 'Room 5 sTAR', '2021-04-01 11:26:00'),
 (2, 'Super Delux', '2021-04-02 10:07:24'),
 (3, 'Delux', '2021-04-02 12:09:01'),
-(4, 'Room 5 sTAR New', '2021-04-02 12:11:15'),
+(4, 'Room 5 Star', '2021-04-02 12:11:15'),
 (5, 'Room 5 sTAR New', '2021-04-02 12:11:48');
 
 -- --------------------------------------------------------
@@ -150,9 +149,11 @@ CREATE TABLE `hms_rooms_subcategories` (
 --
 
 INSERT INTO `hms_rooms_subcategories` (`subcatid`, `name`, `created_at`) VALUES
-(1, 'Room 5 sTAR', '2021-04-01 11:53:35'),
-(2, 'Single', '2021-04-02 12:16:03'),
-(3, 'Delux', '2021-04-02 12:16:26');
+(3, 'Delux', '2021-04-02 12:16:26'),
+(4, 'Super Delux', '2021-04-05 16:47:35'),
+(5, 'Delux', '2021-04-05 16:59:20'),
+(7, 'Super Delux', '2021-04-05 17:00:59'),
+(8, 'Single', '2021-04-05 17:01:40');
 
 -- --------------------------------------------------------
 
@@ -274,7 +275,7 @@ ALTER TABLE `hms_rooms_categories`
 -- AUTO_INCREMENT for table `hms_rooms_subcategories`
 --
 ALTER TABLE `hms_rooms_subcategories`
-  MODIFY `subcatid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `subcatid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `hms_users`
