@@ -97,16 +97,42 @@ session_start();
                                 <div class="card-body">
                                     <form class="form" id="package">
                                         <div class="row">
-                                            <div class="col-md-6 col-12">
+                                        <div class="col-md-6 col-12">
                                                 <div class="form-group">
-                                                    <label for="package-name-column">Package Name</label>
-                                                    <input type="text" id="package-name-column" class="form-control" placeholder="Package Name" name="package_name" />
+                                                    <label for="categories">Category Name</label>
+                                                    <select class="form-control" id="categories" name="category">
+                                                        <option>Select Category</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-12">
                                                 <div class="form-group">
-                                                    <label for="pack-column">Package Description</label>
-                                                    <textarea id="pack-column" class="form-control" placeholder="Package Description" name="package_desc" ></textarea>
+                                                    <label for="subcategory">SubCategory Name</label>
+                                                    <select class="form-control" id="subcategory" name="subcategory">
+                                                        <option>Select SubCategory</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-12">
+                                                <div class="form-group">
+                                                    <label for="package">Package:</label>
+                                                    <select class="form-control" id="package" name="package">
+                                                        <option value="room-only">Room Only</option>
+                                                        <option value="breakfast">Breakfast</option>
+                                                        <option value="without-breakfast">Without Breakfast</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-12">
+                                                <div class="form-group">
+                                                    <label for="price">Price</label>
+                                                    <input type="text" class="form-control" id="price" aria-describedby="roomno" placeholder="Price" name="price" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-12">
+                                                <div class="form-group">
+                                                    <label for="extrabed">Extra Bed Price</label>
+                                                    <input type="text" class="form-control" id="extrabed" aria-describedby="extrabed" placeholder="Extra Bed Price" name="extrabed" />
                                                 </div>
                                             </div>
                                             <div class="col-12">
@@ -154,6 +180,7 @@ session_start();
     <script src="assets/js/core/app-menu.js"></script>
     <script src="assets/js/core/app.js"></script>
     <!-- END: Theme JS-->
+    <script src="assets/js/scripts/pages/fetcher.js"></script>
     <script src="assets/js/scripts/pages/addpackage.js"></script>
 
     <!-- BEGIN: Page JS-->
@@ -168,6 +195,12 @@ session_start();
                 });
             }
         })
+    </script>
+        <script>
+        $(document).ready(function() {
+            getallcategories();
+            getallsubcategories();
+        });
     </script>
 </body>
 <!-- END: Body-->

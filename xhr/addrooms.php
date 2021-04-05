@@ -22,15 +22,7 @@ $roomid = $_POST["roomsid"];
 $category = $_POST["category"];
 $subcategory = $_POST["subcategory"];
 
-if ($rooms->add_rooms($category, $subcategory)) {
-    foreach ($subrooms as $subroom) {
-        $roomno = $subroom["roomno"];
-        $bedtype = $subroom["bedtype"];
-
-        if (!$rooms->add_subrooms($roomid, $roomno, $bedtype)) {
-            echo json_encode(array("status" => 400, "msg" => "Rooms Creation Failed Please Try Again."));
-        }
-    }
+if ($rooms->add_rooms($category, $subcategory,$roomno)) {
     echo json_encode(array("status" => 200, "msg" => "New Rooms Added Successfully"));
 } else {
     echo json_encode(array("status" => 400, "msg" => "Rooms Creation Failed Please Try Again."));

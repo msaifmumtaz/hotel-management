@@ -1,6 +1,5 @@
 <?php
 session_start();
-require dirname(__FILE__, 3) . "/app-assets/includes/getlastroom.php";
 ?>
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
@@ -99,12 +98,6 @@ require dirname(__FILE__, 3) . "/app-assets/includes/getlastroom.php";
                                         <div class="row">
                                             <div class="col-md-6 col-12">
                                                 <div class="form-group">
-                                                    <label for="Roomsid-column">Rooms ID</label>
-                                                    <input type="text" id="Roomsid-column" class="form-control" name="roomsid" value="<?php echo $room_id;?>" onkeyup="false" readonly/>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
                                                     <label for="categories">Category Name</label>
                                                     <select class="form-control" id="categories" name="category">
                                                         <option>Select Category</option>
@@ -127,18 +120,6 @@ require dirname(__FILE__, 3) . "/app-assets/includes/getlastroom.php";
                                                                 <div class="form-group">
                                                                     <label for="roomno">Room No</label>
                                                                     <input type="text" class="form-control" id="roomno" aria-describedby="roomno" placeholder="Room No" name="roomno" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-4 col-12">
-                                                                <div class="form-group">
-                                                                    <label for="beddingtype">Bedding Type</label>
-                                                                    <select name="bedtype" id="beddingtype" class="form-control" aria-describedby="beddingtype">
-                                                                        <option value="single">Single</option>
-                                                                        <option value="double">Double</option>
-                                                                        <option value="triple">Triple</option>
-                                                                        <option value="Quad">Quad</option>
-                                                                        <option value="None">None</option>
-                                                                    </select>
                                                                 </div>
                                                             </div>
 
