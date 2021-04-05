@@ -87,7 +87,7 @@ class Rooms
     {
         $cid = Security::hms_int_only($rcid);
         $stmt = $this->conn->prepare("DELETE FROM hms_rooms_categories where rcid=:rcid");
-        if ($stmt->execute(["cid" => $rcid])) {
+        if ($stmt->execute(["rcid" => $rcid])) {
             return true;
         } else {
             return false;

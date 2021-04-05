@@ -152,22 +152,36 @@ session_start();
     <!-- END: Theme JS-->
     <script src="assets/js/scripts/pages/addcategory.js"></script>
     <script src="assets/js/scripts/pages/editcategory.js"></script>
+    <script src="assets/js/scripts/pages/deletecategory.js"></script>
 
     <!-- BEGIN: Page JS-->
     <!-- END: Page JS-->
     <script>
-    $(function () {
-        $(".btnedit").click(function () {
-            //get data from table row
-            var catname= $(this).parent().parent().parent().parent().prev().text();
-            var categid= $(this).parent().parent().parent().parent().prev().prev().children().text();
-            //assign to value for input box inside modal
-            $(".category-name").val(catname);
-            $(".roomcatid").val(categid)
+        $(function() {
+            $(".btnedit").click(function() {
+                //get data from table row
+                var catname = $(this).parent().parent().parent().parent().prev().text();
+                var categid = $(this).parent().parent().parent().parent().prev().prev().children().text();
+                //assign to value for input box inside modal
+                $(".category-name").val(catname);
+                $(".roomcatid").val(categid)
 
+            })
         })
-    })
-</script>
+    </script>
+    <script>
+        $(function() {
+            $(".btndelete").click(function() {
+                //get data from table row
+                var delcatname = $(this).parent().parent().parent().parent().prev().text();
+                var delcategid = $(this).parent().parent().parent().parent().prev().prev().children().text();
+                //assign to value for input box inside modal
+                $(".delcategory-name").text(delcatname);
+                $(".delroomcatid").val(delcategid)
+
+            })
+        })
+    </script>
     <script>
         $(window).on('load', function() {
             if (feather) {

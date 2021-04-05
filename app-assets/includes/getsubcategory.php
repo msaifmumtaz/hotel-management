@@ -36,11 +36,10 @@ $subcategories = $rooms->get_all_subcategories();
                     </thead>
                     <tbody>
                         <?php
-                        $i = 1;
                         foreach ($subcategories as $category) {
                             echo '<tr>
                             <td>
-                                <span class="font-weight-bold">' . $i . '</span>
+                                <span class="font-weight-bold">' . $category["subcatid"] . '</span>
                             </td>
                             <td class="font-weight-bold">' . $category["name"] . '</td>
                             <td>
@@ -56,14 +55,15 @@ $subcategories = $rooms->get_all_subcategories();
                                             </button>
                                         </a>
                                         <a class="dropdown-item" href="javascript:void(0);">
-                                            <i data-feather="trash" class="mr-50"></i>
-                                            <span>Delete</span>
+                                            <button type="button" class="btn btn-outline-danger btndelete" data-toggle="modal" data-target="#DeleteForm">
+                                                <i data-feather="trash" class="mr-50"></i>
+                                                <span>Delete</span>
+                                            </button>
                                         </a>
                                     </div>
                                 </div>
                             </td>
                         </tr>';
-                            $i++;
                         }
                         ?>
                     </tbody>
@@ -93,6 +93,30 @@ $subcategories = $rooms->get_all_subcategories();
                 <input type="hidden" name="subcatid" class="roomsubcatid">
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="editsubcatname">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade text-left" id="DeleteForm" tabindex="-1" role="dialog" aria-labelledby="Delete" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="Delete">Delete SubCategory</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="#" id="deletesubcate">
+                <div class="modal-body">
+                    <label>Are you want to delete? </label>
+                    <div class="form-group">
+                        <p class="delsubcategory-name text-bold text-danger"></p>
+                    </div>
+                </div>
+                <input type="hidden" name="subcatid" class="delroomsubcatid">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="deletesubcatname">Delete</button>
                 </div>
             </form>
         </div>

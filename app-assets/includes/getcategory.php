@@ -56,8 +56,10 @@ $categories = $rooms->get_room_categories();
                                             </button>
                                         </a>
                                         <a class="dropdown-item" href="javascript:void(0);">
-                                            <i data-feather="trash" class="mr-50"></i>
-                                            <span>Delete</span>
+                                            <button type="button" class="btn btn-outline-danger btndelete" data-toggle="modal" data-target="#DeleteForm">
+                                                <i data-feather="trash" class="mr-50"></i>
+                                                <span>Delete</span>
+                                            </button>
                                         </a>
                                     </div>
                                 </div>
@@ -72,29 +74,53 @@ $categories = $rooms->get_room_categories();
         </div>
     </div>
 </div>
-    <!-- Modal -->
-    <div class="modal fade text-left" id="inlineForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel33">Edit Category</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="#" id="editcate">
-                    <div class="modal-body">
-                        <label>Category Name: </label>
-                        <div class="form-group">
-                            <input type="text" placeholder="Category Name" name="editnamecat" class="form-control category-name"/>
-                        </div>
-                    </div>
-                    <input type="hidden" name="rcid" class="roomcatid">
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="editcatname">Save Changes</button>
-                    </div>
-                </form>
+<!-- Modal -->
+<div class="modal fade text-left" id="inlineForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel33">Edit Category</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
+            <form action="#" id="editcate">
+                <div class="modal-body">
+                    <label>Category Name: </label>
+                    <div class="form-group">
+                        <input type="text" placeholder="Category Name" name="editnamecat" class="form-control category-name" />
+                    </div>
+                </div>
+                <input type="hidden" name="rcid" class="roomcatid">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="editcatname">Save Changes</button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
+<div class="modal fade text-left" id="DeleteForm" tabindex="-1" role="dialog" aria-labelledby="Delete" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="Delete">Delete Category</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="#" id="deletecate">
+                <div class="modal-body">
+                    <label>Are you want to delete? </label>
+                    <div class="form-group">
+                        <p class="delcategory-name text-bold text-danger"></p>
+                    </div>
+                </div>
+                <input type="hidden" name="rcid" class="delroomcatid">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="deletecatname">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <!-- Basic Tables end -->
