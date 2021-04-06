@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 05, 2021 at 01:14 PM
+-- Generation Time: Apr 06, 2021 at 01:09 PM
 -- Server version: 10.5.8-MariaDB
 -- PHP Version: 7.4.6
 
@@ -40,7 +40,7 @@ CREATE TABLE `hms_booking` (
   `id_card_type` varchar(50) NOT NULL,
   `country` varchar(25) NOT NULL,
   `room_no` varchar(50) NOT NULL,
-  `pack_id` int(150) NOT NULL,
+  `pack_name` varchar(150) NOT NULL,
   `no_of_guests` int(10) NOT NULL,
   `check_in` varchar(100) NOT NULL,
   `check_out` varchar(100) NOT NULL,
@@ -90,10 +90,18 @@ CREATE TABLE `hms_packages` (
   `pack_id` int(11) NOT NULL,
   `catid` int(11) NOT NULL,
   `subcatid` int(11) NOT NULL,
+  `pack_name` varchar(200) NOT NULL,
   `extra_bed` varchar(50) NOT NULL,
   `price` varchar(50) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `hms_packages`
+--
+
+INSERT INTO `hms_packages` (`pack_id`, `catid`, `subcatid`, `pack_name`, `extra_bed`, `price`, `created_at`) VALUES
+(4, 2, 5, 'breakfast', '800', '600', '2021-04-06 12:46:51');
 
 -- --------------------------------------------------------
 
@@ -109,6 +117,17 @@ CREATE TABLE `hms_rooms` (
   `status` varchar(20) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `hms_rooms`
+--
+
+INSERT INTO `hms_rooms` (`rid`, `category_id`, `subcategory_id`, `room_no`, `status`, `created_at`) VALUES
+(3, 2, 8, 502, 'available', '2021-04-06 10:37:46'),
+(4, 2, 8, 451, 'available', '2021-04-06 10:37:46'),
+(9, 2, 3, 708, 'available', '2021-04-06 13:08:19'),
+(10, 2, 3, 709, 'available', '2021-04-06 13:08:19'),
+(11, 2, 3, 710, 'available', '2021-04-06 13:08:19');
 
 -- --------------------------------------------------------
 
@@ -189,8 +208,7 @@ INSERT INTO `hms_users` (`uid`, `username`, `email`, `full_name`, `phone_no`, `p
 -- Indexes for table `hms_booking`
 --
 ALTER TABLE `hms_booking`
-  ADD PRIMARY KEY (`bookid`),
-  ADD KEY `pack_id` (`pack_id`);
+  ADD PRIMARY KEY (`bookid`);
 
 --
 -- Indexes for table `hms_customers`
@@ -257,13 +275,13 @@ ALTER TABLE `hms_customers`
 -- AUTO_INCREMENT for table `hms_packages`
 --
 ALTER TABLE `hms_packages`
-  MODIFY `pack_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `pack_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `hms_rooms`
 --
 ALTER TABLE `hms_rooms`
-  MODIFY `rid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `rid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `hms_rooms_categories`
@@ -286,12 +304,6 @@ ALTER TABLE `hms_users`
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `hms_booking`
---
-ALTER TABLE `hms_booking`
-  ADD CONSTRAINT `hms_booking_ibfk_2` FOREIGN KEY (`pack_id`) REFERENCES `hms_packages` (`pack_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `hms_packages`
