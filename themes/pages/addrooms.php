@@ -113,7 +113,7 @@ session_start();
                                                 </div>
                                             </div>
                                             <div class="repeater-default w-100 p-1">
-                                                <div data-repeater-list="subrooms">
+                                                <div data-repeater-list="roomsno">
                                                     <div data-repeater-item>
                                                         <div class="row d-flex align-items-end">
                                                             <div class="col-md-6 col-12">
@@ -155,6 +155,9 @@ session_start();
                         </div>
                     </div>
                 </section>
+                <?php
+                require dirname(__FILE__, 3) . "/app-assets/includes/getrooms.php";
+                ?>
                 <!-- Basic Floating Label Form section end -->
 
             </div>

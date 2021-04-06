@@ -24,9 +24,6 @@ var HmsAddRooms = (function () {
           },
           roomno:{
             required:true
-          },
-          bedtype:{
-            required:true
           }
         }
       });
@@ -46,7 +43,7 @@ var HmsAddRooms = (function () {
               "type": "success",
               "confirmButtonClass": "btn btn-success"
             });
-            setTimeout(function(){ window.location = "/admin/dashboard"; }, 4000);
+            setTimeout(function(){ window.location.reload(); }, 2000);
           } else {
 
             swal.fire({

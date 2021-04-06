@@ -16,10 +16,14 @@ $db = new DbConnect;
 $conn = $db->DbConnection();
 $rooms = new Rooms($conn);
 
-$packagename = $_POST["package_name"];
-$packagedesc = $_POST["package_desc"];
+$category = $_POST["category"];
+$subcategory = $_POST["subcategory"];
+$packagename = $_POST["package"];
+$price = $_POST["price"];
+$extrabed = $_POST["extrabed"];
 
-if (!$rooms->add_package($packagename,$packagedesc)) {
+
+if (!$rooms->add_package($category,$subcategory,$packagename,$extrabed,$price)) {
     echo json_encode(array("status" => 400, "msg" => "Package Creation Failed Please Try Again."));
 } else {
     echo json_encode(array("status" => 200, "msg" => "New Package added  Successfully"));

@@ -16,10 +16,13 @@ var HmsAddPackage = (function () {
 
       form.validate({
         rules: {
-          package_name: {
+          package: {
             required: true
           },
-          package_desc:{
+          price:{
+            required:true
+          },
+          extrabed:{
             required:true
           }
         }
@@ -40,7 +43,7 @@ var HmsAddPackage = (function () {
               "type": "success",
               "confirmButtonClass": "btn btn-success"
             });
-            setTimeout(function(){ window.location = "/admin/dashboard"; }, 4000);
+            setTimeout(function(){ window.location.reload(); }, 2000);
           } else {
 
             swal.fire({

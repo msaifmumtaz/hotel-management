@@ -146,6 +146,9 @@ session_start();
                         </div>
                     </div>
                 </section>
+                <?php
+                require dirname(__FILE__, 3) . "/app-assets/includes/getpackages.php";
+                ?>
                 <!-- Basic Floating Label Form section end -->
 
             </div>

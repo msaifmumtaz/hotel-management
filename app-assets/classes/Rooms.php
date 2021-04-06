@@ -242,6 +242,25 @@ class Rooms
             return false;
         }
     }
+
+    public function get_rooms($category_id,$subcategory_id){
+        $category_id = Security::hms_secure($category_id);
+        $subcategory_id = Security::hms_secure($subcategory_id);
+        $stmt=$this->conn->prepare("SELECT * FROM hms_rooms where category_id=:category_id and subcategory_id=:subcategory_id");
+        $stmt->execute(["category_id" => $category_id,"subcategory_id" => $subcategory_id]);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $rooms = $stmt->fetchAll();
+        $room_nos="";
+        foreach($rooms as $room){
+            $room_nos.=$room["room_no"].", ";
+        }
+        $room_nos=rtrim($room_nos, ', ');
+        if ($room_nos) {
+            return $room_nos;
+        } else {
+            return false;
+        }
+    }
     /**
      * Get Last Room ID
      */
@@ -299,19 +318,21 @@ class Rooms
      * Add Package
      */
 
-    public function add_package($catid, $subcatid, $extra_bed, $price)
+    public function add_package($catid, $subcatid, $pack_name,$extra_bed, $price)
     {
         $catid = Security::hms_secure($catid);
         $subcatid = Security::hms_secure($subcatid);
         $extra_bed = Security::hms_secure($extra_bed);
         $price = Security::hms_secure($price);
+        $pack_name = Security::hms_secure($pack_name);
 
-        $stmt = $this->conn->prepare("INSERT into hms_packages (catid,subcatid,extra_bed,price) VALUES(:catid,:subcatid,:extra_bed,:price)");
+        $stmt = $this->conn->prepare("INSERT into hms_packages (catid,subcatid,pack_name,extra_bed,price) VALUES(:catid,:subcatid,:pack_name,:extra_bed,:price)");
         $data = [
             "catid" => $catid,
             "subcatid" => $subcatid,
             "extra_bed" => $extra_bed,
-            "price" => $price
+            "price" => $price,
+            "pack_name"=>$pack_name
         ];
 
         if ($stmt->execute($data)) {
@@ -324,19 +345,21 @@ class Rooms
      * Update Package
      */
 
-    public function update_package($catid, $subcatid, $extra_bed, $price, $pack_id)
+    public function update_package($catid, $subcatid, $pack_name,$extra_bed, $price, $pack_id)
     {
         $catid = Security::hms_secure($catid);
         $subcatid = Security::hms_secure($subcatid);
         $extra_bed = Security::hms_secure($extra_bed);
         $price = Security::hms_secure($price);
+        $pack_name = Security::hms_secure($pack_name);
         $pack_id = Security::hms_int_only($pack_id);
-        $stmt = $this->conn->prepare("UPDATE hms_packages set catid=:catid,subcatid=:subcatid,extra_bed=:extra_bed,price=:price where pack_id=:pack_id");
+        $stmt = $this->conn->prepare("UPDATE hms_packages set catid=:catid,subcatid=:subcatid,pack_name=:pack_name,extra_bed=:extra_bed,price=:price where pack_id=:pack_id");
         $data = [
             "catid" => $catid,
             "subcatid" => $subcatid,
             "extra_bed" => $extra_bed,
             "price" => $price,
+            "pack_name"=>$pack_name,
             "pack_id" => $pack_id
         ];
 

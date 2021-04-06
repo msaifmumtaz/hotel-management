@@ -17,12 +17,19 @@ $db = new DbConnect;
 $conn = $db->DbConnection();
 $rooms = new Rooms($conn);
 
-$subrooms = $_POST["subrooms"];
-$roomid = $_POST["roomsid"];
+$roomsno = $_POST["roomsno"];
 $category = $_POST["category"];
 $subcategory = $_POST["subcategory"];
 
-if ($rooms->add_rooms($category, $subcategory,$roomno)) {
+$error = "";
+foreach ($roomsno as $roomdata) {
+    $roomno = $roomdata["roomno"];
+    if(!$rooms->add_rooms($category, $subcategory, $roomno)){
+        $error="Room creation failed";
+    }
+}
+
+if ($error = "" || empty($error)) {
     echo json_encode(array("status" => 200, "msg" => "New Rooms Added Successfully"));
 } else {
     echo json_encode(array("status" => 400, "msg" => "Rooms Creation Failed Please Try Again."));
