@@ -243,18 +243,19 @@ class Rooms
         }
     }
 
-    public function get_rooms($category_id,$subcategory_id){
+    public function get_rooms($category_id, $subcategory_id)
+    {
         $category_id = Security::hms_secure($category_id);
         $subcategory_id = Security::hms_secure($subcategory_id);
-        $stmt=$this->conn->prepare("SELECT * FROM hms_rooms where category_id=:category_id and subcategory_id=:subcategory_id");
-        $stmt->execute(["category_id" => $category_id,"subcategory_id" => $subcategory_id]);
+        $stmt = $this->conn->prepare("SELECT * FROM hms_rooms where category_id=:category_id and subcategory_id=:subcategory_id");
+        $stmt->execute(["category_id" => $category_id, "subcategory_id" => $subcategory_id]);
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $rooms = $stmt->fetchAll();
-        $room_nos="";
-        foreach($rooms as $room){
-            $room_nos.=$room["room_no"].", ";
+        $room_nos = "";
+        foreach ($rooms as $room) {
+            $room_nos .= $room["room_no"] . ", ";
         }
-        $room_nos=rtrim($room_nos, ', ');
+        $room_nos = rtrim($room_nos, ', ');
         if ($room_nos) {
             return $room_nos;
         } else {
@@ -276,14 +277,30 @@ class Rooms
         }
     }
     /** Get Available Rooms */
-    public function get_avail_room($status)
+    public function get_avail_rooms($check_in,$check_out,$category_id,$subcategory_id)
     {
-        $status = Security::hms_int_only($status);
-        $stmt = $this->conn->prepare("SELECT * from hms_rooms where status=:status");
-        $stmt->execute(["status" => $status]);
-        if ($stmt->rowCount() > 0) {
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $row;
+        $check_in = Security::hms_secure($check_in);
+        $check_out = Security::hms_secure($check_out);
+        $category_id=Security::hms_secure($category_id);
+        $subcategory_id=Security::hms_secure($subcategory_id);
+
+        $stmt = $this->conn->prepare("SELECT *
+        FROM hms_rooms
+        WHERE room_no NOT IN (
+           SELECT DISTINCT room_no
+           FROM hms_booking
+           WHERE check_in <= :check_in AND check_out >= :check_out) AND category_id=:category_id AND subcategory_id=:subcategory_id");
+           $data=[
+                "check_in"=>$check_in,
+                "check_out"=>$check_out,
+                "category_id"=>$category_id,
+                "subcategory_id"=>$subcategory_id
+           ];
+        $stmt->execute($data);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $rooms = $stmt->fetchAll();
+        if ($rooms) {
+            return $rooms;
         } else {
             return false;
         }
@@ -292,9 +309,9 @@ class Rooms
     public function book_room($room_no)
     {
         $room_no = Security::hms_secure($room_no);
-        $status="booked";
+        $status = "booked";
         $stmt = $this->conn->prepare("SELECT * from hms_rooms set status=:status where room_no=:room_no");
-        if ($stmt->execute(["status" => $status,"room_no"=>$room_no])) {
+        if ($stmt->execute(["status" => $status, "room_no" => $room_no])) {
             return true;
         } else {
             return false;
@@ -314,22 +331,22 @@ class Rooms
             return false;
         }
     }
-    public function delete_rooms($category_id,$subcategory_id){
+    public function delete_rooms($category_id, $subcategory_id)
+    {
         $category_id = Security::hms_secure($category_id);
         $subcategory_id = Security::hms_secure($subcategory_id);
-        $stmt=$this->conn->prepare("DELETE FROM hms_rooms where category_id=:category_id and subcategory_id=:subcategory_id");
-        if($stmt->execute(["category_id" => $category_id,"subcategory_id" => $subcategory_id])){
+        $stmt = $this->conn->prepare("DELETE FROM hms_rooms where category_id=:category_id and subcategory_id=:subcategory_id");
+        if ($stmt->execute(["category_id" => $category_id, "subcategory_id" => $subcategory_id])) {
             return true;
-        }else{
+        } else {
             return false;
         }
-
     }
     /**
      * Add Package
      */
 
-    public function add_package($catid, $subcatid, $pack_name,$extra_bed, $price)
+    public function add_package($catid, $subcatid, $pack_name, $extra_bed, $price)
     {
         $catid = Security::hms_secure($catid);
         $subcatid = Security::hms_secure($subcatid);
@@ -343,7 +360,7 @@ class Rooms
             "subcatid" => $subcatid,
             "extra_bed" => $extra_bed,
             "price" => $price,
-            "pack_name"=>$pack_name
+            "pack_name" => $pack_name
         ];
 
         if ($stmt->execute($data)) {
@@ -356,7 +373,7 @@ class Rooms
      * Update Package
      */
 
-    public function update_package($catid, $subcatid, $pack_name,$extra_bed, $price, $pack_id)
+    public function update_package($catid, $subcatid, $pack_name, $extra_bed, $price, $pack_id)
     {
         $catid = Security::hms_secure($catid);
         $subcatid = Security::hms_secure($subcatid);
@@ -370,7 +387,7 @@ class Rooms
             "subcatid" => $subcatid,
             "extra_bed" => $extra_bed,
             "price" => $price,
-            "pack_name"=>$pack_name,
+            "pack_name" => $pack_name,
             "pack_id" => $pack_id
         ];
 
@@ -381,11 +398,13 @@ class Rooms
         }
     }
     /** Get Package */
-    public function get_package($pack_id)
+    public function get_package($pack_name,$catid,$subcatid)
     {
-        $pack_id = Security::hms_int_only($pack_id);
-        $stmt = $this->conn->prepare("SELECT * FROM hms_packages where pack_id=:pack_id");
-        $stmt->execute(["pack_id" => $pack_id]);
+        $pack_name = Security::hms_secure($pack_name);
+        $catid = Security::hms_secure($catid);
+        $subcatid = Security::hms_secure($subcatid);
+        $stmt = $this->conn->prepare("SELECT * FROM hms_packages where pack_name=:pack_name and catid=:catid and subcatid=:subcatid Limit 1");
+        $stmt->execute(["pack_name" => $pack_name,"catid"=>$catid,"subcatid"=>$subcatid]);
         $package = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($package > 0) {
             return $package;

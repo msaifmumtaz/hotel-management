@@ -71,14 +71,14 @@ session_start();
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">Customers</h2>
+                            <h2 class="content-header-title float-left mb-0">Booking</h2>
                             <div class="breadcrumb-wrapper">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="index.html">Dashboard</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="#">Customers</a>
+                                    <li class="breadcrumb-item"><a href="#">Booking</a>
                                     </li>
-                                    <li class="breadcrumb-item active"><a href="#">Add Customer</a>
+                                    <li class="breadcrumb-item active"><a href="#">Add Booking</a>
                                     </li>
                                 </ol>
                             </div>
@@ -101,10 +101,10 @@ session_start();
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Add Customer</h4>
+                                    <h4 class="card-title">Add Booking</h4>
                                 </div>
                                 <div class="card-body">
-                                    <form class="form">
+                                    <form class="form" id="bookForm">
                                         <div class="row">
                                             <div class="col-md-6 col-12">
                                                 <div class="form-group">
@@ -170,8 +170,56 @@ session_start();
                                                     <input type="text" id="checkout-date-time" name="checkout" class="form-control flatpickr-date-time" placeholder="YYYY-MM-DD HH:MM" />
                                                 </div>
                                             </div>
+                                            <div class="col-md-4 col-12">
+                                                <div class="form-group">
+                                                    <label for="categories">Category Name</label>
+                                                    <select class="form-control" id="categories" name="category">
+                                                        <option>Select Category</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-12">
+                                                <div class="form-group">
+                                                    <label for="subcategory">SubCategory Name</label>
+                                                    <select class="form-control" id="subcategory" name="subcategory">
+                                                        <option>Select SubCategory</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-12">
+                                                <div class="form-group">
+                                                    <label for="availroms">Available Rooms</label>
+                                                    <select class="form-control" id="availroms" name="room_no">
+                                                        <option>Select Avialable Rooms</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-12">
+                                                <div class="form-group">
+                                                    <label for="package">Package</label>
+                                                    <select class="form-control" id="package" name="package">
+                                                        <option value="room-only">Room Only</option>
+                                                        <option value="breakfast">Breakfast</option>
+                                                        <option value="without-breakfast">Without Breakfast</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-12">
+                                                <div class="form-group">
+                                                    <label for="price">Price</label>
+                                                    <input type="text" id="price" class="form-control" placeholder="Price" name="price" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-12">
+                                                <div class="form-group">
+                                                    <label for="extrabed">Extra Bed</label>
+                                                    <select class="form-control" id="extrabed" name="extrabed">
+                                                        <option>Yes</option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                             <div class="col-12">
-                                                <button type="reset" class="btn btn-primary mr-1">Submit</button>
+                                                <button type="reset" class="btn btn-primary mr-1">Add Booking</button>
                                                 <button type="reset" class="btn btn-outline-secondary">Reset</button>
                                             </div>
                                         </div>
@@ -217,6 +265,9 @@ session_start();
     <!-- BEGIN: Theme JS-->
     <script src="assets/js/core/app-menu.js"></script>
     <script src="assets/js/core/app.js"></script>
+    <script src="assets/js/scripts/pages/fetcher.js"></script>
+    <script src="assets/js/scripts/pages/getavailrooms.js"></script>
+    <script src="assets/js/scripts/pages/getpackage.js"></script>
     <script src="assets/js/scripts/forms/pickers/form-pickers.js"></script>
 
     <!-- END: Theme JS-->
@@ -233,6 +284,12 @@ session_start();
                 });
             }
         })
+    </script>
+    <script>
+        $(document).ready(function() {
+            getallcategories();
+            getallsubcategories();
+        });
     </script>
 </body>
 <!-- END: Body-->
