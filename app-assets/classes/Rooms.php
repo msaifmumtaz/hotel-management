@@ -314,6 +314,17 @@ class Rooms
             return false;
         }
     }
+    public function delete_rooms($category_id,$subcategory_id){
+        $category_id = Security::hms_secure($category_id);
+        $subcategory_id = Security::hms_secure($subcategory_id);
+        $stmt=$this->conn->prepare("DELETE FROM hms_rooms where category_id=:category_id and subcategory_id=:subcategory_id");
+        if($stmt->execute(["category_id" => $category_id,"subcategory_id" => $subcategory_id])){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
     /**
      * Add Package
      */

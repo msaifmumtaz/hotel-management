@@ -197,6 +197,7 @@ session_start();
     <script src="assets/js/scripts/forms/form-repeater.js"></script>
     <script src="assets/js/scripts/pages/fetcher.js"></script>
     <script src="assets/js/scripts/pages/addrooms.js"></script>
+    <script src="assets/js/scripts/pages/deleterooms.js"></script>
 
     <!-- BEGIN: Page JS-->
     <!-- END: Page JS-->

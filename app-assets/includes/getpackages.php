@@ -53,6 +53,7 @@ function searchcatename($catid, $catearray) {
                             <th>Package</th>
                             <th>Price</th>
                             <th>Extra Bed Price</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -68,6 +69,15 @@ function searchcatename($catid, $catearray) {
                             <td class="font-weight-bold">' . $package["pack_name"]. '</td>
                             <td class="font-weight-bold">' . $package["price"] . '</td>
                             <td class="font-weight-bold">' . $package["extra_bed"] . '</td>
+                            <td>
+                            <form id="delpackage">
+                            <input type="hidden" value="'.$package["pack_id"].'" name="pack_id">
+                            <button type="button" class="btn btn-outline-danger btndelete" id="deletepackage">
+                                <i data-feather="trash" class="mr-50"></i>
+                                <span>Delete</span>
+                            </button>
+                            </form>
+                            </td>
                         </tr>';
                             $i++;
                         }

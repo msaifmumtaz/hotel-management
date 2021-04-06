@@ -185,6 +185,7 @@ session_start();
     <!-- END: Theme JS-->
     <script src="assets/js/scripts/pages/fetcher.js"></script>
     <script src="assets/js/scripts/pages/addpackage.js"></script>
+    <script src="assets/js/scripts/pages/deletepackage.js"></script>
 
     <!-- BEGIN: Page JS-->
     <!-- END: Page JS-->

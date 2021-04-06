@@ -25,7 +25,7 @@ foreach ($categories as $category) {
         $subcatename = $subcategory["name"];
         $d1 = $rooms->get_rooms($category["rcid"], $subcategory["subcatid"]);
         if (!empty($d1) || $d1 != "") {
-            $d2 = array("cate_name" => $catename, "subcate_name" => $subcatename, "rooms_no" => $d1);
+            $d2 = array("cate_name" => $catename, "subcate_name" => $subcatename, "rooms_no" => $d1,"catid"=>$category["rcid"],"subcatid"=>$subcategory["subcatid"]);
             $data[] = $d2;
         }
     }
@@ -45,6 +45,7 @@ foreach ($categories as $category) {
                             <th>Category Name</th>
                             <th>SubCategory Name</th>
                             <th>Room No</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,6 +59,16 @@ foreach ($categories as $category) {
                             <td>' . $roomdata["cate_name"] . '</td>
                             <td>' . $roomdata["subcate_name"] . '</td>
                             <td class="font-weight-bold text-success">' . $roomdata["rooms_no"] . '</td>
+                            <td>
+                            <form id="delroom">
+                            <input type="hidden" value="'.$roomdata["catid"].'" name="catid">
+                            <input type="hidden" value="'.$roomdata["subcatid"].'" name="subcatid">
+                            <button type="button" class="btn btn-outline-danger btndelete" id="deleterooms">
+                                <i data-feather="trash" class="mr-50"></i>
+                                <span>Delete</span>
+                            </button>
+                            </form>
+                            </td>
                         </tr>';
                             $i++;
                         }
