@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 06, 2021 at 01:09 PM
+-- Generation Time: Apr 07, 2021 at 09:41 AM
 -- Server version: 10.5.8-MariaDB
 -- PHP Version: 7.4.6
 
@@ -39,7 +39,10 @@ CREATE TABLE `hms_booking` (
   `id_card` varchar(50) NOT NULL,
   `id_card_type` varchar(50) NOT NULL,
   `country` varchar(25) NOT NULL,
+  `catid` int(50) NOT NULL,
+  `subcatid` int(50) NOT NULL,
   `room_no` varchar(50) NOT NULL,
+  `extra_bed` varchar(50) NOT NULL,
   `pack_name` varchar(150) NOT NULL,
   `no_of_guests` int(10) NOT NULL,
   `check_in` varchar(100) NOT NULL,
@@ -50,6 +53,13 @@ CREATE TABLE `hms_booking` (
   `status` varchar(10) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `hms_booking`
+--
+
+INSERT INTO `hms_booking` (`bookid`, `customer_no`, `first_name`, `last_name`, `address`, `email`, `phone_no`, `id_card`, `id_card_type`, `country`, `catid`, `subcatid`, `room_no`, `extra_bed`, `pack_name`, `no_of_guests`, `check_in`, `check_out`, `total_payment`, `paid`, `payment_method`, `status`, `created_at`) VALUES
+(1, 'b3c298d8', 'Muhammad', 'Saif', 'Mian Channu', 'ch.saif109@gmail.com', '+923082355746', '3520478963542', 'CNIC', 'Pakistan', 1, 1, '101', '400', 'Room Only', 2, '2021-04-07 12:00', '2021-04-09 14:00', '1000', '1000', 'Cash', 'booked', '2021-04-07 12:27:05');
 
 -- --------------------------------------------------------
 
@@ -72,14 +82,6 @@ CREATE TABLE `hms_customers` (
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `hms_customers`
---
-
-INSERT INTO `hms_customers` (`cid`, `customer_no`, `first_name`, `last_name`, `address`, `email`, `phone_no`, `id_card`, `id_card_type`, `country`, `created_at`, `updated_at`) VALUES
-(1, 'aeb44fa4384c', 'mUHAMMD', 'DHFDDS', 'sdfsfdsfdsaf', 'sds@dfd.com', '03082533134', '3315457454', 'admin', 'pakis', '2021-03-31 18:07:34', '2021-03-31 18:07:34'),
-(2, '495eba8a', 'Muhammad', 'Saif', 'Mian Channu', 'm.saifmumtaz@gmail.com', '03082355748', '3520478963542', 'admin', 'Pakistan', '2021-03-31 18:12:38', '2021-03-31 18:12:38');
-
 -- --------------------------------------------------------
 
 --
@@ -101,7 +103,9 @@ CREATE TABLE `hms_packages` (
 --
 
 INSERT INTO `hms_packages` (`pack_id`, `catid`, `subcatid`, `pack_name`, `extra_bed`, `price`, `created_at`) VALUES
-(4, 2, 5, 'breakfast', '800', '600', '2021-04-06 12:46:51');
+(5, 1, 1, 'Room Only', '400', '600', '2021-04-07 14:27:04'),
+(6, 1, 1, 'Breakfast Only', '800', '600', '2021-04-07 14:27:14'),
+(7, 1, 1, 'Breakfast, Lunch &amp; Dinner', '800', '1500', '2021-04-07 14:27:24');
 
 -- --------------------------------------------------------
 
@@ -123,11 +127,10 @@ CREATE TABLE `hms_rooms` (
 --
 
 INSERT INTO `hms_rooms` (`rid`, `category_id`, `subcategory_id`, `room_no`, `status`, `created_at`) VALUES
-(3, 2, 8, 502, 'available', '2021-04-06 10:37:46'),
-(4, 2, 8, 451, 'available', '2021-04-06 10:37:46'),
-(9, 2, 3, 708, 'available', '2021-04-06 13:08:19'),
-(10, 2, 3, 709, 'available', '2021-04-06 13:08:19'),
-(11, 2, 3, 710, 'available', '2021-04-06 13:08:19');
+(1, 1, 1, 101, 'available', '2021-04-07 09:59:33'),
+(2, 1, 1, 102, 'available', '2021-04-07 09:59:33'),
+(3, 1, 1, 103, 'available', '2021-04-07 09:59:33'),
+(4, 1, 1, 104, 'available', '2021-04-07 09:59:33');
 
 -- --------------------------------------------------------
 
@@ -146,10 +149,9 @@ CREATE TABLE `hms_rooms_categories` (
 --
 
 INSERT INTO `hms_rooms_categories` (`rcid`, `category_name`, `created_at`) VALUES
-(2, 'Super Delux', '2021-04-02 10:07:24'),
-(3, 'Delux', '2021-04-02 12:09:01'),
-(4, 'Room 5 Star', '2021-04-02 12:11:15'),
-(5, 'Room 5 sTAR New', '2021-04-02 12:11:48');
+(1, 'Delux', '2021-04-07 09:55:48'),
+(2, 'Standard', '2021-04-07 09:56:06'),
+(3, 'Super Delux', '2021-04-07 09:56:13');
 
 -- --------------------------------------------------------
 
@@ -168,11 +170,10 @@ CREATE TABLE `hms_rooms_subcategories` (
 --
 
 INSERT INTO `hms_rooms_subcategories` (`subcatid`, `name`, `created_at`) VALUES
-(3, 'Delux', '2021-04-02 12:16:26'),
-(4, 'Super Delux', '2021-04-05 16:47:35'),
-(5, 'Delux', '2021-04-05 16:59:20'),
-(7, 'Super Delux', '2021-04-05 17:00:59'),
-(8, 'Single', '2021-04-05 17:01:40');
+(1, 'Single Bed', '2021-04-07 09:56:28'),
+(2, 'Double Bed', '2021-04-07 09:57:05'),
+(3, 'Triple Bed', '2021-04-07 09:57:19'),
+(4, 'Quad Bed', '2021-04-07 09:57:31');
 
 -- --------------------------------------------------------
 
@@ -263,37 +264,37 @@ ALTER TABLE `hms_users`
 -- AUTO_INCREMENT for table `hms_booking`
 --
 ALTER TABLE `hms_booking`
-  MODIFY `bookid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `bookid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `hms_customers`
 --
 ALTER TABLE `hms_customers`
-  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `hms_packages`
 --
 ALTER TABLE `hms_packages`
-  MODIFY `pack_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `pack_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `hms_rooms`
 --
 ALTER TABLE `hms_rooms`
-  MODIFY `rid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `rid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `hms_rooms_categories`
 --
 ALTER TABLE `hms_rooms_categories`
-  MODIFY `rcid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `rcid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `hms_rooms_subcategories`
 --
 ALTER TABLE `hms_rooms_subcategories`
-  MODIFY `subcatid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `subcatid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `hms_users`
