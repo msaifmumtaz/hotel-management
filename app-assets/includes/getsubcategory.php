@@ -36,8 +36,9 @@ $subcategories = $rooms->get_all_subcategories();
                     </thead>
                     <tbody>
                         <?php
-                        foreach ($subcategories as $category) {
-                            echo '<tr>
+                        if ($subcategories) {
+                            foreach ($subcategories as $category) {
+                                echo '<tr>
                             <td>
                                 <span class="font-weight-bold">' . $category["subcatid"] . '</span>
                             </td>
@@ -64,6 +65,9 @@ $subcategories = $rooms->get_all_subcategories();
                                 </div>
                             </td>
                         </tr>';
+                            }
+                        } else {
+                            echo "<tr><td class='p-1'> No subcategories Found.</td><tr>";
                         }
                         ?>
                     </tbody>

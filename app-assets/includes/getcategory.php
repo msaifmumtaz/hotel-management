@@ -36,9 +36,10 @@ $categories = $rooms->get_room_categories();
                     </thead>
                     <tbody>
                         <?php
-                        $i = 1;
-                        foreach ($categories as $category) {
-                            echo '<tr>
+                        if ($categories) {
+                            $i = 1;
+                            foreach ($categories as $category) {
+                                echo '<tr>
                             <td>
                                 <span class="font-weight-bold">' . $category["rcid"] . '</span>
                             </td>
@@ -65,7 +66,10 @@ $categories = $rooms->get_room_categories();
                                 </div>
                             </td>
                         </tr>';
-                            $i++;
+                                $i++;
+                            }
+                        } else {
+                            echo "<tr><td class='p-1'> No categories Found.</td><tr>";
                         }
                         ?>
                     </tbody>

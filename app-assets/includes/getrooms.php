@@ -19,14 +19,16 @@ $rooms = new Rooms($conn);
 $categories = $rooms->get_room_categories();
 $subcategories = $rooms->get_all_subcategories();
 $data = array();
-foreach ($categories as $category) {
-    $catename = $category["category_name"];
-    foreach ($subcategories as $subcategory) {
-        $subcatename = $subcategory["name"];
-        $d1 = $rooms->get_rooms($category["rcid"], $subcategory["subcatid"]);
-        if (!empty($d1) || $d1 != "") {
-            $d2 = array("cate_name" => $catename, "subcate_name" => $subcatename, "rooms_no" => $d1,"catid"=>$category["rcid"],"subcatid"=>$subcategory["subcatid"]);
-            $data[] = $d2;
+if ($categories & $subcategories) {
+    foreach ($categories as $category) {
+        $catename = $category["category_name"];
+        foreach ($subcategories as $subcategory) {
+            $subcatename = $subcategory["name"];
+            $d1 = $rooms->get_rooms($category["rcid"], $subcategory["subcatid"]);
+            if (!empty($d1) || $d1 != "") {
+                $d2 = array("cate_name" => $catename, "subcate_name" => $subcatename, "rooms_no" => $d1, "catid" => $category["rcid"], "subcatid" => $subcategory["subcatid"]);
+                $data[] = $d2;
+            }
         }
     }
 }
@@ -50,19 +52,20 @@ foreach ($categories as $category) {
                     </thead>
                     <tbody>
                         <?php
-                        $i = 1;
-                        foreach ($data as $roomdata) {
-                            echo '<tr>
+                        if ($data) {
+                            $i = 1;
+                            foreach ($data as $roomdata) {
+                                echo '<tr>
                             <td>
-                                <span class="font-weight-bold">' . $i. '</span>
+                                <span class="font-weight-bold">' . $i . '</span>
                             </td>
                             <td>' . $roomdata["cate_name"] . '</td>
                             <td>' . $roomdata["subcate_name"] . '</td>
                             <td class="font-weight-bold text-success">' . $roomdata["rooms_no"] . '</td>
                             <td>
                             <form id="delroom">
-                            <input type="hidden" value="'.$roomdata["catid"].'" name="catid">
-                            <input type="hidden" value="'.$roomdata["subcatid"].'" name="subcatid">
+                            <input type="hidden" value="' . $roomdata["catid"] . '" name="catid">
+                            <input type="hidden" value="' . $roomdata["subcatid"] . '" name="subcatid">
                             <button type="button" class="btn btn-outline-danger btndelete" id="deleterooms">
                                 <i data-feather="trash" class="mr-50"></i>
                                 <span>Delete</span>
@@ -70,7 +73,10 @@ foreach ($categories as $category) {
                             </form>
                             </td>
                         </tr>';
-                            $i++;
+                                $i++;
+                            }
+                        } else {
+                            echo "<tr><td class='p-1'> No Rooms Found.</td><tr>";
                         }
                         ?>
                     </tbody>

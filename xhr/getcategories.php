@@ -18,7 +18,10 @@ $conn = $db->DbConnection();
 $rooms = new Rooms($conn);
 
 $categories = $rooms->get_room_categories();
-
-foreach ($categories as $category) {
-    echo '<option value="' . $category["rcid"] . '">' . $category["category_name"] . '</option>';
+if ($categories) {
+    foreach ($categories as $category) {
+        echo '<option value="' . $category["rcid"] . '">' . $category["category_name"] . '</option>';
+    }
+} else {
+    echo '<option>No Categories Found</option>';
 }
