@@ -1,16 +1,31 @@
+<?php
+session_start();
+require dirname(__FILE__, 3) . "/app-assets/includes/getbookingdata.php";
+use HMS\Classes\Company;
+
+$company=new Company;
+
+if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+
+}else{
+    header("location: /auth/login");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 <!-- BEGIN: Head-->
 
 <head>
-    <base href="../themes/">
+    <base href="../../themes/">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
-    <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
-    <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
-    <meta name="author" content="PIXINVENT">
-    <title>Invoice Print - Vuexy - Bootstrap HTML admin template</title>
+    <meta name="description" content="Book your hotel room Today.">
+    <meta name="keywords" content="Hotel Management System">
+    <meta name="author" content="saifcodes">
+    <title>Print Booking</title>
     <link rel="apple-touch-icon" href="assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
@@ -78,21 +93,17 @@
                                         </g>
                                     </g>
                                 </svg>
-                                <h3 class="text-primary font-weight-bold ml-1">Vuexy</h3>
+                                <h3 class="text-primary font-weight-bold ml-1"><?php echo $company->companyname()?></h3>
                             </div>
-                            <p class="mb-25">Office 149, 450 South Brand Brooklyn</p>
-                            <p class="mb-25">San Diego County, CA 91905, USA</p>
-                            <p class="mb-0">+1 (123) 456 7891, +44 (876) 543 2198</p>
+                            <p class="mb-25"><?php echo $company->companyaddress()?></p>
+                            <p class="mb-25"><?php echo $company->companyemail()?></p>
+                            <p class="mb-0"><?php echo $company->companyphone()?></p>
                         </div>
                         <div class="mt-md-0 mt-2">
-                            <h4 class="font-weight-bold text-right mb-1">INVOICE #3492</h4>
+                            <h4 class="font-weight-bold text-right mb-1">BOOKING NO #<?php echo $bookingdata["bookid"]?></h4>
                             <div class="invoice-date-wrapper mb-50">
                                 <span class="invoice-date-title">Date Issued:</span>
-                                <span class="font-weight-bold"> 25/08/2020</span>
-                            </div>
-                            <div class="invoice-date-wrapper">
-                                <span class="invoice-date-title">Due Date:</span>
-                                <span class="font-weight-bold">29/08/2020</span>
+                                <span class="font-weight-bold"> <?php echo $bookingdata["created_at"]?></span>
                             </div>
                         </div>
                     </div>
@@ -102,35 +113,31 @@
                     <div class="row pb-2">
                         <div class="col-sm-6">
                             <h6 class="mb-1">Invoice To:</h6>
-                            <p class="mb-25">Thomas shelby</p>
-                            <p class="mb-25">Shelby Company Limited</p>
-                            <p class="mb-25">Small Heath, B10 0HF, UK</p>
-                            <p class="mb-25">718-986-6062</p>
-                            <p class="mb-0">peakyFBlinders@gmail.com</p>
+                            <p class="mb-25"><?php echo $bookingdata["first_name"]." ".$bookingdata["last_name"]?></p>
+                            <p class="mb-25"><?php echo $bookingdata["address"]?></p>
+                            <p class="mb-25"><?php echo $bookingdata["country"]?></p>
+                            <p class="mb-25"><?php echo $bookingdata["email"]?></p>
+                            <p class="mb-25"><?php echo $bookingdata["phone_no"]?></p>
                         </div>
                         <div class="col-sm-6 mt-sm-0 mt-2">
                             <h6 class="mb-1">Payment Details:</h6>
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td class="pr-1">Total Due:</td>
-                                        <td><strong>$12,110.55</strong></td>
+                                        <td class="pr-1">Total Payment:</td>
+                                        <td><strong><?php echo $bookingdata["total_payment"]?></strong></td>
                                     </tr>
                                     <tr>
-                                        <td class="pr-1">Bank name:</td>
-                                        <td>American Bank</td>
+                                        <td class="pr-1">Paid:</td>
+                                        <td><?php echo $bookingdata["paid"]?></td>
                                     </tr>
                                     <tr>
-                                        <td class="pr-1">Country:</td>
-                                        <td>United States</td>
+                                        <td class="pr-1">Payment Method:</td>
+                                        <td><?php echo $bookingdata["payment_method"]?></td>
                                     </tr>
                                     <tr>
-                                        <td class="pr-1">IBAN:</td>
-                                        <td>ETD95476213874685</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="pr-1">SWIFT code:</td>
-                                        <td>BR91905</td>
+                                        <td class="pr-1">Remaining Payment:</td>
+                                        <td><?php echo $bookingdata["total_payment"]-$bookingdata["paid"]?></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -141,43 +148,29 @@
                         <table class="table m-0">
                             <thead>
                                 <tr>
-                                    <th class="py-1 pl-4">Task description</th>
-                                    <th class="py-1">Rate</th>
-                                    <th class="py-1">Hours</th>
-                                    <th class="py-1">Total</th>
+                                    <th class="py-1">Sr . No</th>
+                                    <th class="py-1">Room Category</th>
+                                    <th class="py-1">Room SubCategory</th>
+                                    <th class="py-1">Room No</th>
+                                    <th class="py-1">Package</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="py-1 pl-4">
-                                        <p class="font-weight-semibold mb-25">Native App Development</p>
-                                        <p class="text-muted text-nowrap">
-                                            Developed a full stack native app using React Native, Bootstrap & Python
-                                        </p>
+                                    <td class="py-1">
+                                        <strong>1</strong>
                                     </td>
                                     <td class="py-1">
-                                        <strong>$60.00</strong>
+                                        <strong><?php echo $bookingdata["cate_name"]?></strong>
                                     </td>
                                     <td class="py-1">
-                                        <strong>30</strong>
+                                        <strong><?php echo $bookingdata["subcate_name"]?></strong>
                                     </td>
                                     <td class="py-1">
-                                        <strong>$1,800.00</strong>
-                                    </td>
-                                </tr>
-                                <tr class="border-bottom">
-                                    <td class="py-1 pl-4">
-                                        <p class="font-weight-semibold mb-25">Ui Kit Design</p>
-                                        <p class="text-muted text-nowrap">Designed a UI kit for native app using Sketch, Figma & Adobe XD</p>
+                                        <strong><?php echo $bookingdata["room_no"]?></strong>
                                     </td>
                                     <td class="py-1">
-                                        <strong>$60.00</strong>
-                                    </td>
-                                    <td class="py-1">
-                                        <strong>20</strong>
-                                    </td>
-                                    <td class="py-1">
-                                        <strong>$1200.00</strong>
+                                        <strong><?php echo $bookingdata["pack_name"]?></strong>
                                     </td>
                                 </tr>
                             </tbody>
@@ -187,29 +180,8 @@
                     <div class="row invoice-sales-total-wrapper mt-3">
                         <div class="col-md-6 order-md-1 order-2 mt-md-0 mt-3">
                             <p class="card-text mb-0">
-                                <span class="font-weight-bold">Salesperson:</span> <span class="ml-75">Alfie Solomons</span>
+                                <span class="font-weight-bold">Salesperson:</span> <span class="ml-75"><?php echo $_SESSION["full_name"]?></span>
                             </p>
-                        </div>
-                        <div class="col-md-6 d-flex justify-content-end order-md-2 order-1">
-                            <div class="invoice-total-wrapper">
-                                <div class="invoice-total-item">
-                                    <p class="invoice-total-title">Subtotal:</p>
-                                    <p class="invoice-total-amount">$1800</p>
-                                </div>
-                                <div class="invoice-total-item">
-                                    <p class="invoice-total-title">Discount:</p>
-                                    <p class="invoice-total-amount">$28</p>
-                                </div>
-                                <div class="invoice-total-item">
-                                    <p class="invoice-total-title">Tax:</p>
-                                    <p class="invoice-total-amount">21%</p>
-                                </div>
-                                <hr class="my-50" />
-                                <div class="invoice-total-item">
-                                    <p class="invoice-total-title">Total:</p>
-                                    <p class="invoice-total-amount">$1690</p>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
@@ -218,8 +190,8 @@
                     <div class="row">
                         <div class="col-12">
                             <span class="font-weight-bold">Note:</span>
-                            <span>It was a pleasure working with you and your team. We hope you will keep us in mind for future freelance
-                                projects. Thank You!</span>
+                            <span>We hope you will enjoy your stay
+                                at <?php echo $company->companyname()?>. Thank You!</span>
                         </div>
                     </div>
                 </div>

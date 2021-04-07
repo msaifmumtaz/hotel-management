@@ -6,16 +6,19 @@
   Author: PIXINVENT
   Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
-var HmsAddCustomer = (function () {
+var HmsAddBooking = (function () {
 
-  var handleAddCustomerFormSubmit = function () {
-    $("#addcustomer").click(function (e) {
+  var handleAddBookingFormSubmit = function () {
+    $("#addbooking").click(function (e) {
+
       e.preventDefault();
+      $('.flatpickr-mobile').removeAttr("step");
       var btn = $(this);
       var form = $(this).closest("form");
-
       form.validate({
         rules: {
+          checkin:{required: true},
+          checkout:{required: true},
           fname: {
             required: true
           },
@@ -38,14 +41,36 @@ var HmsAddCustomer = (function () {
           country: {
             required:true,
           },
+          guests:{
+            required:true,
+          },
+          room_no:{
+            required:true,
+          },
+          price:{
+            required:true,
+          },
+          extrabed:{
+            required:true,
+          },
+          totalpayment:{
+            required:true,
+          },
+          paymentmethod:{
+            required:true,
+          },
+          paid:{
+            required:true
+          }
         }
       });
+      $('[name="checkin"]').rules('remove', 'step');
 
       if (!form.valid()) {
         return;
       }
       form.ajaxSubmit({
-        url: "../xhr/addcustomer.php",
+        url: "../xhr/addbooking.php",
         type: 'post',
         success: function (response, status, xhr, $form) {
           var data = JSON.parse(response);
@@ -56,7 +81,7 @@ var HmsAddCustomer = (function () {
               "type": "success",
               "confirmButtonClass": "btn btn-success"
             });
-            setTimeout(function(){ window.location = "/admin/dashboard"; }, 4000);
+            setTimeout(function(){ window.location.reload(); }, 2000);
           } else {
 
             swal.fire({
@@ -82,12 +107,12 @@ var HmsAddCustomer = (function () {
   return {
     // public functions
     init: function () {
-      handleAddCustomerFormSubmit();
+      handleAddBookingFormSubmit();
     }
   };
 })();
 
 // Class Initialization
 jQuery(document).ready(function () {
-  HmsAddCustomer.init();
+  HmsAddBooking.init();
 });

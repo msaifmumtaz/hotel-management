@@ -34,7 +34,7 @@
         <div class="shadow-bottom"></div>
         <div class="main-menu-content">
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class=" <?php if(basename($_SERVER["PHP_SELF"])=="dashboard.php"){echo "active";}else{ echo "nav-item";}?>"><a class="d-flex align-items-center" href="index.html"><i data-feather="home"></i><span class="menu-title text-truncate" data-i18n="Dashboard">Dashboard</span></a>
+                <li class=" <?php if(basename($_SERVER["PHP_SELF"])=="dashboard.php"){echo "active";}else{ echo "nav-item";}?>"><a class="d-flex align-items-center" href="/admin/dashboard"><i data-feather="home"></i><span class="menu-title text-truncate" data-i18n="Dashboard">Dashboard</span></a>
                 </li>
                 <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Booking &amp; Menu</span><i data-feather="more-horizontal"></i>
                 </li>

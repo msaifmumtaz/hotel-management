@@ -6,7 +6,7 @@ RewriteRule ^auth/register$ themes/pages/register.php [NC,QSA]
 RewriteRule ^admin/dashboard$ themes/pages/dashboard.php [NC,QSA]
 RewriteRule ^room/booking$ themes/pages/booking.php [NC,QSA]
 RewriteRule ^booking/view$ themes/pages/viewbooking.php [NC,QSA]
-RewriteRule ^booking/print$ themes/pages/printbooking.php [NC,QSA]
+RewriteRule ^booking/print/(.*)$ themes/pages/printbooking.php?book_id=$1 [NC,QSA]
 
 RewriteRule ^user/addcustomer$ themes/pages/addcustomer.php [NC,QSA]
 RewriteRule ^room/addcategory$ themes/pages/addroomcategory.php [NC,QSA]

@@ -43,7 +43,7 @@ function searchsubcatename($subcatid, $subcatearray)
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">All Rooms</h4>
+                <h4 class="card-title">All Packages</h4>
             </div>
             <div class="table-responsive">
                 <table class="table">
@@ -73,7 +73,7 @@ function searchsubcatename($subcatid, $subcatearray)
                             <td class="font-weight-bold">' . $package["price"] . '</td>
                             <td class="font-weight-bold">' . $package["extra_bed"] . '</td>
                             <td>
-                            <form id="delpackage">
+                            <form>
                             <input type="hidden" value="' . $package["pack_id"] . '" name="pack_id">
                             <button type="button" class="btn btn-outline-danger btndelete" id="deletepackage">
                                 <i data-feather="trash" class="mr-50"></i>

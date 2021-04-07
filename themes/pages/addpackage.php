@@ -117,9 +117,14 @@ session_start();
                                                 <div class="form-group">
                                                     <label for="package">Package:</label>
                                                     <select class="form-control" id="package" name="package">
-                                                        <option value="room-only">Room Only</option>
-                                                        <option value="breakfast">Breakfast</option>
-                                                        <option value="without-breakfast">Without Breakfast</option>
+                                                        <option value="Room Only">Room Only</option>
+                                                        <option value="Breakfast Only">Breakfast Only</option>
+                                                        <option value="Lunch Only">Lunch Only</option>
+                                                        <option value="Dinner Only">Dinner Only</option>
+                                                        <option value="Breakfast & Dinner">Breakfast & Dinner</option>
+                                                        <option value="Breakfast & Lunch">Breakfast & Lunch</option>
+                                                        <option value="Lunch & Dinner">Lunch & Dinner</option>
+                                                        <option value="Breakfast, Lunch & Dinner">Breakfast, Lunch & Dinner</option>
                                                     </select>
                                                 </div>
                                             </div>

@@ -1,5 +1,12 @@
 <?php
 session_start();
+
+if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+
+}else{
+    header("location: /auth/login");
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
@@ -139,7 +146,7 @@ session_start();
                                             <div class="col-md-6 col-12">
                                                 <div class="form-group">
                                                     <label for="country-floating">Country</label>
-                                                    <input type="text" id="country-floating" class="form-control" name="country-floating" placeholder="Country" />
+                                                    <input type="text" id="country-floating" class="form-control" name="country" placeholder="Country" />
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-12">
@@ -152,16 +159,16 @@ session_start();
                                                 <div class="form-group">
                                                     <label for="idtype">ID Type</label>
                                                     <select class="form-control" id="idtype" name="id_type">
-                                                        <option value="admin" selected>CNIC</option>
-                                                        <option value="booker">Passport</option>
-                                                        <option value="customer">Audhar Card</option>
+                                                        <option value="CNIC" selected>CNIC</option>
+                                                        <option value="Passport">Passport</option>
+                                                        <option value="Audhar Card">Audhar Card</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-12">
                                                 <div class="form-group">
                                                     <label for="fp-date-time">Check In Date & Time</label>
-                                                    <input type="text" id="fp-date-time" name="checkin" class="form-control flatpickr-date-time" placeholder="YYYY-MM-DD HH:MM" />
+                                                    <input type="text" id="fp-date-time" name="checkin" data-input="saif" class="form-control flatpickr-date-time" placeholder="YYYY-MM-DD HH:MM" />
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-12">
@@ -198,9 +205,14 @@ session_start();
                                                 <div class="form-group">
                                                     <label for="package">Package</label>
                                                     <select class="form-control" id="package" name="package">
-                                                        <option value="room-only">Room Only</option>
-                                                        <option value="breakfast">Breakfast</option>
-                                                        <option value="without-breakfast">Without Breakfast</option>
+                                                        <option value="Room Only">Room Only</option>
+                                                        <option value="Breakfast Only">Breakfast Only</option>
+                                                        <option value="Lunch Only">Lunch Only</option>
+                                                        <option value="Dinner Only">Dinner Only</option>
+                                                        <option value="Breakfast & Dinner">Breakfast & Dinner</option>
+                                                        <option value="Breakfast & Lunch">Breakfast & Lunch</option>
+                                                        <option value="Lunch & Dinner">Lunch & Dinner</option>
+                                                        <option value="Breakfast, Lunch & Dinner">Breakfast, Lunch & Dinner</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -218,8 +230,37 @@ session_start();
                                                     </select>
                                                 </div>
                                             </div>
+                                            <div class="col-md-4 col-12">
+                                                <div class="form-group">
+                                                    <label for="guests">No of Guests</label>
+                                                    <input type="text" id="guests" name="guests" class="form-control" placeholder="No of Guests" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-12">
+                                                <div class="form-group">
+                                                    <label for="total-payment">Total Payment</label>
+                                                    <input type="text" id="total-payment" name="totalpayment" class="form-control" placeholder="Total Payment" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-12">
+                                                <div class="form-group">
+                                                    <label for="paid">Paid</label>
+                                                    <input type="text" id="paid" name="paid" class="form-control" placeholder="Paid" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-12">
+                                                <div class="form-group">
+                                                    <label for="payment-method">Payment Method</label>
+                                                    <select class="form-control" name="paymentmethod" id="payment-method">
+                                                        <option value="Cash" selected>Cash</option>
+                                                        <option value="Card">Debit/Credit Card</option>
+                                                        <option value="Paytm">Paytm</option>
+                                                        <option value="Paypal">PayPal</option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                             <div class="col-12">
-                                                <button type="reset" class="btn btn-primary mr-1">Add Booking</button>
+                                                <button class="btn btn-primary mr-1" id="addbooking">Add Booking</button>
                                                 <button type="reset" class="btn btn-outline-secondary">Reset</button>
                                             </div>
                                         </div>
@@ -229,6 +270,9 @@ session_start();
                         </div>
                     </div>
                 </section>
+                <?php
+                require dirname(__FILE__, 3) . "/app-assets/includes/getbooking.php";
+                ?>
                 <!-- Basic Floating Label Form section end -->
 
             </div>
@@ -268,13 +312,13 @@ session_start();
     <script src="assets/js/scripts/pages/fetcher.js"></script>
     <script src="assets/js/scripts/pages/getavailrooms.js"></script>
     <script src="assets/js/scripts/pages/getpackage.js"></script>
+    <script src="assets/js/scripts/pages/addbooking.js"></script>
     <script src="assets/js/scripts/forms/pickers/form-pickers.js"></script>
 
     <!-- END: Theme JS-->
 
     <!-- BEGIN: Page JS-->
     <!-- END: Page JS-->
-
     <script>
         $(window).on('load', function() {
             if (feather) {

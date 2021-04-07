@@ -21,7 +21,7 @@ class Booking
         $this->conn = $conn;
     }
     // Add New Booking
-    public function add_booking($customer_no, $first_name, $last_name, $address, $phone_no, $email, $id_card, $id_card_type, $country, $room_no, $pack_name, $no_of_guests, $check_in, $check_out, $total_payment,$paid,$payment_method,$status = "booked")
+    public function add_booking($customer_no, $first_name, $last_name, $address, $phone_no, $email, $id_card, $id_card_type, $country, $catid, $subcatid, $room_no, $extra_bed, $pack_name, $no_of_guests, $check_in, $check_out, $total_payment, $paid, $payment_method, $status = "booked")
     {
         $customer_no = Security::hms_secure($customer_no);
         $first_name = Security::hms_secure($first_name);
@@ -33,7 +33,10 @@ class Booking
         $id_card_type = Security::hms_secure($id_card_type);
         $country = Security::hms_secure($country);
         $room_no = Security::hms_secure($room_no);
-        $pack_id = Security::hms_secure($pack_name);
+        $catid = Security::hms_secure($catid);
+        $subcatid = Security::hms_secure($subcatid);
+        $extra_bed = Security::hms_secure($extra_bed);
+        $pack_name = Security::hms_secure($pack_name);
         $no_of_guests = Security::hms_secure($no_of_guests);
         $check_in = Security::hms_secure($check_in);
         $check_out = Security::hms_secure($check_out);
@@ -41,7 +44,7 @@ class Booking
         $total_payment = Security::hms_secure($total_payment);
         $paid = Security::hms_secure($paid);
         $payment_method = Security::hms_secure($payment_method);
-        $stmt = $this->conn->prepare("INSERT INTO hms_booking (customer_no,first_name,last_name,address,email,phone_no,id_card,id_card_type,country,room_no,pack_name,no_of_guests,check_in,check_out,total_payment,paid,payment_method,status)VALUES(:customer_no,:first_name,:last_name,:address,:email,:phone_no,:id_card,:id_card_type,:country,:room_no,:pack_name,:no_of_guests,:check_in,:check_out,:total_payment,:paid,:payment_method,:status)");
+        $stmt = $this->conn->prepare("INSERT INTO hms_booking (customer_no,first_name,last_name,address,email,phone_no,id_card,id_card_type,country,catid,subcatid,room_no,extra_bed,pack_name,no_of_guests,check_in,check_out,total_payment,paid,payment_method,status)VALUES(:customer_no,:first_name,:last_name,:address,:email,:phone_no,:id_card,:id_card_type,:country,:catid,:subcatid,:room_no,:extra_bed,:pack_name,:no_of_guests,:check_in,:check_out,:total_payment,:paid,:payment_method,:status)");
         $data = [
             "customer_no" => $customer_no,
             "first_name" => $first_name,
@@ -52,14 +55,17 @@ class Booking
             "id_card" => $id_card,
             "id_card_type" => $id_card_type,
             "country" => $country,
+            "catid"=>$catid,
+            "subcatid"=>$subcatid,
             "room_no" => $room_no,
+            "extra_bed"=>$extra_bed,
             "pack_name" => $pack_name,
             "no_of_guests" => $no_of_guests,
             "check_in" => $check_in,
             "check_out" => $check_out,
-            "total_payment"=>$total_payment,
-            "paid"=>$paid,
-            "payment_method"=>$payment_method,
+            "total_payment" => $total_payment,
+            "paid" => $paid,
+            "payment_method" => $payment_method,
             "status" => $status,
         ];
         if ($stmt->execute($data)) {
@@ -68,7 +74,7 @@ class Booking
             return false;
         }
     }
-    public function update_booking($customer_no, $first_name, $last_name, $address, $phone_no, $email, $id_card, $id_card_type, $country, $room_no, $pack_id, $no_of_guests, $check_in, $check_out, $total_payment,$paid,$payment_method,$status,$bookid)
+    public function update_booking($customer_no, $first_name, $last_name, $address, $phone_no, $email, $id_card, $id_card_type, $country,  $catid, $subcatid, $room_no, $extra_bed, $pack_name, $no_of_guests, $check_in, $check_out, $total_payment, $paid, $payment_method, $status, $bookid)
     {
         $customer_no = Security::hms_secure($customer_no);
         $first_name = Security::hms_secure($first_name);
@@ -80,7 +86,10 @@ class Booking
         $id_card_type = Security::hms_secure($id_card_type);
         $country = Security::hms_secure($country);
         $room_no = Security::hms_secure($room_no);
-        $pack_id = Security::hms_secure($pack_id);
+        $catid = Security::hms_secure($catid);
+        $subcatid = Security::hms_secure($subcatid);
+        $extra_bed = Security::hms_secure($extra_bed);
+        $pack_name = Security::hms_secure($pack_name);
         $no_of_guests = Security::hms_secure($no_of_guests);
         $check_in = Security::hms_secure($check_in);
         $check_out = Security::hms_secure($check_out);
@@ -88,8 +97,8 @@ class Booking
         $total_payment = Security::hms_secure($total_payment);
         $paid = Security::hms_secure($paid);
         $payment_method = Security::hms_secure($payment_method);
-        $bookid=Security::hms_int_only($bookid);
-        $stmt = $this->conn->prepare("UPDATE hms_booking set customer_no=:customer_no,first_name=:first_name,last_name=:last_name,address=:address,email=:email,phone_no=:phone_no,id_card=:id_card,id_card_type=:id_card_type,country=:country,room_no=:room_no,pack_id=:pack_id,no_of_guests=:no_of_guests,check_in=:check_in,check_out=:check_out,total_payment=:total_payment,paid=:paid,payment_method=:payment_method,status=:status where bookid=:bookid");
+        $bookid = Security::hms_int_only($bookid);
+        $stmt = $this->conn->prepare("UPDATE hms_booking set customer_no=:customer_no,first_name=:first_name,last_name=:last_name,address=:address,email=:email,phone_no=:phone_no,id_card=:id_card,id_card_type=:id_card_type,country=:country,catid=:catid,subcatid=:subcatid,room_no=:room_no,extra_bed=:extra_bed,pack_name=:pack_name,no_of_guests=:no_of_guests,check_in=:check_in,check_out=:check_out,total_payment=:total_payment,paid=:paid,payment_method=:payment_method,status=:status where bookid=:bookid");
         $data = [
             "customer_no" => $customer_no,
             "first_name" => $first_name,
@@ -100,16 +109,19 @@ class Booking
             "id_card" => $id_card,
             "id_card_type" => $id_card_type,
             "country" => $country,
+            "catid"=>$catid,
+            "subcatid"=>$subcatid,
             "room_no" => $room_no,
-            "pack_id" => $pack_id,
+            "extra_bed"=>$extra_bed,
+            "pack_name" => $pack_name,
             "no_of_guests" => $no_of_guests,
             "check_in" => $check_in,
             "check_out" => $check_out,
-            "total_payment"=>$total_payment,
-            "paid"=>$paid,
-            "payment_method"=>$payment_method,
+            "total_payment" => $total_payment,
+            "paid" => $paid,
+            "payment_method" => $payment_method,
             "status" => $status,
-            "bookid"=>$bookid
+            "bookid" => $bookid
         ];
         if ($stmt->execute($data)) {
             return true;
