@@ -55,10 +55,10 @@ class Booking
             "id_card" => $id_card,
             "id_card_type" => $id_card_type,
             "country" => $country,
-            "catid"=>$catid,
-            "subcatid"=>$subcatid,
+            "catid" => $catid,
+            "subcatid" => $subcatid,
             "room_no" => $room_no,
-            "extra_bed"=>$extra_bed,
+            "extra_bed" => $extra_bed,
             "pack_name" => $pack_name,
             "no_of_guests" => $no_of_guests,
             "check_in" => $check_in,
@@ -109,10 +109,10 @@ class Booking
             "id_card" => $id_card,
             "id_card_type" => $id_card_type,
             "country" => $country,
-            "catid"=>$catid,
-            "subcatid"=>$subcatid,
+            "catid" => $catid,
+            "subcatid" => $subcatid,
             "room_no" => $room_no,
-            "extra_bed"=>$extra_bed,
+            "extra_bed" => $extra_bed,
             "pack_name" => $pack_name,
             "no_of_guests" => $no_of_guests,
             "check_in" => $check_in,
@@ -167,6 +167,58 @@ class Booking
         $stmt = $this->conn->prepare("DELETE FROM hms_booking where bookid=:bookid");
         if ($stmt->execute(["bookid" => $bookid])) {
             return true;
+        } else {
+            return false;
+        }
+    }
+    // Add Booking Packages
+    public function add_book_package($bookid, $package, $date)
+    {
+        $bookid = Security::hms_secure($bookid);
+        $package = Security::hms_secure($package);
+        $date = Security::hms_secure($date);
+
+        $stmt = $this->conn->prepare("INSERT into hms_book_package (bookid,package,date_time) VALUES(:bookid,:package,:date_time)");
+        $data = [
+            "bookid" => $bookid,
+            "package" => $package,
+            "date_time" => $date
+        ];
+        if ($stmt->execute($data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    // Edit Booking Package
+    public function update_book_package($bookid, $package, $date, $bpid)
+    {
+        $bookid = Security::hms_secure($bookid);
+        $package = Security::hms_secure($package);
+        $date = Security::hms_secure($date);
+
+        $stmt = $this->conn->prepare("UPDATE hms_book_package SET bookid=:bookid,package=:package,date_time=:date_time WHERE bpid=:bpid");
+        $data = [
+            "bookid" => $bookid,
+            "package" => $package,
+            "date_time" => $date,
+            "bpid" => $bpid
+        ];
+        if ($stmt->execute($data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    // Get All Booking Packages
+    public function get_all_bookings_package($bookid)
+    {
+        $stmt = $this->conn->prepare("SELECT * FROM hms_book_package WHERE bookid=:bookid");
+        $stmt->execute(["bookid"=>$bookid]);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $book_pack = $stmt->fetchAll();
+        if ($book_pack) {
+            return $book_pack;
         } else {
             return false;
         }

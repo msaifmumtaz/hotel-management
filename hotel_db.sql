@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 07, 2021 at 09:41 AM
+-- Generation Time: Apr 09, 2021 at 01:10 PM
 -- Server version: 10.5.8-MariaDB
 -- PHP Version: 7.4.6
 
@@ -60,6 +60,20 @@ CREATE TABLE `hms_booking` (
 
 INSERT INTO `hms_booking` (`bookid`, `customer_no`, `first_name`, `last_name`, `address`, `email`, `phone_no`, `id_card`, `id_card_type`, `country`, `catid`, `subcatid`, `room_no`, `extra_bed`, `pack_name`, `no_of_guests`, `check_in`, `check_out`, `total_payment`, `paid`, `payment_method`, `status`, `created_at`) VALUES
 (1, 'b3c298d8', 'Muhammad', 'Saif', 'Mian Channu', 'ch.saif109@gmail.com', '+923082355746', '3520478963542', 'CNIC', 'Pakistan', 1, 1, '101', '400', 'Room Only', 2, '2021-04-07 12:00', '2021-04-09 14:00', '1000', '1000', 'Cash', 'booked', '2021-04-07 12:27:05');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hms_book_package`
+--
+
+CREATE TABLE `hms_book_package` (
+  `bpid` int(11) NOT NULL,
+  `bookid` int(11) NOT NULL,
+  `package` varchar(150) NOT NULL,
+  `date_time` varchar(200) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -212,6 +226,12 @@ ALTER TABLE `hms_booking`
   ADD PRIMARY KEY (`bookid`);
 
 --
+-- Indexes for table `hms_book_package`
+--
+ALTER TABLE `hms_book_package`
+  ADD PRIMARY KEY (`bpid`);
+
+--
 -- Indexes for table `hms_customers`
 --
 ALTER TABLE `hms_customers`
@@ -265,6 +285,12 @@ ALTER TABLE `hms_users`
 --
 ALTER TABLE `hms_booking`
   MODIFY `bookid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `hms_book_package`
+--
+ALTER TABLE `hms_book_package`
+  MODIFY `bpid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `hms_customers`

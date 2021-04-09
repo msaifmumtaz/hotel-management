@@ -201,7 +201,12 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4 col-12">
+                                            <hr>
+                                            <div class="repeater-default w-100 p-1">
+                                                <div data-repeater-list="packages">
+                                                    <div data-repeater-item>
+                                                        <div class="row d-flex align-items-end">
+                                                        <div class="col-md-4 col-12">
                                                 <div class="form-group">
                                                     <label for="package">Package</label>
                                                     <select class="form-control" id="package" name="package">
@@ -228,6 +233,28 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
                                                     <select class="form-control" id="extrabed" name="extrabed">
                                                         <option>Yes</option>
                                                     </select>
+                                                </div>
+                                            </div>
+
+                                                            <div class="col-md-2 col-12">
+                                                                <div class="form-group">
+                                                                    <button class="btn btn-outline-danger text-nowrap px-1" data-repeater-delete type="button">
+                                                                        <i data-feather="x" class="mr-25"></i>
+                                                                        <span>Delete</span>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <hr />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-50">
+                                                    <div class="col-12">
+                                                        <button class="btn btn-icon btn-primary" type="button" data-repeater-create>
+                                                            <i data-feather="plus" class="mr-25"></i>
+                                                            <span>Add New</span>
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 col-12">
@@ -296,12 +323,15 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
     <script src="assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
     <script src="assets/vendors/js/jquery.form.min.js"></script>
     <script src="assets/vendors/js/forms/validation/jquery.validate.min.js"></script>
+    <script src="assets/vendors/js/forms/repeater/jquery.repeater.min.js"></script>
+
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
     <script src="assets/vendors/js/pickers/pickadate/picker.js"></script>
     <script src="assets/vendors/js/pickers/pickadate/picker.date.js"></script>
     <script src="assets/vendors/js/pickers/pickadate/picker.time.js"></script>
+    <script src="assets/js/scripts/forms/form-repeater.js"></script>
     <script src="assets/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
 
     <!-- END: Page Vendor JS-->
