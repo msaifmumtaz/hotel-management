@@ -218,14 +218,14 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                                                                     <label for="package">Package</label>
                                                                     <select class="form-control package" id="package" name="package" onchange="getPrices();">
                                                                         <option selected>Select Package</option>
-                                                                        <option value="Room Only">Room Only</option>
-                                                                        <option value="Breakfast Only">Breakfast Only</option>
-                                                                        <option value="Lunch Only">Lunch Only</option>
-                                                                        <option value="Dinner Only">Dinner Only</option>
-                                                                        <option value="Breakfast & Dinner">Breakfast & Dinner</option>
-                                                                        <option value="Breakfast & Lunch">Breakfast & Lunch</option>
-                                                                        <option value="Lunch & Dinner">Lunch & Dinner</option>
-                                                                        <option value="Breakfast, Lunch & Dinner">Breakfast, Lunch & Dinner</option>
+                                                                        <option value="room">Room Only</option>
+                                                                        <option value="breakfast">Breakfast Only</option>
+                                                                        <option value="lunch">Lunch Only</option>
+                                                                        <option value="dinner">Dinner Only</option>
+                                                                        <option value="breakfast,dinner">Breakfast & Dinner</option>
+                                                                        <option value="breakfast,lunch">Breakfast & Lunch</option>
+                                                                        <option value="lunch,dinner">Lunch & Dinner</option>
+                                                                        <option value="breakfast,lunch,dinner">Breakfast, Lunch & Dinner</option>
                                                                     </select>
                                                                 </div>
                                                             </div>

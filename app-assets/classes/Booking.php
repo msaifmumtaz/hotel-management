@@ -21,9 +21,9 @@ class Booking
         $this->conn = $conn;
     }
     // Add New Booking
-    public function add_booking($bookid,$customer_no, $first_name, $last_name, $address, $phone_no, $email, $id_card, $id_card_type, $country, $catid, $subcatid, $room_no, $no_of_guests, $check_in, $check_out, $total_payment, $paid, $payment_method, $status = "booked")
+    public function add_booking($bookid, $customer_no, $first_name, $last_name, $address, $phone_no, $email, $id_card, $id_card_type, $country, $catid, $subcatid, $room_no, $no_of_guests, $check_in, $check_out, $total_payment, $paid, $payment_method, $status = "booked")
     {
-        $bookid=Security::hms_int_only($bookid);
+        $bookid = Security::hms_int_only($bookid);
         $customer_no = Security::hms_secure($customer_no);
         $first_name = Security::hms_secure($first_name);
         $last_name = Security::hms_secure($last_name);
@@ -45,7 +45,7 @@ class Booking
         $payment_method = Security::hms_secure($payment_method);
         $stmt = $this->conn->prepare("INSERT INTO hms_booking (bookid,customer_no,first_name,last_name,address,email,phone_no,id_card,id_card_type,country,catid,subcatid,room_no,no_of_guests,check_in,check_out,total_payment,paid,payment_method,status)VALUES(:bookid,:customer_no,:first_name,:last_name,:address,:email,:phone_no,:id_card,:id_card_type,:country,:catid,:subcatid,:room_no,:no_of_guests,:check_in,:check_out,:total_payment,:paid,:payment_method,:status)");
         $data = [
-            "bookid"=>$bookid,
+            "bookid" => $bookid,
             "customer_no" => $customer_no,
             "first_name" => $first_name,
             "last_name" => $last_name,
@@ -178,18 +178,24 @@ class Booking
         }
     }
     // Add Booking Packages
-    public function add_book_package($bookid, $package,$extra_bed, $date)
+    public function add_book_package($bookid, $package, $extra_bed, $breakfast, $lunch, $dinner, $date)
     {
         $bookid = Security::hms_secure($bookid);
         $package = Security::hms_secure($package);
         $date = Security::hms_secure($date);
         $extra_bed = Security::hms_secure($extra_bed);
+        $breakfast = Security::hms_secure($breakfast);
+        $lunch = Security::hms_secure($lunch);
+        $dinner = Security::hms_secure($dinner);
 
-        $stmt = $this->conn->prepare("INSERT into hms_book_package (bookid,package,extra_bed,date_time) VALUES(:bookid,:package,:extra_bed,:date_time)");
+        $stmt = $this->conn->prepare("INSERT into hms_book_package (bookid,package,extra_bed,breakfast,lunch,dinner,date_time) VALUES(:bookid,:package,:extra_bed,:breakfast,:lunch,:dinner,:date_time)");
         $data = [
             "bookid" => $bookid,
             "package" => $package,
-            "extra_bed"=>$extra_bed,
+            "extra_bed" => $extra_bed,
+            "breakfast" => $breakfast,
+            "lunch" => $lunch,
+            "dinner" => $dinner,
             "date_time" => $date
         ];
         if ($stmt->execute($data)) {
@@ -199,18 +205,23 @@ class Booking
         }
     }
     // Edit Booking Package
-    public function update_book_package($bookid, $package,$extra_bed, $date, $bpid)
+    public function update_book_package($bookid, $package, $extra_bed,  $breakfast, $lunch, $dinner, $date, $bpid)
     {
         $bookid = Security::hms_secure($bookid);
         $package = Security::hms_secure($package);
         $date = Security::hms_secure($date);
         $extra_bed = Security::hms_secure($extra_bed);
-
-        $stmt = $this->conn->prepare("UPDATE hms_book_package SET bookid=:bookid,package=:package,extra_bed=:extra_bed,date_time=:date_time WHERE bpid=:bpid");
+        $breakfast = Security::hms_secure($breakfast);
+        $lunch = Security::hms_secure($lunch);
+        $dinner = Security::hms_secure($dinner);
+        $stmt = $this->conn->prepare("UPDATE hms_book_package SET bookid=:bookid,package=:package,extra_bed=:extra_bed,breakfast=:breakfast,lunch=:lunch,dinner=:dinner,date_time=:date_time WHERE bpid=:bpid");
         $data = [
             "bookid" => $bookid,
             "package" => $package,
-            "extra_bed"=>$extra_bed,
+            "extra_bed" => $extra_bed,
+            "breakfast" => $breakfast,
+            "lunch" => $lunch,
+            "dinner" => $dinner,
             "date_time" => $date,
             "bpid" => $bpid
         ];
@@ -223,9 +234,9 @@ class Booking
     // Get All Booking Packages
     public function get_all_bookings_package($bookid)
     {
-        $bookid=Security::hms_int_only($bookid);
+        $bookid = Security::hms_int_only($bookid);
         $stmt = $this->conn->prepare("SELECT * FROM hms_book_package WHERE bookid=:bookid");
-        $stmt->execute(["bookid"=>$bookid]);
+        $stmt->execute(["bookid" => $bookid]);
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $book_pack = $stmt->fetchAll();
         if ($book_pack) {
@@ -235,12 +246,57 @@ class Booking
         }
     }
     // Delete All Booking Packages
-    public function delete_booking_pack($bookid){
-        $bookid=Security::hms_int_only($bookid);
-        $stmt=$this->conn->prepare("DELETE * FROM hms_book_package WHERE bookid=:bookid");
-        if($stmt->execute(["bookid"=>$bookid])){
+    public function delete_booking_pack($bookid)
+    {
+        $bookid = Security::hms_int_only($bookid);
+        $stmt = $this->conn->prepare("DELETE * FROM hms_book_package WHERE bookid=:bookid");
+        if ($stmt->execute(["bookid" => $bookid])) {
             return true;
-        }else{
+        } else {
+            return false;
+        }
+    }
+    // Get BreakfasT oNLY
+    public function get_breakfast_report($date)
+    {
+        $date = Security::hms_secure($date);
+        $breakfast = "yes";
+        $stmt = $this->conn->prepare("SELECT * FROM hms_book_package WHERE date_time=:date_time AND breakfast=:breakfast");
+        $stmt->execute(["date_time" => $date, "breakfast" => $breakfast]);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $stmt->fetchAll();
+        if ($data) {
+            return $data;
+        } else {
+            return false;
+        }
+    }
+    // Get Lunch oNLY
+    public function get_lunch_report($date)
+    {
+        $date = Security::hms_secure($date);
+        $lunch = "yes";
+        $stmt = $this->conn->prepare("SELECT * FROM hms_book_package WHERE date_time=:date_time AND lunch=:lunch");
+        $stmt->execute(["date_time" => $date, "lunch" => $lunch]);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $stmt->fetchAll();
+        if ($data) {
+            return $data;
+        } else {
+            return false;
+        }
+    }
+    public function get_dinner_report($date)
+    {
+        $date = Security::hms_secure($date);
+        $dinner = "yes";
+        $stmt = $this->conn->prepare("SELECT * FROM hms_book_package WHERE date_time=:date_time AND dinner=:dinner");
+        $stmt->execute(["date_time" => $date, "dinner" => $dinner]);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $stmt->fetchAll();
+        if ($data) {
+            return $data;
+        } else {
             return false;
         }
     }
