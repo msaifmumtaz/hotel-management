@@ -277,12 +277,12 @@ class Rooms
         }
     }
     /** Get Available Rooms */
-    public function get_avail_rooms($check_in,$check_out,$category_id,$subcategory_id)
+    public function get_avail_rooms($check_in, $check_out, $category_id, $subcategory_id)
     {
         $check_in = Security::hms_secure($check_in);
         $check_out = Security::hms_secure($check_out);
-        $category_id=Security::hms_secure($category_id);
-        $subcategory_id=Security::hms_secure($subcategory_id);
+        $category_id = Security::hms_secure($category_id);
+        $subcategory_id = Security::hms_secure($subcategory_id);
 
         $stmt = $this->conn->prepare("SELECT *
         FROM hms_rooms
@@ -290,17 +290,30 @@ class Rooms
            SELECT DISTINCT room_no
            FROM hms_booking
            WHERE check_in <= :check_in AND check_out >= :check_out) AND category_id=:category_id AND subcategory_id=:subcategory_id");
-           $data=[
-                "check_in"=>$check_in,
-                "check_out"=>$check_out,
-                "category_id"=>$category_id,
-                "subcategory_id"=>$subcategory_id
-           ];
+        $data = [
+            "check_in" => $check_in,
+            "check_out" => $check_out,
+            "category_id" => $category_id,
+            "subcategory_id" => $subcategory_id
+        ];
         $stmt->execute($data);
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $rooms = $stmt->fetchAll();
         if ($rooms) {
             return $rooms;
+        } else {
+            return false;
+        }
+    }
+    /** Get Available Rooms */
+    public function get_recentlybooked_rooms()
+    {
+        $stmt = $this->conn->prepare("SELECT * FROM hms_booking WHERE created_at BETWEEN DATE_SUB(DATE(NOW()), INTERVAL 2 DAY) AND DATE_SUB(DATE(NOW()), INTERVAL 1 DAY)");
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $bookrooms = $stmt->fetchAll();
+        if ($bookrooms) {
+            return $bookrooms;
         } else {
             return false;
         }
@@ -398,13 +411,13 @@ class Rooms
         }
     }
     /** Get Package */
-    public function get_package($pack_name,$catid,$subcatid)
+    public function get_package($pack_name, $catid, $subcatid)
     {
         $pack_name = Security::hms_secure($pack_name);
         $catid = Security::hms_secure($catid);
         $subcatid = Security::hms_secure($subcatid);
         $stmt = $this->conn->prepare("SELECT * FROM hms_packages where pack_name=:pack_name and catid=:catid and subcatid=:subcatid Limit 1");
-        $stmt->execute(["pack_name" => $pack_name,"catid"=>$catid,"subcatid"=>$subcatid]);
+        $stmt->execute(["pack_name" => $pack_name, "catid" => $catid, "subcatid" => $subcatid]);
         $package = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($package > 0) {
             return $package;

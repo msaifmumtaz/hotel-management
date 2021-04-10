@@ -32,15 +32,16 @@ $guests=$_POST["guests"];
 $catid=$_POST["category"];
 $subcatid=$_POST["subcategory"];
 $room_no=$_POST["room_no"];
-$package=$_POST["package"];
-$price=$_POST["price"];
-$extrabed=$_POST["extrabed"];
+$packages=$_POST["packages"];
 $totalpayment=$_POST["totalpayment"];
 $paid=$_POST["paid"];
 $paymentmethod=$_POST["paymentmethod"];
 $customer_no=bin2hex(random_bytes(4));
-
-if ($book->add_booking($customer_no,$fname,$lname,$address,$phoneno,$email,$idcard,$idtype,$country,$catid,$subcatid,$room_no,$extrabed,$package,$guests,$checkin,$checkout,$totalpayment,$paid,$paymentmethod)) {
+$bookid=$_POST["bookid"];
+if ($book->add_booking($bookid,$customer_no,$fname,$lname,$address,$phoneno,$email,$idcard,$idtype,$country,$catid,$subcatid,$room_no,$guests,$checkin,$checkout,$totalpayment,$paid,$paymentmethod)) {
+    foreach($packages as $package){
+        $book->add_book_package($bookid,$package["package"],$package["extrabed"],$package["date_time"]);
+    }
     echo json_encode(array("status" => 200, "msg" => "Room Booking Successfull"));
 } else {
     echo json_encode(array("status" => 400, "msg" => "Room Booking Failed Please Try Again."));

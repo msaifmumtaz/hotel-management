@@ -7,28 +7,19 @@
 // | HMS - Hotel Management System                                           |
 // | Copyright (c) 2021 saifcodes All rights reserved.                       |
 // +------------------------------------------------------------------------+|
-require_once("../vendor/autoload.php");
+require_once dirname(__FILE__,3)."/vendor/autoload.php";
 
 use HMS\Classes\DbConnect;
-use HMS\Classes\Rooms;
+use HMS\Classes\Booking;
 
-$db = new DbConnect;
-$conn = $db->DbConnection();
-$rooms = new Rooms($conn);
+$db= new DbConnect;
+$conn=$db->DbConnection();
+$booking=new Booking($conn);
 
-$catid=$_POST["category"];
-$subcatid=$_POST["subcategory"];
-$check_in=$_POST["checkin"];
-$check_out=$_POST["checkout"];
+$lastbookid=$booking->get_last_bookid();
 
-$room=$rooms->get_avail_rooms($check_in,$check_out,$catid,$subcatid);
-$booked=$rooms->get_recentlybooked_rooms();
-
-if($room){
-    foreach($room as $rm){
-        echo '<option value="'.$rm["room_no"].'">'.$rm["room_no"].'</option>';
-    }
+if (empty($lastbookid)|| $lastbookid==""){
+    $bookid= 1;
 }else{
-    echo '<option value="no-rrom"> No Room Found</option>';
-
+    $bookid=$lastbookid+1;
 }

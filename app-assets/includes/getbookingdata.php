@@ -26,6 +26,7 @@ if ($bookid != "" || !empty($bookid)) {
     $bookingdata["cate_name"] = $category["category_name"];
     $subcategory = $rooms->get_subcategory($bookingdata["subcatid"]);
     $bookingdata["subcate_name"] = $subcategory["name"];
+    $packagesdata=$booking->get_all_bookings_package($bookid);
 } else {
     header("location: /404");
 }

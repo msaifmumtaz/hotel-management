@@ -1,9 +1,8 @@
 <?php
 session_start();
-
-if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-
-}else{
+require_once dirname(__FILE__, 3) . "/app-assets/includes/getlastbookid.php";
+if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
+} else {
     header("location: /auth/login");
     exit;
 }
@@ -180,7 +179,7 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
                                             <div class="col-md-4 col-12">
                                                 <div class="form-group">
                                                     <label for="categories">Category Name</label>
-                                                    <select class="form-control" id="categories" name="category">
+                                                    <select class="form-control" id="categories" name="category" onchange="getPrices();">
                                                         <option>Select Category</option>
                                                     </select>
                                                 </div>
@@ -188,7 +187,7 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
                                             <div class="col-md-4 col-12">
                                                 <div class="form-group">
                                                     <label for="subcategory">SubCategory Name</label>
-                                                    <select class="form-control" id="subcategory" name="subcategory">
+                                                    <select class="form-control" id="subcategory" name="subcategory" onchange="getPrices();">
                                                         <option>Select SubCategory</option>
                                                     </select>
                                                 </div>
@@ -201,40 +200,49 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
                                                     </select>
                                                 </div>
                                             </div>
-                                            <hr>
+                                            <div class="col-12 divider divider-primary">
+                                                <div class="divider-text text-primary">Choose Package</div>
+                                            </div>
                                             <div class="repeater-default w-100 p-1">
                                                 <div data-repeater-list="packages">
                                                     <div data-repeater-item>
                                                         <div class="row d-flex align-items-end">
-                                                        <div class="col-md-4 col-12">
-                                                <div class="form-group">
-                                                    <label for="package">Package</label>
-                                                    <select class="form-control" id="package" name="package">
-                                                        <option value="Room Only">Room Only</option>
-                                                        <option value="Breakfast Only">Breakfast Only</option>
-                                                        <option value="Lunch Only">Lunch Only</option>
-                                                        <option value="Dinner Only">Dinner Only</option>
-                                                        <option value="Breakfast & Dinner">Breakfast & Dinner</option>
-                                                        <option value="Breakfast & Lunch">Breakfast & Lunch</option>
-                                                        <option value="Lunch & Dinner">Lunch & Dinner</option>
-                                                        <option value="Breakfast, Lunch & Dinner">Breakfast, Lunch & Dinner</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-12">
-                                                <div class="form-group">
-                                                    <label for="price">Price</label>
-                                                    <input type="text" id="price" class="form-control" placeholder="Price" name="price" />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-12">
-                                                <div class="form-group">
-                                                    <label for="extrabed">Extra Bed</label>
-                                                    <select class="form-control" id="extrabed" name="extrabed">
-                                                        <option>Yes</option>
-                                                    </select>
-                                                </div>
-                                            </div>
+                                                            <div class="col-md-3 col-12">
+                                                                <div class="form-group">
+                                                                    <label for="date-time">Package Date</label>
+                                                                    <input type="date" id="date-time" name="date_time" class="form-control" placeholder="Package Date YYYY-MM-DD" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3 col-12">
+                                                                <div class="form-group">
+                                                                    <label for="package">Package</label>
+                                                                    <select class="form-control package" id="package" name="package" onchange="getPrices();">
+                                                                        <option selected>Select Package</option>
+                                                                        <option value="Room Only">Room Only</option>
+                                                                        <option value="Breakfast Only">Breakfast Only</option>
+                                                                        <option value="Lunch Only">Lunch Only</option>
+                                                                        <option value="Dinner Only">Dinner Only</option>
+                                                                        <option value="Breakfast & Dinner">Breakfast & Dinner</option>
+                                                                        <option value="Breakfast & Lunch">Breakfast & Lunch</option>
+                                                                        <option value="Lunch & Dinner">Lunch & Dinner</option>
+                                                                        <option value="Breakfast, Lunch & Dinner">Breakfast, Lunch & Dinner</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2 col-12">
+                                                                <div class="form-group">
+                                                                    <label for="price">Price</label>
+                                                                    <input type="text" id="price" class="form-control" placeholder="Price" name="price" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2 col-12">
+                                                                <div class="form-group">
+                                                                    <label for="extrabed">Extra Bed</label>
+                                                                    <select class="form-control" id="extrabed" name="extrabed">
+                                                                        <option>Yes</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
 
                                                             <div class="col-md-2 col-12">
                                                                 <div class="form-group">
@@ -286,6 +294,7 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
                                                     </select>
                                                 </div>
                                             </div>
+                                                <input type="hidden" name="bookid" value="<?php echo $bookid;?>">
                                             <div class="col-12">
                                                 <button class="btn btn-primary mr-1" id="addbooking">Add Booking</button>
                                                 <button type="reset" class="btn btn-outline-secondary">Reset</button>

@@ -149,30 +149,42 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
                             <thead>
                                 <tr>
                                     <th class="py-1">Sr . No</th>
+                                    <th class="py-1">Date</th>
                                     <th class="py-1">Room Category</th>
                                     <th class="py-1">Room SubCategory</th>
                                     <th class="py-1">Room No</th>
                                     <th class="py-1">Package</th>
+                                    <th class="py-1">Extra Bed</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <?php 
+                                foreach ($packagesdata as $packagedata){ 
+                                echo '<tr>
                                     <td class="py-1">
                                         <strong>1</strong>
                                     </td>
                                     <td class="py-1">
-                                        <strong><?php echo $bookingdata["cate_name"]?></strong>
+                                        <strong>'.$packagedata["date_time"].'</strong>
                                     </td>
                                     <td class="py-1">
-                                        <strong><?php echo $bookingdata["subcate_name"]?></strong>
+                                        <strong>'.$bookingdata["cate_name"].'</strong>
                                     </td>
                                     <td class="py-1">
-                                        <strong><?php echo $bookingdata["room_no"]?></strong>
+                                        <strong>'.$bookingdata["subcate_name"].'</strong>
                                     </td>
                                     <td class="py-1">
-                                        <strong><?php echo $bookingdata["pack_name"]?></strong>
+                                        <strong>'.$bookingdata["room_no"].'</strong>
                                     </td>
-                                </tr>
+                                    <td class="py-1">
+                                        <strong>'.$packagedata["package"].'</strong>
+                                    </td>
+                                    <td class="py-1">
+                                        <strong>'.$packagedata["extra_bed"].'</strong>
+                                    </td>
+                                </tr>';
+                            }
+                                ?>
                             </tbody>
                         </table>
                     </div>

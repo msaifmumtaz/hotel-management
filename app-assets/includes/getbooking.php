@@ -34,7 +34,6 @@ $booked = $bookings->get_all_bookings();
                             <th>Room No</th>
                             <th>Check In</th>
                             <th>Check out</th>
-                            <th>Package</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -51,7 +50,6 @@ $booked = $bookings->get_all_bookings();
                             <td>' . $bookdata["room_no"] . '</td>
                             <td class="font-weight-bold">' . $bookdata["check_in"] . '</td>
                             <td class="font-weight-bold">' . $bookdata["check_out"] . '</td>
-                            <td class="font-weight-bold">' . $bookdata["pack_name"] . '</td>
                             <td>
                             <div class="dropdown">
                             <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
