@@ -40,7 +40,7 @@ var HmsAddPackage = (function () {
             swal.fire({
               "title": "",
               "text": data.msg,
-              "type": "success",
+              "icon": "success",
               "confirmButtonClass": "btn btn-success"
             });
             setTimeout(function(){ window.location.reload(); }, 2000);
@@ -49,7 +49,7 @@ var HmsAddPackage = (function () {
             swal.fire({
               "title": "",
               "text": data.msg,
-              "type": "error",
+              "icon": "error",
               "confirmButtonClass": "btn btn-danger"
             });
             setTimeout(function () {

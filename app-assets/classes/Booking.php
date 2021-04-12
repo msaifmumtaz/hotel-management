@@ -123,6 +123,27 @@ class Booking
             return false;
         }
     }
+
+    public function extend_booking($bookid, $check_out, $total_payment, $paid)
+    {
+        $bookid = Security::hms_int_only($bookid);
+        $check_out = Security::hms_secure($check_out);
+        $total_payment = Security::hms_secure($total_payment);
+        $paid = Security::hms_secure($paid);
+
+        $stmt = $this->conn->prepare("UPDATE hms_booking SET check_out=:check_out,total_payment=:total_payment,paid=:paid WHERE bookid=:bookid");
+        $data = [
+            "check_out" => $check_out,
+            "total_payment" => $total_payment,
+            "paid" => $paid,
+            "bookid" => $bookid
+        ];
+        if ($stmt->execute($data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     // Get All Bookings
     public function get_all_bookings()
     {

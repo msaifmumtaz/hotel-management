@@ -60,9 +60,9 @@ $booked = $bookings->get_all_bookings();
                                     <i data-feather="file" class="mr-50"></i>
                                     <span>Print</span>
                                 </a>
-                                <a class="dropdown-item" href="javascript:void(0);">
-                                    <i data-feather="trash" class="mr-50"></i>
-                                    <span>Delete</span>
+                                <a class="dropdown-item" href="/booking/extend/'.$bookdata["bookid"].'">
+                                    <i data-feather="edit" class="mr-50"></i>
+                                    <span>Extend</span>
                                 </a>
                             </div>
                         </div>

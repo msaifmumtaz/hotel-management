@@ -6,27 +6,39 @@
   Author: PIXINVENT
   Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
-var HmsDelCategory = (function () {
+var HmsExtendBooking = (function () {
 
-  var handleDelCategoryFormSubmit = function () {
-    $("#deletecatname").click(function (e) {
+  var handleExtendBookingFormSubmit = function () {
+    $("#extendbooking").click(function (e) {
+
       e.preventDefault();
+      $('.flatpickr-mobile').removeAttr("step");
       var btn = $(this);
       var form = $(this).closest("form");
-
       form.validate({
         rules: {
-          rcid: {
-            required: true
+          price:{
+            required:true,
+          },
+          extrabed:{
+            required:true,
+          },
+          totalpayment:{
+            required:true,
+          },
+          paymentmethod:{
+            required:true,
+          },
+          paid:{
+            required:true
           }
         }
       });
-
       if (!form.valid()) {
         return;
       }
       form.ajaxSubmit({
-        url: "../xhr/deletecategory.php",
+        url: "../xhr/extendbooking.php",
         type: 'post',
         success: function (response, status, xhr, $form) {
           var data = JSON.parse(response);
@@ -34,10 +46,10 @@ var HmsDelCategory = (function () {
             swal.fire({
               "title": "",
               "text": data.msg,
-              "icon": "success",
+              "icon": 'success',
               "confirmButtonClass": "btn btn-success"
             });
-            setTimeout(function(){ window.location.reload(); }, 2000);
+            setTimeout(function(){ window.location.reload(); }, 5000);
           } else {
 
             swal.fire({
@@ -63,12 +75,12 @@ var HmsDelCategory = (function () {
   return {
     // public functions
     init: function () {
-      handleDelCategoryFormSubmit();
+      handleExtendBookingFormSubmit();
     }
   };
 })();
 
 // Class Initialization
 jQuery(document).ready(function () {
-  HmsDelCategory.init();
+  HmsExtendBooking.init();
 });
