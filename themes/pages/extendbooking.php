@@ -304,7 +304,6 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     <script src="assets/js/scripts/pages/fetcher.js"></script>
     <script src="assets/js/scripts/pages/getavailrooms.js"></script>
     <script src="assets/js/scripts/pages/getpackage.js"></script>
-    <script src="assets/js/scripts/pages/addbooking.js"></script>
     <script src="assets/js/scripts/pages/extendbooking.js"></script>
     <script src="assets/js/scripts/forms/pickers/form-pickers.js"></script>
 
