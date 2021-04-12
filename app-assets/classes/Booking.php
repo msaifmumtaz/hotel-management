@@ -261,7 +261,7 @@ class Booking
     {
         $date = Security::hms_secure($date);
         $breakfast = "yes";
-        $stmt = $this->conn->prepare("SELECT * FROM hms_book_package WHERE date_time=:date_time AND breakfast=:breakfast");
+        $stmt = $this->conn->prepare("SELECT P.package,P.breakfast,P.extra_bed,P.date_time,B.bookid,B.room_no,B.no_of_guests,RC.category_name,RSC.name FROM hms_book_package as P,hms_booking as B, hms_rooms_categories as RC, hms_rooms_subcategories as RSC WHERE P.bookid=B.bookid AND B.catid=RC.rcid AND B.subcatid=RSC.subcatid AND P.date_time=:date_time AND P.breakfast=:breakfast");
         $stmt->execute(["date_time" => $date, "breakfast" => $breakfast]);
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $data = $stmt->fetchAll();
@@ -276,7 +276,7 @@ class Booking
     {
         $date = Security::hms_secure($date);
         $lunch = "yes";
-        $stmt = $this->conn->prepare("SELECT * FROM hms_book_package WHERE date_time=:date_time AND lunch=:lunch");
+        $stmt = $this->conn->prepare("SELECT P.package,P.breakfast,P.extra_bed,P.date_time,B.bookid,B.room_no,B.no_of_guests,RC.category_name,RSC.name FROM hms_book_package as P,hms_booking as B, hms_rooms_categories as RC, hms_rooms_subcategories as RSC WHERE P.bookid=B.bookid AND B.catid=RC.rcid AND B.subcatid=RSC.subcatid AND P.date_time=:date_time AND P.lunch=:lunch");
         $stmt->execute(["date_time" => $date, "lunch" => $lunch]);
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $data = $stmt->fetchAll();
@@ -286,11 +286,12 @@ class Booking
             return false;
         }
     }
+    // Dinner Only Report
     public function get_dinner_report($date)
     {
         $date = Security::hms_secure($date);
         $dinner = "yes";
-        $stmt = $this->conn->prepare("SELECT * FROM hms_book_package WHERE date_time=:date_time AND dinner=:dinner");
+        $stmt = $this->conn->prepare("SELECT P.package,P.breakfast,P.extra_bed,P.date_time,B.bookid,B.room_no,B.no_of_guests,RC.category_name,RSC.name FROM hms_book_package as P,hms_booking as B, hms_rooms_categories as RC, hms_rooms_subcategories as RSC WHERE P.bookid=B.bookid AND B.catid=RC.rcid AND B.subcatid=RSC.subcatid AND P.date_time=:date_time AND P.dinner=:dinner");
         $stmt->execute(["date_time" => $date, "dinner" => $dinner]);
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $data = $stmt->fetchAll();

@@ -7,6 +7,7 @@ RewriteRule ^admin/dashboard$ themes/pages/dashboard.php [NC,QSA]
 RewriteRule ^room/booking$ themes/pages/booking.php [NC,QSA]
 RewriteRule ^booking/view$ themes/pages/viewbooking.php [NC,QSA]
 RewriteRule ^booking/print/(.*)$ themes/pages/printbooking.php?book_id=$1 [NC,QSA]
+RewriteRule ^messreport/print/(.*)$ themes/pages/printmessreport.php?date_time=$1 [NC,QSA]
 
 RewriteRule ^user/addcustomer$ themes/pages/addcustomer.php [NC,QSA]
 RewriteRule ^room/addcategory$ themes/pages/addroomcategory.php [NC,QSA]

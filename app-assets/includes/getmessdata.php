@@ -16,7 +16,11 @@ $db= New DbConnect;
 $conn= $db->DbConnection();
 $booking= new Booking($conn);
 
-$date=date("Y-m-d");
-
+if(isset($_GET["date_time"]) && !empty($_GET["date_time"])){
+    $date=date("Y-m-").str_pad($_GET["date_time"], 2, "0", STR_PAD_LEFT);
+}else{
+    $date=date("Y-m-d");
+}
 $breakfast_report=$booking->get_breakfast_report($date);
-print_r($breakfast_report);
+$lunch_report=$booking->get_lunch_report($date);
+$dinner_report=$booking->get_dinner_report($date);

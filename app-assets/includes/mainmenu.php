@@ -50,6 +50,8 @@
                 </li>
                 <li class=" <?php if(basename($_SERVER["PHP_SELF"])=="addpackage.php"){echo "active";}else{ echo "nav-item";}?>"><a class="d-flex align-items-center" href="/room/addpackage"><i data-feather="coffee"></i><span class="menu-title text-truncate" data-i18n="Add Package">Add Packages</span></a>
                 </li>
+                <li class=" <?php if(basename($_SERVER["PHP_SELF"])=="printmessreport.php"){echo "active";}else{ echo "nav-item";}?>"><a class="d-flex align-items-center" href="/messreport/print/"><i data-feather="file"></i><span class="menu-title text-truncate" data-i18n="Mess Report">Print Mess Report</span></a>
+                </li>
             </ul>
         </div>
     </div>
