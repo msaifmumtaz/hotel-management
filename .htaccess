@@ -8,6 +8,7 @@ RewriteRule ^room/booking$ themes/pages/booking.php [NC,QSA]
 RewriteRule ^booking/view$ themes/pages/viewbooking.php [NC,QSA]
 RewriteRule ^booking/print/(.*)$ themes/pages/printbooking.php?book_id=$1 [NC,QSA]
 RewriteRule ^booking/extend/(.*)$ themes/pages/extendbooking.php?book_id=$1 [NC,QSA]
+RewriteRule ^booking/checkout/(.*)$ themes/pages/roomcheckout.php?book_id=$1 [NC,QSA]
 
 RewriteRule ^user/addcustomer$ themes/pages/addcustomer.php [NC,QSA]
 RewriteRule ^room/addcategory$ themes/pages/addroomcategory.php [NC,QSA]
@@ -15,5 +16,7 @@ RewriteRule ^room/addsubcategory$ themes/pages/addroomsubcategory.php [NC,QSA]
 RewriteRule ^room/addpackage$ themes/pages/addpackage.php [NC,QSA]
 RewriteRule ^room/addroom$ themes/pages/addrooms.php [NC,QSA]
 
-RewriteRule ^messreport/print/(.*)$ themes/pages/printmessreport.php?date_time=$1 [NC,QSA]
+RewriteRule ^report/breakfast/(.*)$ themes/pages/printbreakfast.php?date_time=$1 [NC,QSA]
+RewriteRule ^report/lunch/(.*)$ themes/pages/printlunch.php?date_time=$1 [NC,QSA]
+RewriteRule ^report/dinner/(.*)$ themes/pages/printdinner.php?date_time=$1 [NC,QSA]
 

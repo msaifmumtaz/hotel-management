@@ -1,10 +1,9 @@
 /*=========================================================================================
-  File Name: form-validation.js
-  Description: jquery bootstrap validation js
+  File Name: Login.js
+  Description: User Login Handler
   ----------------------------------------------------------------------------------------
-  Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: PIXINVENT
-  Author URL: http://www.themeforest.net/user/pixinvent
+  Author: Muhammad Saif
+  Author URL: https://saifcodes.com
 ==========================================================================================*/
 var HmsLogin = (function () {
 

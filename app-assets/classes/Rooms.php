@@ -289,7 +289,7 @@ class Rooms
         WHERE room_no NOT IN (
            SELECT DISTINCT room_no
            FROM hms_booking
-           WHERE check_in <= :check_in AND check_out >= :check_out) AND category_id=:category_id AND subcategory_id=:subcategory_id");
+           WHERE check_in <= :check_in AND check_out >= :check_out AND status='booked') AND category_id=:category_id AND subcategory_id=:subcategory_id");
         $data = [
             "check_in" => $check_in,
             "check_out" => $check_out,

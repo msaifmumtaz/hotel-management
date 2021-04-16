@@ -1,10 +1,9 @@
 /*=========================================================================================
-  File Name: form-validation.js
-  Description: jquery bootstrap validation js
+  File Name: Register.js
+  Description: User Register Handler
   ----------------------------------------------------------------------------------------
-  Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: PIXINVENT
-  Author URL: http://www.themeforest.net/user/pixinvent
+  Author: Muhammad Saif
+  Author URL: https://saifcodes.com
 ==========================================================================================*/
 var HmsRegister = (function () {
 

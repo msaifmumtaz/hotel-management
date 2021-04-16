@@ -1,3 +1,7 @@
+/*=========================================================================================
+  Author: Muhammad Saif
+  Author URL: https://saifcodes.com
+==========================================================================================*/
 $("#subcategory").click(function(e){
     e.preventDefault();
     console.log("getting rooms");

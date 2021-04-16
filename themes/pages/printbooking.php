@@ -192,7 +192,7 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
                     <div class="row invoice-sales-total-wrapper mt-3">
                         <div class="col-md-6 order-md-1 order-2 mt-md-0 mt-3">
                             <p class="card-text mb-0">
-                                <span class="font-weight-bold">Salesperson:</span> <span class="ml-75"><?php echo $_SESSION["full_name"]?></span>
+                                <span class="font-weight-bold">Booked By:</span> <span class="ml-75"><?php echo $_SESSION["full_name"]?></span>
                             </p>
                         </div>
                     </div>

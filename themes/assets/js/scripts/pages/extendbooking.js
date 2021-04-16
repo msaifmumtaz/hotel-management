@@ -1,14 +1,37 @@
 /*=========================================================================================
-  File Name: form-validation.js
-  Description: jquery bootstrap validation js
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: PIXINVENT
-  Author URL: http://www.themeforest.net/user/pixinvent
+  Author: Muhammad Saif
+  Author URL: https://saifcodes.com
 ==========================================================================================*/
 var HmsExtendBooking = (function () {
 
   var handleExtendBookingFormSubmit = function () {
+    function PriceTotal() {
+      var pricesum = 0;
+      $('input[name*="price"]').each(function() {
+        if (!isNaN(this.value) && this.value.length != 0) {
+          pricesum += parseFloat($(this).val());
+        }
+      });
+      return pricesum;
+    }
+    function BedTotal() {
+      var bedsum = 0;
+      $('[name*="extrabed"]').each(function() {
+        if (!isNaN(this.value) && this.value.length != 0) {
+          bedsum += parseFloat($(this).val());
+        }
+      });
+      return bedsum;
+    }
+    function AllTotal(){
+      var extotal=parseFloat($("#ex-total-payment").val());
+      var sum=PriceTotal()+BedTotal()+extotal;
+      $("#total-payment").val(sum)
+      console.log("Sum of Total Payment is : "+sum);
+    }
+    $("#total-payment").click(function(){
+      AllTotal();
+    })
     $("#extendbooking").click(function (e) {
 
       e.preventDefault();
@@ -30,6 +53,9 @@ var HmsExtendBooking = (function () {
             required:true,
           },
           paid:{
+            required:true
+          },
+          expaid:{
             required:true
           }
         }

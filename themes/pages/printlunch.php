@@ -25,7 +25,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     <meta name="description" content="Book your hotel room Today.">
     <meta name="keywords" content="Hotel Management System">
     <meta name="author" content="saifcodes">
-    <title>Print Mess Report</title>
+    <title>Print Lunch Report</title>
     <link rel="apple-touch-icon" href="assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
@@ -68,59 +68,9 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
             <div class="content-body">
                 <div class="invoice-print p-3">
                     <div class="text-center">
-                        <h2>Mess Report (<?php echo $date; ?>)</h2>
+                        <h2>Lunch Report (<?php echo $date; ?>)</h2>
                     </div>
-                    <h4 class="text-center border py-1 my-3">Breakfast Report</h4>
-
-                    <div class="table-responsive mt-2">
-                        <table class="table m-0">
-                            <thead>
-                                <tr>
-                                    <th class="py-1">Sr . No</th>
-                                    <th class="py-1">Room Category</th>
-                                    <th class="py-1">Room SubCategory</th>
-                                    <th class="py-1">Room No</th>
-                                    <th class="py-1">Package</th>
-                                    <th class="py-1">No of Guests</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                if ($breakfast_report) {
-                                    $i=1;
-                                foreach ($breakfast_report as $breakfastdata) {
-                                    echo '<tr>
-                                    <td class="py-1">
-                                        <strong>'.$i.'</strong>
-                                    </td>
-                                    <td class="py-1">
-                                        <strong>' . $breakfastdata["category_name"] . '</strong>
-                                    </td>
-                                    <td class="py-1">
-                                        <strong>' . $breakfastdata["name"] . '</strong>
-                                    </td>
-                                    <td class="py-1">
-                                        <strong>' . $breakfastdata["room_no"] . '</strong>
-                                    </td>
-                                    <td class="py-1">
-                                        <strong>' . $breakfastdata["package"] . '</strong>
-                                    </td>
-                                    <td class="py-1">
-                                        <strong>' . $breakfastdata["no_of_guests"] . '</strong>
-                                    </td>
-                                </tr>';
-                                $i++;
-                                }
-                            }else{
-                                echo "<tr><td>No Breakfast found for current date</tr></td>";
-                            }
-                                ?>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <h4 class="text-center border py-1 my-3">Lunch Report</h4>
-
+                    
                     <div class="table-responsive mt-2">
                         <table class="table m-0">
                             <thead>
@@ -168,54 +118,6 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                         </table>
                     </div>
 
-                    <h4 class="text-center border py-1 my-3">Dinner Report</h4>
-
-                    <div class="table-responsive mt-2">
-                        <table class="table m-0">
-                            <thead>
-                                <tr>
-                                    <th class="py-1">Sr . No</th>
-                                    <th class="py-1">Room Category</th>
-                                    <th class="py-1">Room SubCategory</th>
-                                    <th class="py-1">Room No</th>
-                                    <th class="py-1">Package</th>
-                                    <th class="py-1">No of Guests</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                if ($dinner_report) {
-                                    $i = 1;
-                                    foreach ($dinner_report as $dinnerdata) {
-                                        echo '<tr>
-                                            <td class="py-1">
-                                                <strong>' . $i . '</strong>
-                                            </td>
-                                            <td class="py-1">
-                                                strong>' . $dinnerdata["category_name"] . '</strong>
-                                            </td>
-                                            <td class="py-1">
-                                                <strong>' . $dinnerdata["name"] . '</strong>
-                                            </td>
-                                            <td class="py-1">
-                                                <strong>' . $dinnerdata["room_no"] . '</strong>
-                                            </td>
-                                            <td class="py-1">
-                                                <strong>' . $dinnerdata["package"] . '</strong>
-                                            </td>
-                                            <td class="py-1">
-                                                <strong>' . $dinnerdata["no_of_guests"] . '</strong>
-                                            </td>
-                                        </tr>';
-                                        $i++;
-                                    }
-                                }else{
-                                    echo "<tr><td>No Dinner found for current date</tr></td>";
-                                }
-                                ?>
-                            </tbody>
-                        </table>
-                    </div>
                     <div class="row invoice-sales-total-wrapper mt-3">
                         <div class="col-md-6 order-md-1 order-2 mt-md-0 mt-3">
                             <p class="card-text mb-0">

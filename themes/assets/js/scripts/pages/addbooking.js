@@ -1,18 +1,41 @@
 /*=========================================================================================
-  File Name: form-validation.js
-  Description: jquery bootstrap validation js
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: PIXINVENT
-  Author URL: http://www.themeforest.net/user/pixinvent
+  Author: Muhammad Saif
+  Author URL: https://saifcodes.com
 ==========================================================================================*/
 var HmsAddBooking = (function () {
 
   var handleAddBookingFormSubmit = function () {
+    function PriceTotal() {
+      var pricesum = 0;
+      $('input[name*="price"]').each(function() {
+        if (!isNaN(this.value) && this.value.length != 0) {
+          pricesum += parseFloat($(this).val());
+        }
+      });
+      return pricesum;
+    }
+    function BedTotal() {
+      var bedsum = 0;
+      $('[name*="extrabed"]').each(function() {
+        if (!isNaN(this.value) && this.value.length != 0) {
+          bedsum += parseFloat($(this).val());
+        }
+      });
+      return bedsum;
+    }
+    function AllTotal(){
+      var sum=PriceTotal()+BedTotal();
+      $("#total-payment").val(sum)
+      console.log("Sum of Total Payment is : "+sum);
+    }
+    $("#total-payment").click(function(){
+      AllTotal();
+    })
     $("#addbooking").click(function (e) {
-
+      console.log("Adding Booking");
       e.preventDefault();
       $('.flatpickr-mobile').removeAttr("step");
+      AllTotal();
       var btn = $(this);
       var form = $(this).closest("form");
       form.validate({

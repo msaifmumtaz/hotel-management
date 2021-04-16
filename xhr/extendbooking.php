@@ -20,10 +20,12 @@ $booking = new Booking($conn);
 $checkout = $_POST["checkout"];
 $packages = $_POST["packages"];
 $totalpayment = $_POST["totalpayment"];
-$paid = $_POST["paid"];
+$nowpaid = (int) $_POST["paid"];
+$expaid = (int) $_POST["expaid"];
+
 $paymentmethod = $_POST["paymentmethod"];
 $bookid = $_POST["bookid"];
-
+$paid=$nowpaid+$expaid;
 if ($booking->extend_booking($bookid, $checkout, $totalpayment, $paid)) {
     foreach ($packages as $package) {
         $package_name = $package["package"];

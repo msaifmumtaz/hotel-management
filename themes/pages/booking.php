@@ -274,7 +274,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                                             <div class="col-md-4 col-12">
                                                 <div class="form-group">
                                                     <label for="total-payment">Total Payment</label>
-                                                    <input type="text" id="total-payment" name="totalpayment" class="form-control" placeholder="Total Payment" />
+                                                    <input type="text" id="total-payment" name="totalpayment" class="form-control" placeholder="Click to Calculate Total Payment" readonly/>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 col-12">
@@ -294,7 +294,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                                                     </select>
                                                 </div>
                                             </div>
-                                                <input type="hidden" name="bookid" value="<?php echo $bookid;?>">
+                                            <input type="hidden" name="bookid" value="<?php echo $bookid; ?>">
                                             <div class="col-12">
                                                 <button class="btn btn-primary mr-1" id="addbooking">Add Booking</button>
                                                 <button type="reset" class="btn btn-outline-secondary">Reset</button>

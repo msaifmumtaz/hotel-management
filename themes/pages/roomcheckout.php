@@ -23,7 +23,7 @@ if($bookingdata["status"]=="checkedout"){
     <meta name="description" content="Book your hotel room Today.">
     <meta name="keywords" content="Hotel Management System">
     <meta name="author" content="saifcodes">
-    <title>Extend Booking</title>
+    <title>Room Checkout</title>
     <link rel="apple-touch-icon" href="assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
@@ -88,7 +88,7 @@ if($bookingdata["status"]=="checkedout"){
                                     </li>
                                     <li class="breadcrumb-item"><a href="#">Booking</a>
                                     </li>
-                                    <li class="breadcrumb-item active"><a href="#">Extend Booking</a>
+                                    <li class="breadcrumb-item active"><a href="#">Room Checkout</a>
                                     </li>
                                 </ol>
                             </div>
@@ -111,149 +111,91 @@ if($bookingdata["status"]=="checkedout"){
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Extend Booking</h4>
+                                    <h4 class="card-title">Room Checkout</h4>
                                 </div>
                                 <div class="card-body">
-                                    <form class="form" id="bookForm">
+                                    <form class="form" id="checkOutForm">
                                         <div class="row">
-
-                                            <div class="col-md-6 col-12">
+                                            <div class="col-md-4 col-12">
                                                 <div class="form-group">
-                                                    <label for="ex-checkout">Previous Checkout</label>
-                                                    <input type="text" id="ex-checkout" class="form-control" value="<?php echo $bookingdata["check_out"]?>" readonly/>
+                                                    <label for="customer">Customer Name:</label>
+                                                    <input type="text" id="customer" class="form-control" value="<?php echo $bookingdata["first_name"] . " " . $bookingdata["last_name"]; ?>" readonly />
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 col-12">
+                                            <div class="col-md-4 col-12">
+                                                <div class="form-group">
+                                                    <label for="IdCard">ID (<?php echo $bookingdata["id_card_type"]; ?>)</label>
+                                                    <input type="text" id="IdCard" class="form-control" value="<?php echo $bookingdata["id_card"] ?>" readonly />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-12">
+                                                <div class="form-group">
+                                                    <label for="guests">No of Guests</label>
+                                                    <input type="text" id="guests" class="form-control" value="<?php echo $bookingdata["no_of_guests"] ?>" readonly />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-12">
                                                 <div class="form-group">
                                                     <label for="fp-date-time">Check In Date & Time</label>
-                                                    <input type="text" id="fp-date-time" data-input="saif" class="form-control" placeholder="YYYY-MM-DD HH:MM" value="<?php echo $bookingdata["check_in"]?>" readonly/>
+                                                    <input type="text" id="fp-date-time" data-input="saif" class="form-control" placeholder="YYYY-MM-DD HH:MM" value="<?php echo $bookingdata["check_in"] ?>" readonly />
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 col-12">
+                                            <div class="col-md-4 col-12">
                                                 <div class="form-group">
                                                     <label for="checkout-date-time">Check Out Date & Time</label>
-                                                    <input type="text" id="checkout-date-time" name="checkout" class="form-control flatpickr-date-time" placeholder="Choose New Checkout DateYYYY-MM-DD HH:MM" />
+                                                    <input type="text" id="checkout-date-time" name="checkout" class="form-control" placeholder="Choose New Checkout DateYYYY-MM-DD HH:MM" value="<?php echo $bookingdata["check_out"] ?>" readonly />
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 col-12">
+                                            <div class="col-md-4 col-12">
                                                 <div class="form-group">
                                                     <label for="categories">Category Name</label>
                                                     <select class="form-control" id="categories" name="category" onchange="getPrices();">
-                                                    <option value="<?php echo $bookingdata["catid"]?>" selected><?php echo $bookingdata["cate_name"]?></option>
+                                                        <option value="<?php echo $bookingdata["catid"] ?>" selected><?php echo $bookingdata["cate_name"] ?></option>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 col-12">
+                                            <div class="col-md-4 col-12">
                                                 <div class="form-group">
                                                     <label for="subcategory">SubCategory Name</label>
                                                     <select class="form-control" id="subcategory" name="subcategory" onchange="getPrices();">
-                                                        <option value="<?php echo $bookingdata["subcatid"]?>" selected><?php echo $bookingdata["subcate_name"]?></option>
+                                                        <option value="<?php echo $bookingdata["subcatid"] ?>" selected><?php echo $bookingdata["subcate_name"] ?></option>
                                                     </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 divider divider-primary">
-                                                <div class="divider-text text-primary">Choose Package</div>
-                                            </div>
-                                            <div class="repeater-default w-100 p-1">
-                                                <div data-repeater-list="packages">
-                                                    <div data-repeater-item>
-                                                        <div class="row d-flex align-items-end">
-                                                            <div class="col-md-3 col-12">
-                                                                <div class="form-group">
-                                                                    <label for="date-time">Package Date</label>
-                                                                    <input type="date" id="date-time" name="date_time" class="form-control" placeholder="Package Date YYYY-MM-DD" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-3 col-12">
-                                                                <div class="form-group">
-                                                                    <label for="package">Package</label>
-                                                                    <select class="form-control package" id="package" name="package" onchange="getPrices();">
-                                                                        <option selected>Select Package</option>
-                                                                        <option value="room">Room Only</option>
-                                                                        <option value="breakfast">Breakfast Only</option>
-                                                                        <option value="lunch">Lunch Only</option>
-                                                                        <option value="dinner">Dinner Only</option>
-                                                                        <option value="breakfast,dinner">Breakfast & Dinner</option>
-                                                                        <option value="breakfast,lunch">Breakfast & Lunch</option>
-                                                                        <option value="lunch,dinner">Lunch & Dinner</option>
-                                                                        <option value="breakfast,lunch,dinner">Breakfast, Lunch & Dinner</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-2 col-12">
-                                                                <div class="form-group">
-                                                                    <label for="price">Price</label>
-                                                                    <input type="text" id="price" class="form-control" placeholder="Price" name="price" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-2 col-12">
-                                                                <div class="form-group">
-                                                                    <label for="extrabed">Extra Bed</label>
-                                                                    <select class="form-control" id="extrabed" name="extrabed">
-                                                                        <option>Yes</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-md-2 col-12">
-                                                                <div class="form-group">
-                                                                    <button class="btn btn-outline-danger text-nowrap px-1" data-repeater-delete type="button">
-                                                                        <i data-feather="x" class="mr-25"></i>
-                                                                        <span>Delete</span>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                            <hr />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-50">
-                                                    <div class="col-12">
-                                                        <button class="btn btn-icon btn-primary" type="button" data-repeater-create>
-                                                            <i data-feather="plus" class="mr-25"></i>
-                                                            <span>Add New</span>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-12">
-                                                <div class="form-group">
-                                                    <label for="ex-total-payment">Previous Total Payment</label>
-                                                    <input type="text" id="ex-total-payment" name="ex-total-payment" class="form-control" value="<?php echo $bookingdata["total_payment"]?>" readonly/>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-12">
-                                                <div class="form-group">
-                                                    <label for="ex-paid">Previous Paid</label>
-                                                    <input type="text" id="ex-paid" class="form-control" name="expaid" value="<?php echo $bookingdata["paid"]?>" readonly/>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 col-12">
                                                 <div class="form-group">
                                                     <label for="total-payment">Total Payment</label>
-                                                    <input type="text" id="total-payment" name="totalpayment" class="form-control" placeholder="Click to Calculate Total Payment" readonly/>
+                                                    <input type="text" id="total-payment" name="totalpayment" class="form-control" value="<?php echo $bookingdata["total_payment"] ?>" readonly />
                                                 </div>
                                             </div>
                                             <div class="col-md-4 col-12">
                                                 <div class="form-group">
-                                                    <label for="paid">Paid</label>
+                                                    <label for="ex-paid">Previous Paid</label>
+                                                    <input type="text" id="ex-paid" class="form-control" name="expaid" value="<?php echo $bookingdata["paid"] ?>" readonly />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-12">
+                                                <div class="form-group">
+                                                    <label for="remaining-payment">Remaining Payment</label>
+                                                    <input type="text" id="remaining-payment" name="remainingpayment" class="form-control" value="<?php echo $bookingdata["total_payment"] - $bookingdata["paid"]; ?>" readonly />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-12">
+                                                <div class="form-group">
+                                                    <label for="paid">Paid Now</label>
                                                     <input type="text" id="paid" name="paid" class="form-control" placeholder="Paid" />
                                                 </div>
                                             </div>
-                                            <div class="col-md-4 col-12">
-                                                <div class="form-group">
-                                                    <label for="payment-method">Payment Method</label>
-                                                    <select class="form-control" name="paymentmethod" id="payment-method">
-                                                        <option value="Cash" selected>Cash</option>
-                                                        <option value="Card">Debit/Credit Card</option>
-                                                        <option value="Paytm">Paytm</option>
-                                                        <option value="Paypal">PayPal</option>
-                                                    </select>
+                                            <div class="col-12">
+                                                <div class="form-group custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="verify" name="verify"/>
+                                                    <label class="custom-control-label text-danger" for="verify">I here by confirm that i have collected remaining payments.</label>
                                                 </div>
                                             </div>
                                             <input type="hidden" name="bookid" value="<?php echo $bookid; ?>">
+                                            <input type="hidden" name="rmpay" value="<?php echo $bookingdata["total_payment"] - $bookingdata["paid"]; ?>">
                                             <div class="col-12">
-                                                <button class="btn btn-primary mr-1" id="extendbooking">Extend Booking</button>
+                                                <button class="btn btn-primary mr-1" id="roomcheckout">Room Checkout</button>
                                                 <button type="reset" class="btn btn-outline-secondary">Reset</button>
                                             </div>
                                         </div>
@@ -308,7 +250,7 @@ if($bookingdata["status"]=="checkedout"){
     <script src="assets/js/scripts/pages/fetcher.js"></script>
     <script src="assets/js/scripts/pages/getavailrooms.js"></script>
     <script src="assets/js/scripts/pages/getpackage.js"></script>
-    <script src="assets/js/scripts/pages/extendbooking.js"></script>
+    <script src="assets/js/scripts/pages/roomcheckout.js"></script>
     <script src="assets/js/scripts/forms/pickers/form-pickers.js"></script>
 
     <!-- END: Theme JS-->

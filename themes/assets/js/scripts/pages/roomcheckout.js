@@ -1,28 +1,46 @@
 /*=========================================================================================
+  File Name: roomcheckout.js
+  Description: Room CheckOut Form Submit Handler
+  ----------------------------------------------------------------------------------------
   Author: Muhammad Saif
   Author URL: https://saifcodes.com
 ==========================================================================================*/
-var HmsAddCategory = (function () {
+var HmsCheckOutBooking = (function () {
 
-  var handleAddCategoryFormSubmit = function () {
-    $("#addcategory").click(function (e) {
+  var handleCheckOutBookingFormSubmit = function () {
+    $("#roomcheckout").click(function (e) {
+
       e.preventDefault();
+      $('.flatpickr-mobile').removeAttr("step");
       var btn = $(this);
       var form = $(this).closest("form");
-
       form.validate({
         rules: {
-          catname: {
-            required: true
+          remainingpayment:{
+            required:true,
+          },
+          expaid:{
+            required:true,
+          },
+          paid:{
+            required:true,
+          },
+          verify:{
+            required:true,
+          },
+          rmpay:{
+            required:true
+          },
+          totalpayment:{
+            required:true
           }
         }
       });
-
       if (!form.valid()) {
         return;
       }
       form.ajaxSubmit({
-        url: "../xhr/addcategory.php",
+        url: "../xhr/roomcheckout.php",
         type: 'post',
         success: function (response, status, xhr, $form) {
           var data = JSON.parse(response);
@@ -30,10 +48,10 @@ var HmsAddCategory = (function () {
             swal.fire({
               "title": "",
               "text": data.msg,
-              "icon": "success",
+              "icon": 'success',
               "confirmButtonClass": "btn btn-success"
             });
-            setTimeout(function(){ window.location.reload(); }, 2000);
+            setTimeout(function(){ window.location.reload(); }, 5000);
           } else {
 
             swal.fire({
@@ -59,12 +77,12 @@ var HmsAddCategory = (function () {
   return {
     // public functions
     init: function () {
-      handleAddCategoryFormSubmit();
+      handleCheckOutBookingFormSubmit();
     }
   };
 })();
 
 // Class Initialization
 jQuery(document).ready(function () {
-  HmsAddCategory.init();
+  HmsCheckOutBooking.init();
 });

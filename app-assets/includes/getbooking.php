@@ -64,6 +64,10 @@ $booked = $bookings->get_all_bookings();
                                     <i data-feather="edit" class="mr-50"></i>
                                     <span>Extend</span>
                                 </a>
+                                <a class="dropdown-item" href="/booking/checkout/'.$bookdata["bookid"].'">
+                                <i data-feather="chevrons-right" class="mr-50"></i>
+                                <span>CheckOut</span>
+                            </a>
                             </div>
                         </div>
                             </td>

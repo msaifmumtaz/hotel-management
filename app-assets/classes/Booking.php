@@ -198,6 +198,24 @@ class Booking
             return false;
         }
     }
+    // Room Checkout
+    public function room_checkout($bookid,$paid,$status="checkedout"){
+        $paid=Security::hms_secure($paid);
+        $status=Security::hms_secure($status);
+        $bookid=Security::hms_secure($bookid);
+
+        $stmt=$this->conn->prepare("UPDATE hms_booking set paid=:paid, status=:status WHERE bookid=:bookid");
+        $data=[
+            "paid"=>$paid,
+            "status"=>$status,
+            "bookid"=>$bookid
+        ];
+        if($stmt->execute($data)){
+            return true;
+        }else{
+            return false;
+        }
+    }
     // Add Booking Packages
     public function add_book_package($bookid, $package, $extra_bed, $breakfast, $lunch, $dinner, $date)
     {

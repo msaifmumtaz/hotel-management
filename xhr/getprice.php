@@ -41,7 +41,7 @@ foreach ($packages as $package) {
     }
     $package_data = $rooms->get_package($pname, $catid, $subcatid);
     if ($package_data) {
-        $data[] = array("price" => $package_data["price"], "extrabed" => "<option value='" . $package_data["extra_bed"] . "'>" . $package_data["extra_bed"] . "</option><option value='no'>No</option>");
+        $data[] = array("price" => $package_data["price"], "extrabed" => "<option value='" . $package_data["extra_bed"] . "'>" . $package_data["extra_bed"] . "</option><option value='0'>No</option>");
     } else {
         $data[] = array("price" => "Package Not Found", "extrabed" => "<option>Package Not FOund</option>");
     }
