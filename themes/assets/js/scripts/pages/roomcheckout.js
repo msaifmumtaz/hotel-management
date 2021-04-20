@@ -51,7 +51,7 @@ var HmsCheckOutBooking = (function () {
               "icon": 'success',
               "confirmButtonClass": "btn btn-success"
             });
-            setTimeout(function(){ window.location.reload(); }, 5000);
+            setTimeout(function(){ window.location = "/admin/dashboard"; }, 4000);
           } else {
 
             swal.fire({

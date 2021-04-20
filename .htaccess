@@ -19,4 +19,5 @@ RewriteRule ^room/addroom$ themes/pages/addrooms.php [NC,QSA]
 RewriteRule ^report/breakfast/(.*)$ themes/pages/printbreakfast.php?date_time=$1 [NC,QSA]
 RewriteRule ^report/lunch/(.*)$ themes/pages/printlunch.php?date_time=$1 [NC,QSA]
 RewriteRule ^report/dinner/(.*)$ themes/pages/printdinner.php?date_time=$1 [NC,QSA]
+RewriteRule ^forbidden$ themes/pages/forbidden.php [NC,QSA]
 
