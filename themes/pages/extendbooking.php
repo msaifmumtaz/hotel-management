@@ -42,6 +42,7 @@ if($bookingdata["status"]=="checkedout"){
     <link rel="stylesheet" type="text/css" href="assets/css/themes/dark-layout.css">
     <link rel="stylesheet" type="text/css" href="assets/css/themes/bordered-layout.css">
     <link rel="stylesheet" type="text/css" href="assets/css/themes/semi-dark-layout.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/plugins/forms/form-validation.css">
 
     <!-- BEGIN: Page CSS-->
     <link rel="stylesheet" type="text/css" href="assets/css/core/menu/menu-types/vertical-menu.css">
